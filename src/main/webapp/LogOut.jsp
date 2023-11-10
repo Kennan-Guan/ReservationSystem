@@ -6,9 +6,11 @@
 	<title>Logout</title>
 	</head>
 	<body>
-	<!-- Need to create a jsp file that logs out the user when they click the button -->
-		<form action="log_out.jsp" method="POST"> 
-			<input type="submit" value="Logout"/>
-		</form>
+<%
+
+session.invalidate();
+response.sendRedirect("Login.jsp");
+ 
+%>
 	</body>
 </html>

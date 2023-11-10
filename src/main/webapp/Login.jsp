@@ -1,11 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Login Form</title>
 	</head>
 	<body>
-	<!-- Need to create a jsp file that handles the inputs of this file -->
-		<form action="checkDetails.jsp" method="POST"> 
+		<h1>Login Form</h1>
+		<form action="CheckLoginDetails.jsp" method="POST"> 
 		Username: <input type="text" name="username"/> <br/>
 		Password:<input type="password" name="password"/> <br/>
 		<input type="submit" value="Submit"/>

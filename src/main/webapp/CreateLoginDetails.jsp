@@ -23,7 +23,7 @@
     
     rs = stmt.executeQuery("SELECT * FROM USERS WHERE username='" + username + "'");
     if (rs.next()) {
-    	out.println("Username exists, please try another account bro <a href='CreateAccount.jsp'>try again</a>");
+    	out.println("Username already exists, please <a href='CreateAccount.jsp'>try again</a>");
     } else {
     	int a = stmt.executeUpdate("INSERT INTO USERS VALUES('" + username + "', '" + password + "')");
     	

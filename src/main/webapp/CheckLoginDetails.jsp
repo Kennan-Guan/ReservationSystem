@@ -25,11 +25,11 @@
     	    	session.setAttribute("user", username); 
     	        response.sendRedirect("Successful.jsp");
  	    } else {
-    	        out.println("<a href='Login.jsp'> Invalid password try again bro</a>");
+    	        out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
     	    }
     }
     else{
-    	out.println("user not in db <a href='CreateAccount.jsp'>Create An Account</a>");
+    	out.println("The inputted user is not in the database: <a href='CreateAccount.jsp'>Create An Account</a>");
     }
 %>
 

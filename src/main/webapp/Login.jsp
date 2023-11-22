@@ -8,10 +8,13 @@
 	</head>
 	<body>
 		<h1>Login Form</h1>
+		<!-- Need to add functionality to send user to proper landing page based off of account type -->
 		<form action="CheckLoginDetails.jsp" method="POST"> 
 		Username: <input type="text" name="username"/> <br/>
 		Password:<input type="password" name="password"/> <br/>
-		<input type="submit" value="Submit"/>
+		<input type="submit" value="Submit"/> <br/>
+		<!--  Need to add functionality to go to CreateLoginDetails.jsp when this button is clicked -->
+		<input type = "Button" name = "Create Account" value = "Create Account">
 		</form>
 	</body>
 </html>

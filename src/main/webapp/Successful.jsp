@@ -6,7 +6,7 @@
 </head>
 <body>
 	<%if ((session.getAttribute("user") == null)) {%>
-	You are not logged in, pls login brooooo
+	You are not logged in.
 	<br />
 	<a href="Login.jsp">Please Login</a>
 	<%} else {%>Welcome

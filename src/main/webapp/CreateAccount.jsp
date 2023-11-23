@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
@@ -7,7 +8,7 @@
 </head>
 <body>
 <form action="CreateLoginDetails.jsp" method="POST">
-		<h1>You are now creating an account</h1>
+		<h1>You are now creating a new account </h1>
 
        Enter a Username: <input type="text" name="username"/> <br/>
        Enter a Password: <input type="password" name="password"/> <br/>

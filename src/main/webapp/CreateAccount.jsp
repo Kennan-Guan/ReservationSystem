@@ -7,7 +7,7 @@
 </head>
 <body>
 <form action="CreateLoginDetails.jsp" method="POST">
-		<h1>You are now creating an acc cuz no account was found in db </h1>
+		<h1>You are now creating an account</h1>
 
        Enter a Username: <input type="text" name="username"/> <br/>
        Enter a Password: <input type="password" name="password"/> <br/>

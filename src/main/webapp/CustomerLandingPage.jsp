@@ -15,8 +15,11 @@
 		<input type = "Button" name = "CancelFlights" value = "Cancel Existing Flight"><br/>
 		<input type = "Button" name = "ViewHistory" value = "View Flight History"><br/>
 		<input type = "Button" name = "ViewUpcomong" value = "View Upcoming Flights"><br/>
+		<input type = "Button" name = "ViewTicketDeets" value = "View Ticket Details"><br/>
 		<input type = "Button" name = "RepChat" value = "Chat with a Representative"><br/>
 		<input type = "Button" name = "LogOut" value = "Logout">
+		<!-- Need to add functionality to send an alert when a flight a customer is on the waitlist for has a seat open up (must discuss) -->
+		Wait list alerts: 
 		</form>
 	</body>
 </html>

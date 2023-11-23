@@ -74,13 +74,13 @@
 			out.print(e);
 		}%>
 	<br/>
-	Sort By: <input type = "radio" id = "price" name = "Price" value = "Price">
+	Sort By: <input type = "radio" id = "price" name = "sort" value = "Price">
 	<label for="price">Price</label> 
-	<input type = "radio" id = "takeoff" name = "takeoff" value = "Take off time">
+	<input type = "radio" id = "takeoff" name = "sort" value = "Take off time">
 	<label for="takeoff">Take off time</label> 
-	<input type = "radio" id = "landing" name = "landing" value = "Landing">
+	<input type = "radio" id = "landing" name = "sort" value = "Landing">
 	<label for="landing">Landing Time</label> 
-	<input type = "radio" id = "duration" name = "duration" value = "Duration">
+	<input type = "radio" id = "duration" name = "sort" value = "Duration">
 	<label for="duration">Duration</label> <br/>
 	Filter By: <br/>
 	min price: <input type = "text" placeholder = 0 name = "minprice"/>

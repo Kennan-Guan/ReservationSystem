@@ -10,8 +10,8 @@
 		<h1>Select Action</h1>
 		<!-- Need to create JSP file to lead admin to next page based off of button clicked -->
 		<form action = "AdminSelectionHandling.jsp" method = "POST">
-		<input type = "Button" name = "EditReps" value = "Edit Customer Service Rep Accounts"><br/>
-		<input type = "Button" name = "EditCust" value = "Edit Customer Accounts"><br/>
+		<input type = "Button" name = "EditAcct" value = "Edit Customer/Customer Service Rep Accounts"><br/>
+		Enter Month: <input type = "text" name = "SalesMonth"/>
 		<input type = "Button" name = "GenerateReport" value = "See Monthly Sales Report"><br/>
 		<input type = "Button" name = "CheckRes" value = "Check Reservations"><br/>
 		<input type = "Button" name = "RevenueGenerators" value = "See Revenue Generation Report"><br/>

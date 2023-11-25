@@ -14,8 +14,11 @@
 		Enter Month: <input type = "text" name = "SalesMonth"/>
 		<input type = "Button" name = "GenerateReport" value = "See Monthly Sales Report"><br/>
 		<input type = "Button" name = "CheckRes" value = "Check Reservations"><br/>
+		<input type = "Button" name = "ViewTicketDeets" value = "View Ticket Details"><br/>
 		<input type = "Button" name = "RevenueGenerators" value = "See Revenue Generation Report"><br/>
-		<input type = "Button" name = "MostActive" value = "See which Flight Sold the Most Tickets">		
+		<input type = "Button" name = "TopCustomer" value = "See Customer Generating the Most Revenue"><br/>
+		<input type = "Button" name = "MostActive" value = "See which Flight Sold the Most Tickets"><br/>
+		<input type = "Button" name = "LogOut" value = "Logout">		
 		</form>
 	</body>
 </html>

@@ -6,11 +6,11 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Ticket Details</title>
+	<title>Sales Report</title>
 	</head>
 	<body>
 	
-		<h1>Ticket Details</h1>
+		<h1>Sales Report</h1>
 		<!-- Need to add functionality to go home when button is pushed -->
 		<form action="GoHome.jsp" method="POST"> 
 		
@@ -24,7 +24,7 @@
 			Statement stmt = con.createStatement();
 			//Get the selected filters
 			String entity = request.getParameter("salesReport");
-			//Make a SELECT query from the table specified by the 'ticketDetails' parameter
+			//Make a SELECT query from the table specified by the 'salesReport' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT  FROM " + entity;
 			//Run the query against the database.

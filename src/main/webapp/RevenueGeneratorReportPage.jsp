@@ -6,13 +6,13 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Flight History</title>
+	<title>Revenue Generator</title>
 	</head>
 	<body>
 	
-		<h1>Flight History</h1>
-		<!-- Need to add functionality to send user to next page based on button clicked-->
-		<form action="FlightHistoryActionHandling.jsp" method="POST"> 
+		<h1>Revenue Generator</h1>
+		<!-- Need to add functionality to go home when button is pushed -->
+		<form action="GoHome.jsp" method="POST"> 
 		
 		<% try {
 	
@@ -23,8 +23,8 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get the selected filters
-			String entity = request.getParameter("customerHistory");
-			//Make a SELECT query from the table specified by the 'customerHistory' parameter
+			String entity = request.getParameter("revGeneratorReport");
+			//Make a SELECT query from the table specified by the 'revGeneratorReport' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT  FROM " + entity;
 			//Run the query against the database.
@@ -33,21 +33,18 @@
 		%>
 		
 		
-		
 		<table>
 			<tr>
-				<th> Ticket Number </th>
-				<th> Purchase Date </th>
-				<th> Purchase price </th>			
+				<th> Revenue </th>
+				<th> Num Sales </th>	
 				
 			</tr>
 			<%
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("Ticket Number") %></td>
-					<td><%= result.getString("Purchase Date") %></td>
-					<td><%= result.getString("Purchase Price") %></td>
+					<td><%= result.getString("Revenue") %></td>
+					<td><%= result.getString("Num Sales") %></td>
 									
 				</tr>
 				
@@ -64,7 +61,6 @@
 		}%>
 	<br/>
 	<input type = "button" name = "Home" value = "Return Home"><br/>
-	View Ticket Details: <input type = "text" name = "TicketDeets">
 	
 	
 	</body>

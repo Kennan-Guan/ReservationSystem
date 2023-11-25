@@ -83,13 +83,13 @@
 	<input type = "radio" id = "duration" name = "sort" value = "Duration">
 	<label for="duration">Duration</label> <br/>
 	Filter By: <br/>
-	min price: <input type = "text" placeholder = 0 name = "minprice"/>
-	max price: <input type = "text" placeholder = 999999 name = "maxprice"/>
-	max num stops: <input type = "text" name = "maxstops"/>
-	airline: <input type = "text" name = "airline"/>
-	min takeoff time: <input type = "text" name = "minTakeoff"/>
-	max takeoff time: <input type = "text" name = "maxTakeoff"/>
-	min arrival time: <input type = "text" name = "minArrival"/>
+	min price: <input type = "text" placeholder = 0 name = "minprice"/><br/>
+	max price: <input type = "text" placeholder = 999999 name = "maxprice"/><br/>
+	max num stops: <input type = "text" name = "maxstops"/><br/>
+	airline: <input type = "text" name = "airline"/><br/>
+	min takeoff time: <input type = "text" name = "minTakeoff"/><br/>
+	max takeoff time: <input type = "text" name = "maxTakeoff"/><br/>
+	min arrival time: <input type = "text" name = "minArrival"/><br/>
 	max arrival time: <input type = "text" name = "maxArrival"/><br/>
 	<input type = "button" name = "Home" value = "Return Home"><br/>
 	<input type = "button" name = "Back" value = "Back"><br/>

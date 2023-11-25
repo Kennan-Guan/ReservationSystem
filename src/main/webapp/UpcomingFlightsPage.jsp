@@ -24,7 +24,7 @@
 			Statement stmt = con.createStatement();
 			//Get the selected filters
 			String entity = request.getParameter("customerUpcoming");
-			//Make a SELECT query from the table specified by the 'ticketDetails' parameter
+			//Make a SELECT query from the table specified by the 'customerUpcoming' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT  FROM " + entity;
 			//Run the query against the database.

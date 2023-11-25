@@ -4,7 +4,7 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Admin Account Editing</title>
+	<title>Account Editing</title>
 	</head>
 	<body>
 		<h1>Select Action</h1>

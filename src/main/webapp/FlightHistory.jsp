@@ -12,7 +12,7 @@
 	
 		<h1>Flight History</h1>
 		<!-- Need to add functionality to send user to next page based on button clicked-->
-		<form action="FlightHistoryActionHandling.jsp" method="POST"> 
+		<form action="FlightHistoryActionHandling.jsp" method="POST">
 		
 		<% try {
 	

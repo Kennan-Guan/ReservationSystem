@@ -12,12 +12,14 @@
 		<form action = "CSRepSelectionHandling.jsp" method = "POST">
 		<input type = "Button" name = "MakeReservation" value = "Make Flight Reservation"><br/>	
 		<input type = "Button" name = "EditReservation" value = "Edit Flight Reservation"><br/>
+		<!-- Make chat functionality -->
 		<input type = "Button" name = "Chat" value = "Customer Chats"><br/>
 		<input type = "Button" name = "ManageAircrafts" value = "Manage Aircrafts"><br/>
 		<input type = "Button" name = "ManageAirports" value = "Manage Airports"><br/>
 		<input type = "Button" name = "ManageFlights" value = "Manage Flights"><br/>
 		<input type = "Button" name = "GetWaitingList" value = "Get Waiting List"><br/>
-		<input type = "Button" name = "GetFlights" value = "Get Flights">
+		<input type = "Button" name = "GetFlights" value = "Get Flights"><br/>
+		<input type = "Button" name = "LogOut" value = "Logout">
 		</form>
 	</body>
 </html>

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>Join Wait List?</h1>
-		<!-- Need to create JSP file to lead customer to next page based off of button clicked -->
+		<!-- Need to create JSP file to lead customer to landing page and display a success message if clicking yes -->
 		<form action = "WaitlistSelection.jsp" method = "POST">
 		There are no available tickets of this kind. Would you like to join the waitlist? <br/>
 		<input type = "button" name = "yes" value = "join waitlist"><br/>

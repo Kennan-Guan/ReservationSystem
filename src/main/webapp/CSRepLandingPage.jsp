@@ -10,6 +10,7 @@
 		<h1>Select Action</h1>
 		<!-- Need to create JSP file to lead CS Rep to next page based off of button clicked -->
 		<form action = "CSRepSelectionHandling.jsp" method = "POST">
+		<!-- Go to  -->
 		<input type = "Button" name = "MakeReservation" value = "Make Flight Reservation"><br/>	
 		<input type = "Button" name = "EditReservation" value = "Edit Flight Reservation"><br/>
 		<!-- Make chat functionality -->

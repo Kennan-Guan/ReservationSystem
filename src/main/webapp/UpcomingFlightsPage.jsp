@@ -63,7 +63,9 @@
 			out.print(e);
 		}%>
 	<br/>
+	<!--  Go to landing page -->
 	<input type = "button" name = "Home" value = "Return Home"><br/>
+	<!-- Go to SubmitTickerForDetails.jsp -->
 	<input type = "text" name = "TicketDeets" value = "View Ticket Details">
 	
 	

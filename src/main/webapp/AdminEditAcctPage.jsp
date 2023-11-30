@@ -8,7 +8,8 @@
 	</head>
 	<body>
 		<h1>Select Action</h1>
-		<!-- Need to create JSP file to lead admin to next page based off of button clicked -->
+		<!-- Need to create functionality to go to AdminLandingPage.jsp if home is selected, stay on this page but and delete/create an account
+		If that option is selected, or go to acctEditingPage.jsp if that option is selected-->
 		<form action = "AdminEditingActionHandling.jsp" method = "POST">
 		Enter a new username to create an account: <input type = "text" name = "AddUsername" /><br/>
 		Enter a new password to create an account: <input type = "text" name = "AddPassword" /><br/>

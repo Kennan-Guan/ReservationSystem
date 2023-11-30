@@ -8,7 +8,8 @@
 	</head>
 	<body>
 		<h1>Edit Reservation</h1>
-		<!-- Need to create JSP file to implement edits -->
+		<!-- Need to create JSP file to implement edits and either display an error message on this page if ticket number not found or
+		display a success message on this page if edits were succedful-->
 		
 		<form action = "editResActionHandling.jsp" method = "POST">
 		Enter Ticket Number: <input type = "text" name = "ticketNum" /><br/>

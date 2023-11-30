@@ -8,6 +8,7 @@
 </head>
 <body>
 <form action="CreateLoginDetails.jsp" method="POST">
+<!-- Can only create Customer Accounts -->
 		<h1>You are now creating a new account </h1>
 
        Enter a Username: <input type="text" name="username"/> <br/>

@@ -11,7 +11,8 @@
 	<body>
 	
 		<h1>Flights</h1>
-		<!-- Need to add functionality to filter results, go back to prior page, or go home -->
+		<!-- Need to add functionality to filter results (which would return to this page but with a different set of query results displayed)
+		, go back to BrowseFlights.jsp, or go to CustomerLandingPage.jsp -->
 		<form action="FlightResActionHandling.jsp" method="POST"> 
 		
 		<% try {

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>Flight Could not be Canceled! Either you are not the ticketholder or the ticket is economy class</h1>
-		<!-- Need to create JSP file to bring back to landing page -->
+		<!-- Bring back to Landing Page -->
 		<form action = "GoHome.jsp" method = "POST">
 		<input type = "Submit" value = "Return Home">
 		</form>

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>Error: either you are not the ticket owner or the ticket does not exist</h1>
-		<!-- Need to create JSP file to bring back to landing page or to ticket submission page-->
+		<!-- Need to create JSP file to bring back to landing page or to SubmitTicketForDetails.jsp-->
 		<form action = "TicketDetailsErrorPageHandling.jsp" method = "POST">
 		<input type = "radio" id = "home" name = "Home" value = "Home">
 		<label for = "home">Home</label>

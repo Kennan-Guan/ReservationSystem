@@ -9,7 +9,7 @@
 	<body>
 		<h1>Select Action</h1>
 		<!-- Need to create JSP file to cancel the ticket if it is business or first class and the canceling customer is the ticket owner. -->
-		<!-- If canceled, send to cancelSuccess Page, else to cancel Fail Page-->
+		<!-- If canceled, send to cancelSuccessPage.jsp, else to cancelFailPage.jsp-->
 		
 		<form action = "CancelTickets.jsp" method = "POST">
 		Enter Ticket Number:<input type = "text" name = "ticketNum" /><br/>

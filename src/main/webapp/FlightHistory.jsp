@@ -11,7 +11,7 @@
 	<body>
 	
 		<h1>Flight History</h1>
-		<!-- Need to add functionality to send user to next page based on button clicked-->
+		<!-- Need to add functionality to send user to either ladning page or TicketDetailsPage.jsp based on button clicked-->
 		<form action="FlightHistoryActionHandling.jsp" method="POST">
 		
 		<% try {

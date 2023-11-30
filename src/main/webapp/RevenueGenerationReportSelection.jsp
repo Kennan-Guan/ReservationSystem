@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>Select Action</h1>
-		<!-- Need to create JSP file to lead admin to next page that shows the revenue report -->
+		<!-- Need to create JSP file to lead admin to RevenueGenerationReport.jsp or Landing Page-->
 		
 		<form action = "RevenueGenReportCreationjsp" method = "POST">
 		Generate report for a(n): 

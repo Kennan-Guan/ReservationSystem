@@ -11,7 +11,7 @@
 	<body>
 	
 		<h1>Most Active Flights</h1>
-		<!-- Need to add functionality to filter results, go back to prior page, or go home -->
+		<!-- Need to add functionality to filter results or go home based on button clicked-->
 		<form action="MostActiveFlightsActions.jsp" method="POST"> 
 		
 		<% try {

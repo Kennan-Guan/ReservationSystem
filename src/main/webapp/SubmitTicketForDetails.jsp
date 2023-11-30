@@ -6,8 +6,10 @@
     <title>Get Ticket Details</title>
 </head>
 <body>
-<!--  Add functionality to either send customer to ticket details page if they are the owner of the ticket with the num or ticketerror page otherwise -->
-<!-- In functionality, need to also let an admin view details for any ticket so long as it exists, otherwise go to error page -->
+<!--  Add functionality to either send customer to TicketDetailsPage.jsp if they are the owner of the ticket with the num or 
+TickerDetailsError.jsp otherwise -->
+<!-- In functionality, need to also let an admin view details for any ticket so long as it exists, otherwise go to error page 
+(sent to same pages as customer) -->
 <form action="SubmitTicket.jsp" method="POST">
 		<h1>Enter ticket number and then press submit</h1>
 

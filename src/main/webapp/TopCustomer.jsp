@@ -60,7 +60,7 @@
 			out.print(e);
 		}%>
 	<br/>
-	<input type = "button" name = "Home" value = "Return Home"><br/>
+	<input type = "submit" value = "Home" ><br/>
 	
 	
 	</body>

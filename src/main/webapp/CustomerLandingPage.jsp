@@ -22,7 +22,7 @@
 		<input type = "Button" name = "ViewUpcoming" value = "View Upcoming Flights"><br/>
 		<!-- Take user to TicketDetailsPage.jsp -->
 		<input type = "Button" name = "ViewTicketDeets" value = "View Ticket Details"><br/>
-		<!--  Take user to JONTOADD -->
+		<!--  Take user to CustomerChatPage -->
 		<input type = "Button" name = "RepChat" value = "Chat with a Representative"><br/>
 		<!-- Log out -->
 		<input type = "Button" name = "LogOut" value = "Logout"><br/>

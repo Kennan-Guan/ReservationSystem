@@ -6,13 +6,13 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Reservation Details</title>
+	<title>Chats Page</title>
 	</head>
 	<body>
 	
-		<h1>Reservation Details</h1>
-		<!-- Need to add functionality to go home when button is pushed -->
-		<form action="GoHome.jsp" method="POST"> 
+		<h1>Chats</h1>
+		<!-- Need to add functionality to filter results or go home based on button clicked-->
+		<form action="ChatInter.jsp" method="POST"> 
 		
 		<% try {
 	
@@ -23,8 +23,8 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get the selected filters
-			String entity = request.getParameter("resList");
-			//Make a SELECT query from the table specified by the 'resList' parameter
+			String entity = request.getParameter("chatDisplay");
+			//Make a SELECT query from the table specified by the 'activeFlights' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT  FROM " + entity;
 			//Run the query against the database.
@@ -32,20 +32,20 @@
 		
 		%>
 		
+		
+		
 		<table>
 			<tr>
-				<th> Ticket Number </th>
-				
-								
+				<th> Chats </th>
 				
 			</tr>
 			<%
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("Ticket Number") %></td>
+					<td><%= result.getString("Chat") %></td>
 					
-									
+					
 				</tr>
 				
 
@@ -60,8 +60,16 @@
 			out.print(e);
 		}%>
 	<br/>
-	<input type = "submit" value = "Home"><br/>
 	
+	
+	Enter New message: <input type = "text" name = "Msg"/>
+	<input type = "submit" value = "apply"><br/>
+
+	Search Chat By keyword: <input type = "text" name = "keyword"/>
+	<!--  Upon clicking, return to this page but now display all chats with this keyword only -->
+	<input type = "button" name = "Search" value = "Search">
+	
+	<input type = "button" name = "Home" value = "Return Home">
 	
 	</body>
 </html>

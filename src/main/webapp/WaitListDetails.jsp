@@ -6,11 +6,11 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Reservation Details</title>
+	<title>Waitlist</title>
 	</head>
 	<body>
 	
-		<h1>Reservation Details</h1>
+		<h1>Waitlist</h1>
 		<!-- Need to add functionality to go home when button is pushed -->
 		<form action="GoHome.jsp" method="POST"> 
 		
@@ -23,8 +23,8 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get the selected filters
-			String entity = request.getParameter("resList");
-			//Make a SELECT query from the table specified by the 'resList' parameter
+			String entity = request.getParameter("waitList");
+			//Make a SELECT query from the table specified by the 'waitList' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT  FROM " + entity;
 			//Run the query against the database.
@@ -34,7 +34,7 @@
 		
 		<table>
 			<tr>
-				<th> Ticket Number </th>
+				<th> Name</th>
 				
 								
 				
@@ -43,7 +43,7 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("Ticket Number") %></td>
+					<td><%= result.getString("Name") %></td>
 					
 									
 				</tr>

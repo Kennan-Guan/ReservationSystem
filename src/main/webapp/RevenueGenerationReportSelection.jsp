@@ -10,7 +10,7 @@
 		<h1>Select Action</h1>
 		<!-- Need to create JSP file to lead admin to RevenueGenerationReport.jsp or Landing Page-->
 		
-		<form action = "RevenueGenReportCreationjsp" method = "POST">
+		<form action = "RevenueGenReportCreation.jsp" method = "POST">
 		Generate report for a(n): 
 		<input type = "radio" id = "airline" name = "RevReportFor" value = "airline">
 		<label for = "airline">Airline </label>

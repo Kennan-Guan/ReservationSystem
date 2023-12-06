@@ -16,19 +16,35 @@
 	ApplicationDB db = new ApplicationDB();	
 	Connection conn = db.getConnection();	
 	Statement stmt = conn.createStatement();
-    ResultSet rs1;
-    rs1 = stmt.executeQuery("SELECT * FROM USERS WHERE username='" + username + "'");
-    if (rs1.next()){
-    	 ResultSet rs2;
-    	    rs2 = stmt.executeQuery("SELECT * FROM USERS WHERE username='" + username + "' AND password='" + password + "'");
-    	    if (rs2.next()) {
-    	    	session.setAttribute("user", username); 
-    	        response.sendRedirect("Successful.jsp");
+	//Check to see whether the details are correct. If correct, direct to the appropriate page based on account type
+    ResultSet rs_customer_user = stmt.executeQuery("SELECT * FROM customer WHERE username='" + username + "'");
+    ResultSet rs_customerrep_user = stmt.executeQuery("SELECT * FROM customerrep WHERE username='" + username + "'");
+    ResultSet rs_admin_user = stmt.executeQuery("SELECT * FROM admin WHERE username='" + username + "'");
+    if (rs_customer_user.next()){
+    	 ResultSet rs_customer_pass = stmt.executeQuery("SELECT * FROM customer WHERE username='" + username + "' AND password='" + password + "'");
+    	 if (rs_customer_pass.next()) {
+	    	 session.setAttribute("user", username); 
+	         response.sendRedirect("CustomerLandingPage.jsp");
  	    } else {
-    	        out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
-    	    }
-    }
-    else{
+    	     out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
+    	}
+    } else if(rs_customerrep_user.next()) {
+    	ResultSet rs_customerrep_pass = stmt.executeQuery("SELECT * FROM customerrep WHERE username='" + username + "' AND password='" + password + "'");
+   	 	if (rs_customerrep_pass.next()) {
+	   	 	session.setAttribute("user", username); 
+	        response.sendRedirect("CSRepLandingPage.jsp");
+	    } else {
+   	        out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
+   	    }    	
+    } else if(rs_admin_user.next()) {
+    	ResultSet rs_admin_pass = stmt.executeQuery("SELECT * FROM admin WHERE username='" + username + "' AND password='" + password + "'");
+   	 	if (rs_admin_pass.next()) {
+	   	 	session.setAttribute("user", username); 
+	        response.sendRedirect("AdminLandingPage.jsp");
+	    } else {
+   	        out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
+   	    }    	
+    } else{
     	out.println("The inputted user is not in the database: <a href='CreateAccount.jsp'>Create An Account</a>");
     }
 %>

@@ -11,6 +11,7 @@
 		<!-- Need to create JSP file to implement edits and bring user to home page after clicking submit -->
 		
 		<form action = "editAcctActionHandling.jsp" method = "POST">
+		Enter Old Username: <input type = "text" name = "oldUName" /><br/>
 		Enter New Username: <input type = "text" name = "newUName" /><br/>
 		Enter New Password: <input type = "text" name = "newPwd" /><br/>
 		Enter New First Name : <input type = "text" name = "newFName" /><br/>

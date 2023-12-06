@@ -13,7 +13,7 @@
 		Username: <input type="text" name="username"/> <br/>
 		Password:<input type="password" name="password"/> <br/>
 		<input type="submit" value="Submit"/> <br/>
-		<!--  Need to add functionality to go to CreateLoginDetails.jsp when this button is clicked -->
+		<!-- Go to CreateLoginDetails.jsp -->
 		<input type = "Button" name = "Create Account" value = "Create Account">
 		</form>
 	</body>

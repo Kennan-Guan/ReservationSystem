@@ -11,23 +11,24 @@
 <%@ page import ="java.sql.*" %>
 <%
 	try{
+		String old_username = request.getParameter("oldUName");
 		String new_username = request.getParameter("newUName"); 
 		String new_password = request.getParameter("newPwd");
 		String new_Fname = request.getParameter("newFname");
 		String new_Lname = request.getParameter("newLname");
-		String current_username = (String)session.getAttribute("username");
 		
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();	
 		Statement stmt = con.createStatement();
 	    
-		stmt.executeUpdate("UPDATE Account SET username=" + new_username +
-						", password=" + new_password +
-						", fname=" + new_Fname +
-						", lname=" + new_Lname +
-						"WHERE username=" + current_username);
+		stmt.executeUpdate("UPDATE Account SET username='" + new_username +
+						"', password='" + new_password +
+						"', fname='" + new_Fname +
+						"', lname='" + new_Lname +
+						"WHERE username='" + old_username + "'");
 		con.close();
 		out.print("Update Succeeded");
+		response.sendRedirect("AdminLandingPage.jsp");
 		
 	} catch(Exception e){
 		out.print(e);

@@ -19,17 +19,15 @@
 	Connection conn = db.getConnection();	
 	Statement stmt = conn.createStatement();
     
-    ResultSet rs;
-    
-    rs = stmt.executeQuery("SELECT * FROM USERS WHERE username='" + username + "'");
-    if (rs.next()) {
+	//Check to see if username exists for an admin, customer, or customerrep
+    ResultSet rs = stmt.executeQuery("SELECT * FROM customerrep WHERE username='" + username + "'");
+    ResultSet rs2 = stmt.executeQuery("SELECT * FROM admin WHERE username='" + username + "'");
+    ResultSet rs3 = stmt.executeQuery("SELECT * FROM customer WHERE username='" + username + "'");
+    if (rs.next() || rs2.next() || rs3.next()) {
     	out.println("Username already exists, please <a href='CreateAccount.jsp'>try again</a>");
     } else {
     	int a = stmt.executeUpdate("INSERT INTO USERS VALUES('" + username + "', '" + password + "')");
-    	
-    	
-    	session.setAttribute("user", username); 
-        response.sendRedirect("Successful.jsp");
+        response.sendRedirect("Login.jsp");
 
 
     	

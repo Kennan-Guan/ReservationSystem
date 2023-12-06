@@ -10,6 +10,12 @@
 <body>
 <%@ page import ="java.sql.*" %>
 <%
+
+	String button = request.getParameter("Create Account");
+	if (button != null && button.equals("Create Account")){
+		response.sendRedirect("CreateAccount.jsp");
+	} 
+	
 	String username = request.getParameter("username"); 
 	String password = request.getParameter("password");
 	

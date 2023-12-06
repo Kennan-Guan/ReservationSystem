@@ -13,8 +13,8 @@
 		Username: <input type="text" name="username"/> <br/>
 		Password:<input type="password" name="password"/> <br/>
 		<input type="submit" value="Submit"/> <br/>
-		</form>
 		<!-- Go to CreateLoginDetails.jsp -->
-		<a href=CreateLoginDetails.jsp>Create Account</a>
+		<input type="submit" name = "Create Account" value = "Create Account">
+		</form>
 	</body>
 </html>

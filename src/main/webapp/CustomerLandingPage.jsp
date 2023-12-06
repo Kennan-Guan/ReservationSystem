@@ -7,27 +7,24 @@
 	<title>Customer Homepage</title>
 	</head>
 	<body>
-		<h1>Select Action</h1>
-		<!-- Need to create JSP file to lead customer to next page based off of button clicked -->
-		<form action = "CustomerSelectionHandling.jsp" method = "POST">
+		<h1>Select Action</h1>		
 		<!-- Take the user to BrowseFlights.jsp -->
-		<input type = "Button" name = "BrowseFlights" value = "Browse Flights"><br/>
+		<a href="BrowseFlights.jsp">Browse Flights</a>
 		<!-- Take the user to FlightReservationPage.jsp -->
-		<input type = "Button" name = "ReserveFlights" value = "Reserve Flights"><br/>
-		<!-- Send user to CancelFlgihtsPage.jsp -->
-		<input type = "Button" name = "CancelFlights" value = "Cancel Existing Flight"><br/>
+		<a href="ReserveFlights.jsp">Reserve Flights</a>
+		<!-- Send user to CancelFlightssPage.jsp -->
+		<a href="CancelFlightsPage.jsp">Cancel Existing Flights</a>
 		<!-- Take user to FlightHistory.jsp -->
-		<input type = "Button" name = "ViewHistory" value = "View Flight History"><br/>
+		<a href="FlightHistory.jsp">View Flight History</a>
 		<!-- Take user to UpcomingFlightsPage.jsp -->
-		<input type = "Button" name = "ViewUpcoming" value = "View Upcoming Flights"><br/>
+		<a href="UpcomingFlights.jsp">View Upcoming Flights</a>
 		<!-- Take user to TicketDetailsPage.jsp -->
-		<input type = "Button" name = "ViewTicketDeets" value = "View Ticket Details"><br/>
-		<!--  Take user to CustomerChatPage -->
-		<input type = "Button" name = "RepChat" value = "Chat with a Representative"><br/>
+		<a href="TicketDetailsPage.jsp">View Ticket Details</a>
+		<!--  Take user to CustomerChatPage.jsp -->
+		<a href="CustomerChatPage.jsp">Chat with a Representative</a>
 		<!-- Log out -->
-		<input type = "Button" name = "LogOut" value = "Logout"><br/>
+		<a href="Logout.jsp">Logout</a>
 		<!-- Need to add functionality to send an alert when a flight a customer is on the waitlist for has a seat open up (must discuss) -->
 		Wait list alerts: 
-		</form>
 	</body>
 </html>

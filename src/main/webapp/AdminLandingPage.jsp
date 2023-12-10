@@ -8,8 +8,7 @@
 	</head>
 	<body>
 		<h1>Select Action</h1>
-		<!-- Need to create JSP file to lead admin to next page based off of button clicked -->
-		<!-- Go to AdminEditAcctPage.jsp -->
+		<!-- Go to AdminUpdateAcct.jsp -->
 		<form action = "AdminUpdateAcct.jsp" method = "POST">
 			<input type="radio" name="account" value="customer"/>Customer
 		  	<br>
@@ -29,6 +28,8 @@
 			<input type="text" name="newInfo"/>
 			<button type="submit">Update Account</button>
 		</form><br>
+		
+		
 		<!-- Go to SalesReportPage.jsp -->
 		<form action = "SalesReportPage.jsp" method = "POST">
 			<label for="month">Choose Month</label>

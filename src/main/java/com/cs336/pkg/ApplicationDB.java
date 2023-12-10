@@ -31,7 +31,7 @@ public class ApplicationDB {
 		}
 		try {
 			//Create a connection to your DB
-			connection = DriverManager.getConnection(connectionUrl,"root", "mySQLpassword001$");
+			connection = DriverManager.getConnection(connectionUrl,"root", "root");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,12 +62,12 @@ public class ApplicationDB {
 	    try {
 	        // Perform a simple query to test the connection
 	        Statement statement = connection.createStatement();
-	        ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+	        ResultSet resultSet = statement.executeQuery("SELECT * FROM admin");
 
 	        // Process the result set if needed
 	        while (resultSet.next()) {
 	            // Do something with the data
-	            String columnName = resultSet.getString("username");
+	            String columnName = resultSet.getString("adminusername");
 	            System.out.println(columnName);
 	        }
 

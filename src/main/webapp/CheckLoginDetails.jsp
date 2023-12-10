@@ -18,6 +18,14 @@
 	
 	String username = request.getParameter("username"); 
 	String password = request.getParameter("password");
+	String submitbutton = request.getParameter("submit");
+	    // Check if username and password are empty
+	 if (submitbutton != null && submitbutton.equals("")) {
+	      if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+	          out.println("<p>Please fill in both username and password fields.</p>");
+	          return;
+	        }
+	    }
 	
 	ApplicationDB db = new ApplicationDB();	
 	Connection conn = db.getConnection();	

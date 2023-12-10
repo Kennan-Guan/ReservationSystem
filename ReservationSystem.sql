@@ -71,6 +71,7 @@ CREATE TABLE tickets (
     arrival_airport VARCHAR(5) NOT NULL,
     seat_class VARCHAR(15) NOT NULL,
     seat_number INT NOT NULL,
+    total_fare INT NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username),
     FOREIGN KEY (airline_id)

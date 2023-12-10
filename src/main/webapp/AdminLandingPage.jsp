@@ -9,24 +9,38 @@
 	<body>
 		<h1>Select Action</h1>
 		<!-- Need to create JSP file to lead admin to next page based off of button clicked -->
-		<form action = "AdminSelectionHandling.jsp" method = "POST">
 		<!-- Go to AdminEditAcctPage.jsp -->
-		<input type = "Button" name = "EditAcct" value = "Edit Customer/Customer Service Rep Accounts"><br/>
+		<form action = "AdminEditAcctPage.jsp" method = "GET">
+			<button type="submit">Edit Customer/Customer Service Rep Accounts</button>
+		</form><br>
 		<!-- Go to SalesReportPage.jsp -->
-		Enter Month: <input type = "text" name = "SalesMonth"/>
-		<input type = "Button" name = "GenerateReport" value = "See Monthly Sales Report"><br/>
+		<form action = "SalesReportPage.jsp" method = "GET">
+			<button type="submit">See Monthly Sales Report</button>
+		</form><br>
 		<!-- Go to  GetResList.jsp-->
-		<input type = "Button" name = "CheckRes" value = "Check Reservations"><br/>
+		<form action = "GetResList.jsp" method = "GET">
+			<button type="submit">Check Reservations</button>
+		</form><br>
 		<!-- Go to SubmitTicketForDetails.jsp -->
-		<input type = "Button" name = "ViewTicketDeets" value = "View Ticket Details"><br/>
+		<form action = "SubmitTicketForDetails.jsp" method = "GET">
+			<button type="submit">View Ticket Details</button>
+		</form><br>
 		<!-- Go to RevenueGenerationReportSelection.jsp -->
-		<input type = "Button" name = "RevenueGenerators" value = "See Revenue Generation Report"><br/>
+		<form action = "RevenueGenerationReportSelection.jsp" method = "GET">
+			<button type="submit">See Revenue Generation Report</button>
+		</form><br>
 		<!-- Go to TopCustomer.jsp -->
-		<input type = "Button" name = "TopCustomer" value = "See Customer Generating the Most Revenue"><br/>
+		<form action = "TopCustomer.jsp" method = "GET">
+			<button type="submit">See Customer Generating the Most Revenue</button>
+		</form><br>
 		<!--  Go to MostActiveFlightsPage.jsp -->
-		<input type = "Button" name = "MostActive" value = "See which Flight Sold the Most Tickets"><br/>
+		<form action = "MostActiveFlightsPage.jsp" method = "GET">
+			<button type="submit">See which Flight Sold the Most Tickets</button>
+		</form><br>
 		<!-- Log out -->
-		<input type = "Button" name = "LogOut" value = "Logout">		
-		</form>
+		<form action = "LogOut.jsp" method = "GET">
+			<button type="submit">Logout</button>
+		</form><br>	
+		
 	</body>
 </html>

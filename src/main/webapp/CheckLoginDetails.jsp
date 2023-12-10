@@ -47,7 +47,7 @@
 	    	     out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
 	    	}
 	    } else if(rs_rep.next()) {
-	    	ResultSet rs_customerrep_pass = stmt_customerrep.executeQuery("SELECT * FROM customerrep WHERE repusername='" + username + "' AND password='" + password + "'");
+	    	ResultSet rs_customerrep_pass = stmt_customerrep.executeQuery("SELECT * FROM customerrep WHERE repusername='" + username + "' AND reppassword='" + password + "'");
 	   	 	if (rs_customerrep_pass.next()) {
 		   	 	session.setAttribute("user", username); 
 		        response.sendRedirect("CSRepLandingPage.jsp");
@@ -55,7 +55,7 @@
 	   	        out.println("<a href='Login.jsp'> Invalid password, please try again</a>");
 	   	    }    	
 	    } else if(rs_admin.next()) {
-	    	ResultSet rs_admin_pass = stmt_admin.executeQuery("SELECT * FROM admin WHERE adminusername='" + username + "' AND password='" + password + "'");
+	    	ResultSet rs_admin_pass = stmt_admin.executeQuery("SELECT * FROM admin WHERE adminusername='" + username + "' AND adminpassword='" + password + "'");
 	   	 	if (rs_admin_pass.next()) {
 		   	 	session.setAttribute("user", username); 
 		        response.sendRedirect("AdminLandingPage.jsp");

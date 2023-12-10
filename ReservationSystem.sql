@@ -23,6 +23,8 @@ DROP TABLE IF EXISTS customerrep;
 CREATE TABLE customerrep (
     repusername VARCHAR(30) NOT NULL,
     reppassword VARCHAR(30) NOT NULL,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (repusername)
 );
 
@@ -30,12 +32,16 @@ DROP TABLE IF EXISTS admin;
 CREATE TABLE admin (
     adminusername VARCHAR(30) NOT NULL,
     adminpassword VARCHAR(30) NOT NULL,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (adminusername)
 );
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
     username VARCHAR(30) NOT NULL,
     password VARCHAR(30) NOT NULL,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (username)
 );
 

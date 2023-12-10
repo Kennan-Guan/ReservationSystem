@@ -10,11 +10,28 @@
 		<h1>Select Action</h1>
 		<!-- Need to create JSP file to lead admin to next page based off of button clicked -->
 		<!-- Go to AdminEditAcctPage.jsp -->
-		<form action = "AdminEditAcctPage.jsp" method = "POST">
-			<button type="submit">Edit Customer/Customer Service Rep Accounts</button>
+		<form action = "AdminUpdateAcct.jsp" method = "POST">
+			<input type="radio" name="account" value="customer"/>Customer
+		  	<br>
+		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
+		  	<br>
+		  	<label for="account Name">What is the current username of the account?</label>
+			<input type="text" name="accountName"/>
+			<br>
+		  	<label for="updateType">What are you Updating?</label>
+		  	<select name="updateType" size=1>
+				<option value="username">Username</option>
+				<option value="password">Password</option>
+				<option value="firstName">First Name</option>
+				<option value="lastName">Last Name</option>
+			</select>&nbsp;<br>
+			<label for="newInfo">Input the New Information (Ex. "password" for new password)</label>
+			<input type="text" name="newInfo"/>
+			<button type="submit">Update Account</button>
 		</form><br>
 		<!-- Go to SalesReportPage.jsp -->
 		<form action = "SalesReportPage.jsp" method = "POST">
+			<label for="month">Choose Month</label>
 			<select name="month" size=1>
 				<option value="1">January</option>
 				<option value="2">February</option>
@@ -28,13 +45,14 @@
 				<option value="10">October</option>
 				<option value="11">November</option>
 				<option value="12">December</option>
-			</select>&nbsp;<br> <input type="submit" value="month">
+			</select>&nbsp;<br>
+			<label for="year">Choose a Year</label>
 			<select name="year" size=1>
-				<option value="2020">January</option>
-				<option value="2021">February</option>
-				<option value="2022">March</option>
-				<option value="2023">April</option>
-			</select>&nbsp;<br> <input type="submit" value="year">
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+			</select>&nbsp;<br>
 			<button type="submit">See Monthly Sales Report</button>
 		</form><br>
 		<!-- Go to  GetResList.jsp-->

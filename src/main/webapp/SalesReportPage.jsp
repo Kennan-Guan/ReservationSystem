@@ -11,24 +11,29 @@
 	<body>
 	
 		<h1>Sales Report</h1>
-		<!-- Need to add functionality to go home when button is pushed -->
-		<form action="GoHome.jsp" method="POST"> 
 		
-		<% try {
+		<% 	
+		try {
 	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
+			Connection con = db.getConnection();	
 
 			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("salesReport");
-			//Make a SELECT query from the table specified by the 'salesReport' parameter
-			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
+			Statement stmt_total_sales = con.createStatement();
+			Statement stmt_num_sales = con.createStatement();
+			Statement stmt_largest_sale = con.createStatement();
+			
+			//Get Filters
+			String month = request.getParameter("month");
+			String year = request.getParameter("year");
+			
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+			ResultSet total_sales = stmt_total_sales.executeQuery("SELECT SUM(total_fare) FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
+			ResultSet num_sales = stmt_num_sales.executeQuery("SELECT COUNT(*) FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
+			ResultSet largest_sale = stmt_largest_sale.executeQuery("SELECT * FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + 
+																		"' AND total_fare=(SELECT MAX(total_fare) FROM tickets WHERE MONTH(purchase_date)='" + month + 
+																		"' AND YEAR(purchase_date)='" + year +"')");
 		
 		%>
 		
@@ -42,11 +47,11 @@
 			</tr>
 			<%
 			//parse out the results
-			while (result.next()) { %>
+			while (total_sales.next() && num_sales.next() && largest_sale.next()) { %>
 				<tr>    
-					<td><%= result.getString("Total Sales") %></td>
-					<td><%= result.getString("Number of Sales") %></td>
-					<td><%= result.getString("Largest Sale") %></td>
+					<td><%= total_sales.getString("Total Sales") %></td>
+					<td><%= num_sales.getString("Number of Sales") %></td>
+					<td><%= largest_sale.getString("Largest Sale") %></td>
 									
 				</tr>
 				
@@ -56,13 +61,12 @@
 			db.closeConnection(con);
 			%>
 		</table>
-		</form>
 	
 	<%} catch (Exception e) {
 			out.print(e);
 		}%>
 	<br/>
-	<input type = "submit" value = "Home"><br/>
+	<a href="AdminLandingPage.jsp">Return Home</a><br/>
 	
 	
 	</body>

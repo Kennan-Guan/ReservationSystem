@@ -27,11 +27,11 @@
 			String query;
 			
 			if (report_type.equals("airline")) {
-				query = "SELECT SUM(total_fare), COUNT(*) FROM airline JOIN tickets ON airline.airline_id = tickets.airline_id WHERE airline.airline_id='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM airline JOIN tickets ON airline.airline_id = tickets.airline_id WHERE airline.airline_id='" + identification + "'";
 			} else if (report_type.equals("flight")) {
-				query = "SELECT SUM(total_fare), COUNT(*) FROM flight JOIN tickets ON flight.flight_id = tickets.flight_id WHERE flight.flight_id='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM flight JOIN tickets ON flight.flight_id = tickets.flight_id WHERE flight.flight_id='" + identification + "'";
 			} else {
-				query = "SELECT SUM(total_fare), COUNT(*) FROM customer JOIN tickets ON customer.username = tickets.username WHERE customer.username='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM customer JOIN tickets ON customer.username = tickets.username WHERE customer.username='" + identification + "'";
 			}
 			
 			
@@ -44,15 +44,15 @@
 		<table>
 			<tr>
 				<th> Revenue </th>
-				<th> Num Sales </th>	
+				<th> Number of Sales </th>	
 				
 			</tr>
 			<%
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("Revenue") %></td>
-					<td><%= result.getString("Num Sales") %></td>
+					<td><%= result.getFloat("Revenue") %></td>
+					<td><%= result.getInt("Number_of_Sales") %></td>
 									
 				</tr>
 				

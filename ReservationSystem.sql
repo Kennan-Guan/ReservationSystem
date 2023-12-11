@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS ReservationSystem;
 CREATE DATABASE IF NOT EXISTS ReservationSystem;
 USE ReservationSystem;
 
@@ -38,7 +37,6 @@ CREATE TABLE admin (
     lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (adminusername)
 );
-
 INSERT INTO admin (adminusername, adminpassword, firstname, lastname)
 VALUES ('admin', 'admin', 'admin', 'admin');
 DROP TABLE IF EXISTS customer;
@@ -70,7 +68,6 @@ foreign Key (airline_id) References ReservationSystem.airline (airline_id),
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
 primary key (flight_num, airline_id)
 );
-
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
     username VARCHAR(30) NOT NULL,
@@ -114,8 +111,6 @@ CREATE TABLE waitinglist (
         REFERENCES ReservationSystem.customer (username),
     PRIMARY KEY (username , airline_id , aircraft_id , departure_date)
 );
-
-
 DROP TABLE IF EXISTS chat_message;
 CREATE TABLE chat_message (
     message_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -149,6 +144,16 @@ CREATE TABLE chat_association (
     FOREIGN KEY (customer_username) REFERENCES customer (username),
     FOREIGN KEY (rep_username) REFERENCES customerrep (repusername)
 );
+
+
+
+
+
+
+
+
+
+
 
 
 

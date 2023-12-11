@@ -11,8 +11,6 @@
 	<body>
 	
 		<h1>Revenue Generator</h1>
-		<!-- Need to add functionality to go home when button is pushed -->
-		<form action="GoHome.jsp" method="POST"> 
 		
 		<% try {
 	
@@ -64,13 +62,14 @@
 			db.closeConnection(con);
 			%>
 		</table>
-		</form>
 	
 	<%} catch (Exception e) {
 			out.print(e);
 		}%>
 	<br/>
-	<input type = "submit" value = "Home" ><br/>
+		<form action = "AdminLandingPage.jsp" method = "POST">
+			<button type="submit">Return to Home Page</button>
+		</form><br>	
 	
 	
 	</body>

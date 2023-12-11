@@ -60,6 +60,8 @@
 	
 	
 %>
-
+		<form action = "AdminLandingPage.jsp" method = "POST">
+			<button type="submit">Return to Home Page</button>
+		</form><br>	
 </body>
 </html>

@@ -66,7 +66,9 @@
 			out.print(e);
 		}%>
 	<br/>
-	<a href="AdminLandingPage.jsp">Return Home</a><br/>
+		<form action = "AdminLandingPage.jsp" method = "POST">
+			<button type="submit">Return to Home Page</button>
+		</form><br>	
 	
 	
 	</body>

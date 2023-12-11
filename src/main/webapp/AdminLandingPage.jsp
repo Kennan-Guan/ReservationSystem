@@ -103,7 +103,7 @@
 			<label for = "flight">Flight </label>
 			<input type = "radio" id = "customer" name = "RevReportFor" value = "customer">
 			<label for = "customer">Customer </label><br/>
-			Enter airline code/ flight number/ customer name (note: when entering a flight number, enter it as '{ariline code} - {number}'):
+			Enter airline code/ flight number/ customer name (note: when entering a flight number, enter it as '{airline code} - {number}'):
 			<input type = "text" name = "revenueGeneratorId" /><br/>
 			<button type="submit">See Revenue Generation Report</button>
 		</form><br>

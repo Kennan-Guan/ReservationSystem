@@ -23,12 +23,22 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get the selected filters
-			String entity = request.getParameter("revGeneratorReport");
+			String report_type = request.getParameter("revGeneratorReport");
+			String identification = request.getParameter("revenueGeneratorId");
 			//Make a SELECT query from the table specified by the 'revGeneratorReport' parameter
-			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
+			String query;
+			
+			if (report_type.equals("airline")) {
+				query = "SELECT SUM(total_fare), COUNT(*) FROM airline JOIN tickets ON airline.airline_id = tickets.airline_id WHERE airline_id='" + identification + "'";
+			} else if (report_type.equals("flight")) {
+				query = "SELECT SUM(total_fare), COUNT(*) FROM flight JOIN tickets ON flight.flight_id = tickets.flight_id WHERE flight_id='" + identification + "'";
+			} else {
+				query = "SELECT SUM(total_fare), COUNT(*) FROM customer JOIN tickets ON customer.username = tickets.username WHERE username='" + identification + "'";
+			}
+			
+			
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+			ResultSet result = stmt.executeQuery(query);
 		
 		%>
 		

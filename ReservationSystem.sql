@@ -58,18 +58,18 @@ CREATE TABLE flight (
     arrival_time DATETIME,
     seats INT,
     stops INT NOT NULL,
-    econonmy_rate INT NOT NULL,
-    business_rate INT NOT NULL,
-    firstclass_rate INT NOT NULL,
+    econonmy_rate FLOAT NOT NULL,
+    business_rate FLOAT NOT NULL,
+    firstclass_rate FLOAT NOT NULL,
 foreign Key (airline_id) References ReservationSystem.airline (airline_id),
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
-primary key (airline_id, aircraft_id,departure_date)
+primary key (flight_num, airline_id)
 );
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
     username VARCHAR(30) NOT NULL,
     airline_id VARCHAR(5) NOT NULL,
-    aircraft_id VARCHAR(5) NOT NULL,
+    flight_num VARCHAR(5) NOT NULL,
     ticket_id VARCHAR(5) NOT NULL,
     departure_airport VARCHAR(5) NOT NULL,
     purchase_date DATE NOT NULL,
@@ -77,14 +77,14 @@ CREATE TABLE tickets (
     arrival_airport VARCHAR(5) NOT NULL,
     seat_class VARCHAR(15) NOT NULL,
     seat_number INT NOT NULL,
-    total_fare INT NOT NULL,
+    total_fare FLOAT NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username),
     FOREIGN KEY (airline_id)
         REFERENCES ReservationSystem.flight (airline_id),
-    FOREIGN KEY (aircraft_id)
-        REFERENCES ReservationSystem.flight (aircraft_id),
-    PRIMARY KEY (username , ticket_id)
+    FOREIGN KEY (flight_num)
+        REFERENCES ReservationSystem.flight (flight_num),
+    PRIMARY KEY (username, ticket_id)
 );
 
 DROP TABLE IF EXISTS operates_in;

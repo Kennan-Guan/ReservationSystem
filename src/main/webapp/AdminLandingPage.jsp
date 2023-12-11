@@ -116,11 +116,6 @@
 			<input type="text" name="identification"><br>
 			<button type="submit">Check Reservations</button>
 		</form><br>
-		<h2>Ticket Details</h2>
-		<!-- Go to SubmitTicketForDetails.jsp -->
-		<form action = "AdminSubmitTicketForDetails.jsp" method = "POST">
-			<button type="submit">View Ticket Details</button>
-		</form><br>
 		<h2>Activity Details</h2>
 		<!-- Go to TopCustomer.jsp -->
 		<form action = "AdminTopCustomer.jsp" method = "POST">

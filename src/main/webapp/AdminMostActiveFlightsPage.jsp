@@ -22,13 +22,13 @@
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("activeFlights");
 			//Make a SELECT query from the table specified by the 'activeFlights' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
+			String query = "SELECT f.airline_id, f.flight_num, COUNT(*) AS tickets_sold" +
+							"FROM flight f JOIN tickets t ON (f.airline_id = t.airline_id AND f.flight_num = t.flight_num)" + 
+							"GROUP BY f.airline_id, f.flight_num ORDER BY tickets_sold DESC LIMIT 1";
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+			ResultSet result = stmt.executeQuery(query);
 		
 		%>
 		
@@ -46,7 +46,7 @@
 				<tr>    
 					<td><%= result.getString("Airline") %></td>
 					<td><%= result.getString("Flight Number") %></td>
-					<td><%= result.getString("Tickets Sold") %></td>
+					<td><%= result.getInt("Tickets Sold") %></td>
 					
 				</tr>
 				
@@ -62,9 +62,9 @@
 			out.print(e);
 		}%>
 	<br/>
-	See Top: <input type = "text" placeholder = 5 name = "numFlights"/>
-	<input type = "submit" value = "apply"><br/>
-	<input type = "button" name = "Home" value = "Return Home">
+		<form action = "AdminLandingPage.jsp" method = "POST">
+			<button type="submit">Return to Home Page</button>
+		</form><br>
 	
 	</body>
 </html>

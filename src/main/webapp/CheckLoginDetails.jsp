@@ -10,7 +10,6 @@
 <body>
 <%@ page import ="java.sql.*" %>
 <%
-
 	String button = request.getParameter("Create Account");
 	if (button != null && button.equals("Create Account")){
 		response.sendRedirect("CreateAccount.jsp");
@@ -41,6 +40,7 @@
 	    if (rs_customer.next()){
 	    	 ResultSet rs_customer_pass = stmt_customer.executeQuery("SELECT * FROM customer WHERE username='" + username + "' AND password='" + password + "'");
 	    	 if (rs_customer_pass.next()) {
+	             session.setAttribute("userType", "customer");
 		    	 session.setAttribute("user", username); 
 		         response.sendRedirect("CustomerLandingPage.jsp");
 	 	    } else {
@@ -49,6 +49,7 @@
 	    } else if(rs_rep.next()) {
 	    	ResultSet rs_customerrep_pass = stmt_customerrep.executeQuery("SELECT * FROM customerrep WHERE repusername='" + username + "' AND reppassword='" + password + "'");
 	   	 	if (rs_customerrep_pass.next()) {
+                session.setAttribute("userType", "customerrep");
 		   	 	session.setAttribute("user", username); 
 		        response.sendRedirect("CSRepLandingPage.jsp");
 		    } else {
@@ -57,6 +58,7 @@
 	    } else if(rs_admin.next()) {
 	    	ResultSet rs_admin_pass = stmt_admin.executeQuery("SELECT * FROM admin WHERE adminusername='" + username + "' AND adminpassword='" + password + "'");
 	   	 	if (rs_admin_pass.next()) {
+                session.setAttribute("userType", "admin");
 		   	 	session.setAttribute("user", username); 
 		        response.sendRedirect("AdminLandingPage.jsp");
 		    } else {

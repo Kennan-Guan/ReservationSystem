@@ -14,6 +14,8 @@
 <%
 	String username = request.getParameter("username"); 
 	String password = request.getParameter("password");
+	String firstname = request.getParameter("firstname");
+	String lastname = request.getParameter("lastname");
 	
 	ApplicationDB db = new ApplicationDB();	
 	Connection conn = db.getConnection();	
@@ -28,7 +30,9 @@
     if (rs_customer.next() || rs_rep.next() || rs_admin.next()) {
     	out.println("Username already exists, please <a href='CreateAccount.jsp'>try again</a>");
     } else {
-    	stmt_customer.executeUpdate("INSERT INTO customer VALUES('" + username + "', '" + password + "')");
+    	stmt_customer.executeUpdate("INSERT INTO customer (username, password, firstname, lastname) VALUES('" + username + "', '" + password + "', '" + firstname + "', '" + lastname + "')");
+        stmt_customer.executeUpdate("INSERT INTO chat_customer (username) VALUES ('" + username + "')");
+
     	response.sendRedirect("Login.jsp");
     }
 %>

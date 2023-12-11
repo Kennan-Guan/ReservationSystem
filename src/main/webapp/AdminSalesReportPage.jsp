@@ -29,11 +29,10 @@
 			String year = request.getParameter("year");
 			
 			//Run the query against the database.
-			ResultSet total_sales = stmt_total_sales.executeQuery("SELECT SUM(total_fare) FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
-			ResultSet num_sales = stmt_num_sales.executeQuery("SELECT COUNT(*) FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
-			ResultSet largest_sale = stmt_largest_sale.executeQuery("SELECT * FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + 
-																		"' AND total_fare=(SELECT MAX(total_fare) FROM tickets WHERE MONTH(purchase_date)='" + month + 
-																		"' AND YEAR(purchase_date)='" + year +"')");
+			ResultSet total_sales = stmt_total_sales.executeQuery("SELECT SUM(total_fare) AS total_sales FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
+			ResultSet num_sales = stmt_num_sales.executeQuery("SELECT COUNT(*) AS number_of_sales FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
+			ResultSet largest_sale = stmt_largest_sale.executeQuery("SELECT MAX(total_fare) AS largest_sale FROM tickets WHERE MONTH(purchase_date)='" + month + 
+																		"' AND YEAR(purchase_date)='" + year +"'");
 		
 		%>
 		
@@ -49,9 +48,9 @@
 			//parse out the results
 			while (total_sales.next() && num_sales.next() && largest_sale.next()) { %>
 				<tr>    
-					<td><%= total_sales.getString("Total Sales") %></td>
-					<td><%= num_sales.getString("Number of Sales") %></td>
-					<td><%= largest_sale.getString("Largest Sale") %></td>
+					<td><%= total_sales.getFloat("total_sales") %></td>
+					<td><%= num_sales.getInt("number_of_sales") %></td>
+					<td><%= largest_sale.getFloat("largest_sale") %></td>
 									
 				</tr>
 				

@@ -10,7 +10,7 @@
 	</head>
 	<body>
 	
-		<h1>Revenue Generator</h1>
+		<h1>Revenue Generation</h1>
 		
 		<% try {
 	
@@ -27,11 +27,11 @@
 			String query;
 			
 			if (report_type.equals("airline")) {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM airline JOIN tickets ON airline.airline_id = tickets.airline_id WHERE airline.airline_id='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM airline a JOIN tickets t ON a.airline_id = t.airline_id WHERE a.airline_id='" + identification + "'";
 			} else if (report_type.equals("flight")) {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM flight JOIN tickets ON flight.flight_id = tickets.flight_id WHERE flight.flight_id='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM flight f JOIN tickets t ON (f.flight_num = t.flight_num AND f.airline_id = t.airline_id) WHERE f.flight_num='" + identification + "'";
 			} else {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM customer JOIN tickets ON customer.username = tickets.username WHERE customer.username='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM customer c JOIN tickets t ON c.username = t.username WHERE c.username='" + identification + "'";
 			}
 			
 			
@@ -48,7 +48,7 @@
 				
 			</tr>
 			<%
-			//parse out the results
+			//parse out the results	
 			while (result.next()) { %>
 				<tr>    
 					<td><%= result.getFloat("Revenue") %></td>

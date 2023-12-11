@@ -13,30 +13,31 @@
 	try {
 		String type = request.getParameter("checkFor");
 		String identification = request.getParameter("identification");
-		
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();	
-		Statement stmt = con.createStatement();
-		String query;
 	    
-		if (type.equals("flight")) {
-			query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time t.seat_class, t.seat_number, t.total_fare" +
-					"FROM tickets t JOIN flight f ON t.aircraft_id = f.aircraft_id" +
-					"JOIN customer c ON t.username = c.username" + 
-					"WHERE f.flight_num='" + identification + "'";
-		} else  {
-			query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time t.seat_class, t.seat_number, t.total_fare" +
-					"FROM tickets t JOIN flight f ON t.aircraft_id = f.aircraft_id" +
-					"JOIN customer c ON t.username = c.username" + 
-					"WHERE c.username='" + identification + "'";
-		}
-		
-		ResultSet result = stmt.executeQuery(query);
-		
-%>
-		
-		
-		<table>
+		if (type == null || identification.equals("")) {
+			out.print("<br>Empty field detected. Make sure all fields are filled in!");
+		} else { 
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+			Statement stmt = con.createStatement();
+			String query;
+			
+			if (type.equals("flight")) {
+				query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time, t.seat_class, t.seat_number, t.total_fare " +
+						"FROM tickets t JOIN flight f ON t.airline_id = f.airline_id " +
+						"JOIN customer c ON t.username = c.username " + 
+						"WHERE f.flight_num='" + identification + "'";
+			} else  {
+				query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time, t.seat_class, t.seat_number, t.total_fare " +
+						"FROM tickets t JOIN flight f ON t.airline_id = f.airline_id " +
+						"JOIN customer c ON t.username = c.username " + 
+						"WHERE c.username='" + identification + "'";
+			}
+			
+			ResultSet result = stmt.executeQuery(query);
+			
+			%>
+			<table>
 			<tr>
 				<th> Customer First Name </th>
 				<th> Customer Last Name </th>
@@ -63,18 +64,17 @@
 					<td><%= result.getString("t.total_fare") %></td>				
 				</tr>
 				
-
+			</table>
 			<% }
 			//close the connection.
 			db.closeConnection(con);
-			%>
-		</table>
-		
-	<% } catch(Exception e){
+			}
+	} catch(Exception e){
 		out.print(e);
 	} %>
-		<form action = "AdminLandingPage.jsp" method = "POST">
-			<button type="submit">Return to Home Page</button>
-		</form><br>	
+	
+	<form action = "AdminLandingPage.jsp" method = "POST">
+		<button type="submit">Return to Home Page</button>
+	</form><br>	
 </body>
 </html>

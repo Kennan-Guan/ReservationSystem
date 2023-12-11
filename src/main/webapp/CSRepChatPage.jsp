@@ -7,67 +7,73 @@
 <!-- NOTE: NEED TO HAVE FUNCTIONALITY SO THAT IF THE MOST RECENT CHAT WAS SENT BY THE CUSTOMER, THE RESPONDED FIELD IN THE TABLE IS N, 
 ELSE HAVE IT BE Y -->
 <html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Customer Service Rep Chat Page</title>
-	</head>
-	<body>
-	
-		<h1>Customers Chatting With</h1>
-		<form action="CustomerChatSubmit.jsp" method="POST"> 
-		
-		<% try {
-	
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Customer Service Rep Chat Page</title>
+</head>
+<body>
 
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("customerChatReps");
-			//Make a SELECT query from the table specified by the 'customerChatReps' parameter
-			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
-		
-		%>
-		
-		
-		
-		<table>
-			<tr>
-				<th> Name </th>
-				<th> Responded </th>
-				
-			</tr>
-			<%
-			//parse out the results
-			while (result.next()) { %>
-				<tr>    
-					<td><%= result.getString("Name") %></td>
-					<td><%= result.getString("Responded") %></td>
-					
-					
-				</tr>
-				
+<h1>Customers who want to chat:</h1>
 
-			<% }
-			//close the connection.
-			db.closeConnection(con);
-			%>
-		</table>
-		</form>
-	
-	<%} catch (Exception e) {
-			out.print(e);
-		}%>
-	<br/>
-	Enter name of Customer to chat with: <input type = "text" name = "Rep"/>
-	<!--  Go to ViewChatsPage and allow the rep to see chats and respond -->
-	<input type = "submit" value = "apply"><br/>
-	<input type = "button" name = "Home" value = "Return Home">
-	
-	</body>
+<%
+try {
+    ApplicationDB db = new ApplicationDB();
+    Connection con = db.getConnection();
+
+    String repUsername = "custrep"; 
+
+
+    String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent, cm.responded " +
+            "FROM chat_message cm " +
+            "JOIN chat_association ca ON cm.sender_id = ca.customer_username " +
+            "WHERE ca.rep_username = ? " +
+            "ORDER BY cm.date_time_sent DESC";
+
+    try (PreparedStatement pstmt = con.prepareStatement(messagesQuery)) {
+        pstmt.setString(1, repUsername);
+        ResultSet messagesResult = pstmt.executeQuery();
+        
+  
+%>
+
+<table border="1">
+    <tr>
+        <th> Customer Name </th>
+        <th> Date/Time Sent </th>
+        <th> Message Text </th>
+        <th> Responded </th>
+    </tr>
+    <%
+    //parse out the results
+    while (messagesResult.next()) { %>
+        <tr>
+            <td><%= messagesResult.getString("sender_id") %></td>
+            <td><%= messagesResult.getString("date_time_sent") %></td>
+            <td><%= messagesResult.getString("text") %></td>
+            <td><%= messagesResult.getString("responded") %></td>
+        </tr>
+    <%
+    }
+    //close the connection.
+    db.closeConnection(con);
+    %>
+</table>
+
+<br/>
+Enter name of Customer to reply to:
+<form action="ReplyToCustomer.jsp" method="POST">
+    <input type="text" name="Rep" />
+    <input type="submit" value="reply">
+</form>
+
+<form action="CSRepLandingPage.jsp" method="GET">
+    <input type="submit" name="Home" value="Return Home">
+</form>
+
+<%}
+} catch (Exception e) {
+    out.print(e);
+}
+%>
+</body>
 </html>

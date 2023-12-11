@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS ReservationSystem;
 CREATE DATABASE IF NOT EXISTS ReservationSystem;
 USE ReservationSystem;
 

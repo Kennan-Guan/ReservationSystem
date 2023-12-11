@@ -64,7 +64,6 @@ CREATE TABLE flight (
     arrival_airport_id VARCHAR(3),
     arrival_time DATETIME,
     seats INT,
-    stops INT NOT NULL,
     econonmy_rate FLOAT NOT NULL,
     business_rate FLOAT NOT NULL,
     firstclass_rate FLOAT NOT NULL,

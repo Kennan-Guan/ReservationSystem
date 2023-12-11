@@ -7,10 +7,11 @@
 	<title>Admin Homepage</title>
 	</head>
 	<body>
-		<h1>Select Action</h1>
+		<h2>Edit Account</h2>
 		<!-- Add a new account -->
 		<form action="AdminAddAcct.jsp" method="POST">
 			<label for="account">What account type do you want to add?</label>
+			<br>
 			<input type="radio" name="account" value="customer"/>Customer
 		  	<br>
 		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
@@ -28,10 +29,12 @@
 			<input type="text" name="newLname"/>
 			<br>
 			<button type="submit">Add Account</button>
-		</form>
+		</form><br>
+		
 		<!-- Update the details of a current account -->
 		<form action = "AdminUpdateAcct.jsp" method = "POST">
 			<label for="account">What account type do you want to update?</label>
+			<br>
 			<input type="radio" name="account" value="customer"/>Customer
 		  	<br>
 		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
@@ -48,11 +51,13 @@
 			</select>&nbsp;<br>
 			<label for="newInfo">Input the new information (Ex. "password" for new password)</label>
 			<input type="text" name="newInfo"/>
+			<br>
 			<button type="submit">Update Account</button>
 		</form><br>
 		<!-- Delete an account -->
 		<form action="AdminDeleteAcct.jsp" method="POST">
 			<label for="account">What account type do you want to delete?</label>
+			<br>
 			<input type="radio" name="account" value="customer"/>Customer
 		  	<br>
 		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
@@ -61,7 +66,8 @@
 			<input type="text" name="deletedUsername"/>
 			<br>
 			<button type="submit">Delete Account</button>
-		</form>
+		</form><br>
+		<h2>Generate Reports</h2>
 		<!-- Go to SalesReportPage.jsp -->
 		<form action = "SalesReportPage.jsp" method = "POST">
 			<label for="month">Choose Month</label>
@@ -88,18 +94,30 @@
 			</select>&nbsp;<br>
 			<button type="submit">See Monthly Sales Report</button>
 		</form><br>
+		<!-- Go to RevenueGenerationReportSelection.jsp -->
+		<form action = "RevenueGenerationReportPage.jsp" method = "POST">
+			Generate report for a(n): 
+			<input type = "radio" id = "airline" name = "RevReportFor" value = "airline">
+			<label for = "airline">Airline </label>
+			<input type = "radio" id = "flight" name = "RevReportFor" value = "flight">
+			<label for = "flight">Flight </label>
+			<input type = "radio" id = "customer" name = "RevReportFor" value = "customer">
+			<label for = "customer">Customer </label><br/>
+			Enter airline code/ flight number/ customer name (note: when entering a flight number, enter it as '{ariline code} - {number}'):
+			<input type = "text" name = "revenueGeneratorId" /><br/>
+			<button type="submit">See Revenue Generation Report</button>
+		</form><br>
+		<h2>See Reservations</h2>
 		<!-- Go to  GetResList.jsp-->
 		<form action = "GetResList.jsp" method = "POST">
 			<button type="submit">Check Reservations</button>
 		</form><br>
+		<h2>Ticket Details</h2>
 		<!-- Go to SubmitTicketForDetails.jsp -->
 		<form action = "SubmitTicketForDetails.jsp" method = "POST">
 			<button type="submit">View Ticket Details</button>
 		</form><br>
-		<!-- Go to RevenueGenerationReportSelection.jsp -->
-		<form action = "RevenueGenerationReportSelection.jsp" method = "POST">
-			<button type="submit">See Revenue Generation Report</button>
-		</form><br>
+		<h2>Activity Details</h2>
 		<!-- Go to TopCustomer.jsp -->
 		<form action = "TopCustomer.jsp" method = "POST">
 			<button type="submit">See Customer Generating the Most Revenue</button>

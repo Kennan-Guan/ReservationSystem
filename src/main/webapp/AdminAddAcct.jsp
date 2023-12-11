@@ -20,27 +20,33 @@
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();	
 		Statement stmt = con.createStatement();
-		PreparedStatement ps;
 	    
-		if (account_type.equals("customer")) {
-			ps = con.prepareStatement("INSERT INTO customer(username, password, firstname, lastname) VALUES (?, ?, ?, ?)");
+		if (account_type == null || new_username.equals("") || new_password.equals("") || new_fname.equals("") || new_lname.equals("")) {
+			out.println("Empty Field Detected. Make sure all fields are filled in!");
+		} else if (account_type.equals("customer")) {
+			PreparedStatement ps = con.prepareStatement("INSERT INTO customer(username, password, firstname, lastname) VALUES (?, ?, ?, ?)");
 
 			ps.setString(1, new_username);
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
+			out.println("Account Added!");
+			
+			ps.executeUpdate();
 		} else {
-			ps = con.prepareStatement("INSERT INTO customerrep(repusername, reppassword, firstname, lastname) VALUES (?, ?, ?, ?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO customerrep(repusername, reppassword, firstname, lastname) VALUES (?, ?, ?, ?)");
 			
 			ps.setString(1, new_username);
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
+			out.println("Account Added!");
+			
+			ps.executeUpdate();
 		}
 
-		ps.executeUpdate();
+		
 		con.close();
-		out.println("Account Added!");
 		
 	} catch(Exception e){
 		out.println(e);

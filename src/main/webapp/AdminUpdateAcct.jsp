@@ -20,7 +20,10 @@
 		Connection con = db.getConnection();	
 		Statement stmt = con.createStatement();
 	    
-		if (account_type.equals("customer")) {
+		
+		if (account_type == null || old_username.equals("") || update_type == null || new_info.equals("")) {
+			out.print("Empty Field Detected. Make sure all fields are filled out!");
+		} else if (account_type.equals("customer")) {
 			if (update_type.equals("username")) {
 				stmt.executeUpdate("UPDATE customer SET username='" + new_info + "' WHERE username='" + old_username + "'");
 			} else if (update_type.equals("password")) {
@@ -30,6 +33,7 @@
 			} else if (update_type.equals("lastName")) {
 				stmt.executeUpdate("UPDATE customer SET lastname='" + new_info + "' WHERE username='" + old_username + "'");
 			} 
+			out.print("<br>Update Succeeded");
 		} else if (account_type.equals("customer representative")) {
 			if (update_type.equals("username")) {
 				stmt.executeUpdate("UPDATE customerrep SET repusername='" + new_info + "' WHERE repusername='" + old_username + "'");
@@ -40,12 +44,11 @@
 			} else if (update_type.equals("lastName")) {
 				stmt.executeUpdate("UPDATE customerrep SET lastname='" + new_info + "' WHERE username='" + old_username + "'");
 			} 
-		} else {
-			out.println("Make sure all fields are filled in. <a href='AdmingLandingPage.jsp'> Please try again </a>");
+			out.print("<br>Update Succeeded");
 		}
 		
 		con.close();
-		out.print("<br>Update Succeeded");
+
 		
 	} catch(Exception e){
 		out.print(e);

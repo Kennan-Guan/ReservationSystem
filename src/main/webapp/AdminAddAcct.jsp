@@ -24,16 +24,22 @@
 	    
 		if (account_type.equals("customer")) {
 			ps = con.prepareStatement("INSERT INTO customer(username, password, firstname, lastname) VALUES (?, ?, ?, ?)");
+
+			ps.setString(1, new_username);
+			ps.setString(2, new_password);
+			ps.setString(3, new_fname);
+			ps.setString(4, new_lname);
 		} else if (account_type.equals("customer representative")) {
 			ps = con.prepareStatement("INSERT INTO customerrep(repusername, reppassword, firstname, lastname) VALUES (?, ?, ?, ?)");
+			
+			ps.setString(1, new_username);
+			ps.setString(2, new_password);
+			ps.setString(3, new_fname);
+			ps.setString(4, new_lname);
 		} else {
 			out.println("Make sure all fields are filled in. <a href='AdmingLandingPage.jsp'> Please try again </a>");
 		}
-		
-		ps.setString(1, new_username);
-		ps.setString(2, new_password);
-		ps.setString(3, new_fname);
-		ps.setString(4, new_lname);
+
 		
 		con.close();
 		out.print("Account Added!");

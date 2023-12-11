@@ -18,14 +18,18 @@
 		Connection con = db.getConnection();	
 		Statement stmt = con.createStatement();
 	    
-		if (account_type.equals("customer")) {
+		if (account_type == null || username.equals("")) {
+			out.print("Emtpy Field Detected. Make sure all fields are filled out!");
+		} else if (account_type.equals("customer")) {
 			stmt.executeUpdate("DELETE FROM customer WHERE username='" + username + "'");
+			out.print("Deletion Succeeded");
 		} else if (account_type.equals("customer representative")) {
 			stmt.executeUpdate("DELETE FROM customerrep WHERE username='" + username + "'");
+			out.print("Deletion Succeeded");
 		} 
 		
 		con.close();
-		out.print("Deletion Succeeded");
+		
 		
 	} catch(Exception e){
 		out.print(e);

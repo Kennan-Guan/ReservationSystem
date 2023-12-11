@@ -31,14 +31,19 @@
 			ps.setString(4, new_lname);
 		} else {
 			ps = con.prepareStatement("INSERT INTO customerrep(repusername, reppassword, firstname, lastname) VALUES (?, ?, ?, ?)");
-			
 			ps.setString(1, new_username);
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
+	       
 		}
 
 		ps.executeUpdate();
+		
+		PreparedStatement psChat = con.prepareStatement("INSERT INTO chat_customer_rep(repusername) VALUES (?)");
+        psChat.setString(1, new_username);
+        psChat.executeUpdate();
+        
 		con.close();
 		out.println("Account Added!");
 		

@@ -8,8 +8,30 @@
 	</head>
 	<body>
 		<h1>Select Action</h1>
-		<!-- Go to AdminUpdateAcct.jsp -->
+		<!-- Add a new account -->
+		<form action="AdminAddAcct.jsp" method="POST">
+			<label for="account">What account type do you want to add?</label>
+			<input type="radio" name="account" value="customer"/>Customer
+		  	<br>
+		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
+		  	<br>
+		  	<label for="newUsername">Give the username of the account you want added.</label>
+			<input type="text" name="newUsername"/>
+			<br>
+			<label for="newPassword">Give the password of the account you want added.</label>
+			<input type="text" name="newPassword"/>
+			<br>
+			<label for="newFname">Give the first name of the account you want added.</label>
+			<input type="text" name="newFname"/>
+			<br>
+			<label for="newLname">Give the last name of the account you want added.</label>
+			<input type="text" name="newLname"/>
+			<br>
+			<button type="submit">Add Account</button>
+		</form>
+		<!-- Update the details of a current account -->
 		<form action = "AdminUpdateAcct.jsp" method = "POST">
+			<label for="account">What account type do you want to update?</label>
 			<input type="radio" name="account" value="customer"/>Customer
 		  	<br>
 		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
@@ -17,19 +39,29 @@
 		  	<label for="account Name">What is the current username of the account?</label>
 			<input type="text" name="accountName"/>
 			<br>
-		  	<label for="updateType">What are you Updating?</label>
+		  	<label for="updateType">What are you updating?</label>
 		  	<select name="updateType" size=1>
 				<option value="username">Username</option>
 				<option value="password">Password</option>
 				<option value="firstName">First Name</option>
 				<option value="lastName">Last Name</option>
 			</select>&nbsp;<br>
-			<label for="newInfo">Input the New Information (Ex. "password" for new password)</label>
+			<label for="newInfo">Input the new information (Ex. "password" for new password)</label>
 			<input type="text" name="newInfo"/>
 			<button type="submit">Update Account</button>
 		</form><br>
-		
-		
+		<!-- Delete an account -->
+		<form action="AdminDeleteAcct.jsp" method="POST">
+			<label for="account">What account type do you want to delete?</label>
+			<input type="radio" name="account" value="customer"/>Customer
+		  	<br>
+		  	<input type="radio" name="account" value="customer representative"/>Customer Representative
+		  	<br>
+		  	<label for="deletedUsername">Give the username of the account you want deleted.</label>
+			<input type="text" name="deletedUsername"/>
+			<br>
+			<button type="submit">Delete Account</button>
+		</form>
 		<!-- Go to SalesReportPage.jsp -->
 		<form action = "SalesReportPage.jsp" method = "POST">
 			<label for="month">Choose Month</label>

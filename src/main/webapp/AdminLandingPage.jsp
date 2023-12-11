@@ -102,14 +102,18 @@
 			<input type = "radio" id = "flight" name = "RevReportFor" value = "flight">
 			<label for = "flight">Flight </label>
 			<input type = "radio" id = "customer" name = "RevReportFor" value = "customer">
-			<label for = "customer">Customer </label><br/>
+			<label for = "customer">Customer </label><br>
 			Enter airline code/ flight number/ customer name (note: when entering a flight number, enter it as '{airline code} - {number}'):
-			<input type = "text" name = "revenueGeneratorId" /><br/>
+			<input type = "text" name = "revenueGeneratorId"><br>
 			<button type="submit">See Revenue Generation Report</button>
 		</form><br>
 		<h2>See Reservations</h2>
 		<!-- Go to  GetResList.jsp-->
-		<form action = "GetResList.jsp" method = "POST">
+		<form action = "GetReservationDetails.jsp" method = "POST">
+			<input type="radio" name= "checkFor" value="flight"> Flight Number <br>
+			<input type="radio" name= "checkFor" value="customer"> Customer <br>
+			Enter customer username or flight number('{airline code} - {number}')
+			<input type="text" name="identification"><br>
 			<button type="submit">Check Reservations</button>
 		</form><br>
 		<h2>Ticket Details</h2>

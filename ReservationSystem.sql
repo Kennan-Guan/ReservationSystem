@@ -3,15 +3,15 @@ USE ReservationSystem;
 
 DROP TABLE IF EXISTS airline;
 CREATE TABLE airline (
-    airline_id VARCHAR(2) NOT NULL,
+    airline_id CHAR(2) NOT NULL,
     PRIMARY KEY (airline_id)
 );
 
 DROP TABLE IF EXISTS aircraft;
 CREATE TABLE aircraft (
     aircraft_id VARCHAR(5) PRIMARY KEY,
-    seats INTEGER,
-    airline_id CHAR(2),
+    seats INTEGER NOT NULL,
+    airline_id CHAR(2) NOT NULL,
     FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id)
 );
 
@@ -55,18 +55,14 @@ VALUES ('achuth', 'achuth', 'achuth', 'nair');
 DROP TABLE IF EXISTS flight;
 CREATE TABLE flight (
     flight_num VARCHAR(5),
-    airline_id VARCHAR(2),
-    is_domestic BOOLEAN,
-    aircraft_id VARCHAR(5),
-    departure_airport_id VARCHAR(5),
-    departure_time DATETIME,
-    departure_date DATE NOT NULL,
-    arrival_airport_id VARCHAR(3),
-    arrival_time DATETIME,
-    seats INT,
+    airline_id CHAR(2),
+    is_domestic BOOLEAN NOT NULL,
+    aircraft_id VARCHAR(5) NOT NULL,
+    departure_airport_id CHAR(3) NOT NULL,
+    departure_time DATETIME NOT NULL,
+    arrival_airport_id CHAR(3) NOT NULL,
+    arrival_time DATETIME NOT NULL,
     econonmy_rate FLOAT NOT NULL,
-    business_rate FLOAT NOT NULL,
-    firstclass_rate FLOAT NOT NULL,
 foreign Key (airline_id) References ReservationSystem.airline (airline_id),
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
 foreign key (departure_airport_id) References ReservationSystem.airport(airport_id),
@@ -77,23 +73,28 @@ primary key (flight_num, airline_id)
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
     username VARCHAR(30) NOT NULL,
-    airline_id VARCHAR(2) NOT NULL,
-    flight_num VARCHAR(5) NOT NULL,
     ticket_id VARCHAR(5) NOT NULL,
-    departure_airport VARCHAR(5) NOT NULL,
     purchase_date DATE NOT NULL,
     purchase_time TIME NOT NULL,
-    arrival_airport VARCHAR(5) NOT NULL,
-    seat_class VARCHAR(15) NOT NULL,
-    seat_number INT NOT NULL,
     total_fare FLOAT NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username),
+    PRIMARY KEY (username, ticket_id)
+);
+
+CREATE TABLE ticket_flights(
+	ticket_id VARCHAR(5),
+    flight_num VARCHAR(5),
+    ariline_id CHAR(2),
+    seat_class VARCHAR(15) NOT NULL,
+    seat_number INT NOT NULL,
+    PRIMARY KEY (ticket_id, flight_num, airline_id),
+    FOREIGN KEY(ticket_id) 
+		REFERENCES ReservationSystem.tickets (ticket_id),
     FOREIGN KEY (airline_id)
         REFERENCES ReservationSystem.flight (airline_id),
     FOREIGN KEY (flight_num)
-        REFERENCES ReservationSystem.flight (flight_num),
-    PRIMARY KEY (username, ticket_id)
+        REFERENCES ReservationSystem.flight (flight_num)
 );
 
 DROP TABLE IF EXISTS operates_in;
@@ -111,12 +112,16 @@ DROP TABLE IF EXISTS waitinglist;
 CREATE TABLE waitinglist (
     username VARCHAR(30) NOT NULL,
     airline_id VARCHAR(2) NOT NULL,
-    aircraft_id VARCHAR(5) NOT NULL,
-    departure_date DATE NOT NULL,
+    flight_num VARCHAR(5) NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username),
+	FOREIGN KEY (airline_id)
+        REFERENCES ReservationSystem.flight (airline_id),
+    FOREIGN KEY (flight_num)
+        REFERENCES ReservationSystem.flight (flight_num),
     PRIMARY KEY (username , airline_id , aircraft_id , departure_date)
 );
+
 DROP TABLE IF EXISTS all_usernames;
 CREATE TABLE all_usernames (
     username VARCHAR(30) NOT NULL PRIMARY KEY

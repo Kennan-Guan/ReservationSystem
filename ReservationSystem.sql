@@ -28,6 +28,9 @@ CREATE TABLE customerrep (
     lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (repusername)
 );
+INSERT INTO customerrep (repusername, reppassword, firstname, lastname)
+VALUES ('custrep', 'custrep', 'cust', 'rep');
+
 
 DROP TABLE IF EXISTS admin;
 CREATE TABLE admin (
@@ -47,7 +50,8 @@ CREATE TABLE customer (
     lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (username)
 );
-
+INSERT INTO customer (username, password, firstname, lastname)
+VALUES ('achuth', 'achuth', 'achuth', 'nair');
 DROP TABLE IF EXISTS flight;
 CREATE TABLE flight (
     flight_num VARCHAR(5),
@@ -66,8 +70,11 @@ CREATE TABLE flight (
     firstclass_rate FLOAT NOT NULL,
 foreign Key (airline_id) References ReservationSystem.airline (airline_id),
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
+foreign key (departure_airport_id) References ReservationSystem.airport(airport_id),
+foreign key (arrival_airport_id) References ReservationSystem.airport(airport_id),
 primary key (flight_num, airline_id)
 );
+
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
     username VARCHAR(30) NOT NULL,
@@ -136,6 +143,7 @@ CREATE TABLE chat_customer_rep (
     FOREIGN KEY (repusername)
         REFERENCES customerrep (repusername)
 );
+
 DROP TABLE IF EXISTS chat_association;
 CREATE TABLE chat_association (
     chat_id INT AUTO_INCREMENT PRIMARY KEY,

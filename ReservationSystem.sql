@@ -3,7 +3,7 @@ USE ReservationSystem;
 
 DROP TABLE IF EXISTS airline;
 CREATE TABLE airline (
-    airline_id VARCHAR(5) NOT NULL,
+    airline_id VARCHAR(2) NOT NULL,
     PRIMARY KEY (airline_id)
 );
 
@@ -11,13 +11,13 @@ DROP TABLE IF EXISTS aircraft;
 CREATE TABLE aircraft (
     aircraft_id VARCHAR(5) PRIMARY KEY,
     seats INTEGER,
-    airline_id CHAR(5),
+    airline_id CHAR(2),
     FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id)
 );
 
 DROP TABLE IF EXISTS airport;
 CREATE TABLE airport (
-    airport_id CHAR(5) PRIMARY KEY
+    airport_id CHAR(3) PRIMARY KEY
 );
 
 DROP TABLE IF EXISTS customerrep;
@@ -37,6 +37,8 @@ CREATE TABLE admin (
     lastname VARCHAR(30) NOT NULL,
     PRIMARY KEY (adminusername)
 );
+INSERT INTO admin (adminusername, adminpassword, firstname, lastname)
+VALUES ('admin', 'admin', 'admin', 'admin');
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
     username VARCHAR(30) NOT NULL,
@@ -49,13 +51,13 @@ CREATE TABLE customer (
 DROP TABLE IF EXISTS flight;
 CREATE TABLE flight (
     flight_num VARCHAR(5),
-    airline_id VARCHAR(5),
+    airline_id VARCHAR(2),
     is_domestic BOOLEAN,
     aircraft_id VARCHAR(5),
     departure_airport_id VARCHAR(5),
     departure_time DATETIME,
     departure_date DATE NOT NULL,
-    arrival_airport_id VARCHAR(5),
+    arrival_airport_id VARCHAR(3),
     arrival_time DATETIME,
     seats INT,
     stops INT NOT NULL,
@@ -69,7 +71,7 @@ primary key (flight_num, airline_id)
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
     username VARCHAR(30) NOT NULL,
-    airline_id VARCHAR(5) NOT NULL,
+    airline_id VARCHAR(2) NOT NULL,
     flight_num VARCHAR(5) NOT NULL,
     ticket_id VARCHAR(5) NOT NULL,
     departure_airport VARCHAR(5) NOT NULL,
@@ -90,8 +92,8 @@ CREATE TABLE tickets (
 
 DROP TABLE IF EXISTS operates_in;
 CREATE TABLE operates_in (
-    airport_id CHAR(5),
-    airline_id CHAR(5),
+    airport_id CHAR(3),
+    airline_id CHAR(2),
     PRIMARY KEY (airport_id , airline_id),
     FOREIGN KEY (airport_id)
         REFERENCES airport (airport_id),
@@ -102,7 +104,7 @@ CREATE TABLE operates_in (
 DROP TABLE IF EXISTS waitinglist;
 CREATE TABLE waitinglist (
     username VARCHAR(30) NOT NULL,
-    airline_id VARCHAR(5) NOT NULL,
+    airline_id VARCHAR(2) NOT NULL,
     aircraft_id VARCHAR(5) NOT NULL,
     departure_date DATE NOT NULL,
     FOREIGN KEY (username)
@@ -113,10 +115,12 @@ DROP TABLE IF EXISTS chat_message;
 CREATE TABLE chat_message (
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id VARCHAR(30) NOT NULL,
-    receiver_id VARCHAR(30) NOT NULL,
     text VARCHAR(255) NOT NULL,
-    date_time_sent DATETIME NOT NULL
+    date_time_sent DATETIME NOT NULL,
+    FOREIGN KEY (sender_id) REFERENCES customer (username)
 );
+
+
 DROP TABLE IF EXISTS chat_customer;
 CREATE TABLE chat_customer (
     username VARCHAR(30) NOT NULL,
@@ -132,6 +136,16 @@ CREATE TABLE chat_customer_rep (
     FOREIGN KEY (repusername)
         REFERENCES customerrep (repusername)
 );
+DROP TABLE IF EXISTS chat_association;
+CREATE TABLE chat_association (
+    chat_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_username VARCHAR(30) NOT NULL,
+    rep_username VARCHAR(30) NOT NULL,
+    FOREIGN KEY (customer_username) REFERENCES customer (username),
+    FOREIGN KEY (rep_username) REFERENCES customerrep (repusername)
+);
+
+
 
 
 

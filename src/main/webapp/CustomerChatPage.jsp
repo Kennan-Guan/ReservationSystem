@@ -3,69 +3,85 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
+
+<!-- NOTE: NEED TO HAVE FUNCTIONALITY SO THAT IF THE MOST RECENT CHAT WAS SENT BY THE CUSTOMER, THE RESPONDED FIELD IN THE TABLE IS N, 
+ELSE HAVE IT BE Y -->
 <html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Customer Chat Page</title>
-	</head>
-	<body>
-	
-		<h1>Reps with existing chats</h1>
-		<form action="CustomerChatSubmit.jsp" method="POST"> 
-		
-		<% try {
-	
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Customer Chat Page</title>
+</head>
+<body>
 
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("customerChatReps");
-			//Make a SELECT query from the table specified by the 'customerChatReps' parameter
-			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
-		
-		%>
-		
-		
-		
-		<table>
-			<tr>
-				<th> Name </th>
-				
-			</tr>
-			<%
-			//parse out the results
-			while (result.next()) { %>
-				<tr>    
-					<td><%= result.getString("Name") %></td>
-					
-					
-				</tr>
-				
+<%
+try {
+    ApplicationDB db = new ApplicationDB();
+    Connection con = db.getConnection();
 
-			<% }
-			//close the connection.
-			db.closeConnection(con);
-			%>
-		</table>
-		</form>
-	
-	<%} catch (Exception e) {
-			out.print(e);
-		}%>
-	<br/>
-	<!-- Note: make it so that if the customer wants to start a new chat, the next screen opens a chat with a random representative (can be one 
-	they've worked with before or one they've never worked with) -->
-	<input type = "button" name = "newChat" value = "Start New Chat">
-	Enter name of representative for existing chat: <input type = "text" name = "Rep"/>
-	<!--  Go to ViewChatsPage if they're looking at an existing chat -->
-	<input type = "submit" value = "apply"><br/>
-	<input type = "button" name = "Home" value = "Return Home">
-	
-	</body>
+    // Retrieve the username from session attribute
+     String username = (String) session.getAttribute("user");
+ 
+    // Query to get messages for the customer
+    String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent " +
+            "FROM chat_message cm " +
+            "JOIN chat_association ca ON cm.sender_id = ca.rep_username " +
+            "WHERE ca.customer_username = ? " +
+            "ORDER BY cm.date_time_sent DESC";
+
+    try (PreparedStatement pstmt = con.prepareStatement(messagesQuery)) {
+        pstmt.setString(1, username);
+        ResultSet messagesResult = pstmt.executeQuery();
+%>
+
+
+
+<h1>Replies from the Customer Service Representative!</h1>
+
+<table border ="1">
+    <tr>
+        <th> Customer Name </th>
+        <th> Date/Time Sent </th>
+        <th> Message Text </th>
+    </tr>
+    <%
+    //parse out the results
+    while (messagesResult.next()) { %>
+        <tr>
+            <td><%= messagesResult.getString("sender_id") %></td>
+            <td><%= messagesResult.getString("date_time_sent") %></td>
+            <td><%= messagesResult.getString("text") %></td>
+        </tr>
+    <%
+    }
+    //close the connection.
+    db.closeConnection(con);
+    %>
+</table>
+
+
+<form action="ReplyToCustomerRep.jsp" method="POST">
+    <label for="Rep">Enter name of Customer Rep you want to reply to:</label>
+    <input type="text" name="Rep"/>
+    <input type="submit" value="Reply">
+</form>
+<br>
+
+<form action="StartChat.jsp" method="POST">
+    <label for="newMessage">I would like to send a New Message:</label>
+    <input type="submit" value="Click to Send a Message!">
+</form>
+<br>
+<form action="CustomerLandingPage.jsp" method="GET">
+    <input type="submit" name="Home" value="Return Home">
+</form>
+
+
+
+<%}
+} catch (Exception e) {
+    out.print(e);
+}
+%>
+
+</body>
 </html>

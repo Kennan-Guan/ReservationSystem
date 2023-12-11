@@ -117,14 +117,27 @@ CREATE TABLE waitinglist (
         REFERENCES ReservationSystem.customer (username),
     PRIMARY KEY (username , airline_id , aircraft_id , departure_date)
 );
+DROP TABLE IF EXISTS all_usernames;
+CREATE TABLE all_usernames (
+    username VARCHAR(30) NOT NULL PRIMARY KEY
+);
+
+INSERT INTO all_usernames (username)
+SELECT username FROM customer
+UNION
+SELECT repusername FROM customerrep;
+
 DROP TABLE IF EXISTS chat_message;
 CREATE TABLE chat_message (
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id VARCHAR(30) NOT NULL,
     text VARCHAR(255) NOT NULL,
     date_time_sent DATETIME NOT NULL,
-    FOREIGN KEY (sender_id) REFERENCES customer (username)
+	responded CHAR(1) DEFAULT 'N',
+    FOREIGN KEY (sender_id) REFERENCES all_usernames (username) 
+        ON DELETE CASCADE
 );
+
 
 
 DROP TABLE IF EXISTS chat_customer;

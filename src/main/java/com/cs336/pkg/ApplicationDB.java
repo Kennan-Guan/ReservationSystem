@@ -31,7 +31,7 @@ public class ApplicationDB {
 		}
 		try {
 			//Create a connection to your DB
-			connection = DriverManager.getConnection(connectionUrl,"root", "root");
+			connection = DriverManager.getConnection(connectionUrl,"root", "macbookpro");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,7 +67,7 @@ public class ApplicationDB {
 	        // Process the result set if needed
 	        while (resultSet.next()) {
 	            // Do something with the data
-	            String columnName = resultSet.getString("adminusername");
+	            String columnName = resultSet.getString("admin");
 	            System.out.println(columnName);
 	        }
 

@@ -20,11 +20,9 @@
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("topCustomer");
 			//Make a SELECT query from the table specified by the 'topCustomer' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
+			String str = "SELECT c.firstname, c.lastname, SUM(total_fare) as total_revenue FROM tickets t JOIN customer c ON t.username = c.username GROUP BY c.firstname, c.lastname ORDER BY SUM(total_fare) DESC LIMIT 1";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		
@@ -34,7 +32,8 @@
 		<table>
 			<tr>
 				<th> First Name </th>
-				<th> Last Name </th>					
+				<th> Last Name </th>
+				<th> Total Revenue Generated </th>				
 				
 			</tr>
 			<%
@@ -43,6 +42,7 @@
 				<tr>    
 					<td><%= result.getString("First Name") %></td>
 					<td><%= result.getString("Last Name") %></td>
+					<td><%= result.getFloat("total_revenue")%></td>
 									
 				</tr>
 				

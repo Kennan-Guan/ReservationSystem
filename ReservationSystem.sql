@@ -85,16 +85,16 @@ CREATE TABLE tickets (
 CREATE TABLE ticket_flights(
 	ticket_id VARCHAR(5),
     flight_num VARCHAR(5),
-    ariline_id CHAR(2),
+    airline_id CHAR(2),
     seat_class VARCHAR(15) NOT NULL,
     seat_number INT NOT NULL,
     PRIMARY KEY (ticket_id, flight_num, airline_id),
     FOREIGN KEY(ticket_id) 
-		REFERENCES ReservationSystem.tickets (ticket_id),
+		REFERENCES ReservationSystem.tickets (ticket_id) ON DELETE CASCADE,
     FOREIGN KEY (airline_id)
-        REFERENCES ReservationSystem.flight (airline_id),
+        REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE,
     FOREIGN KEY (flight_num)
-        REFERENCES ReservationSystem.flight (flight_num)
+        REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS operates_in;

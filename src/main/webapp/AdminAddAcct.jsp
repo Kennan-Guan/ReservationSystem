@@ -29,26 +29,22 @@
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
-		} else if (account_type.equals("customer representative")) {
+		} else {
 			ps = con.prepareStatement("INSERT INTO customerrep(repusername, reppassword, firstname, lastname) VALUES (?, ?, ?, ?)");
 			
 			ps.setString(1, new_username);
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
-		} else {
-			out.println("Make sure all fields are filled in. <a href='AdmingLandingPage.jsp'> Please try again </a>");
 		}
 
-		
+		ps.executeUpdate();
 		con.close();
-		out.print("Account Added!");
-		response.sendRedirect("AdminLandingPage.jsp");
+		out.println("Account Added!");
 		
 	} catch(Exception e){
-		out.print(e);
-		out.print("Account Could Not be Completed");
-		response.sendRedirect("AdminLandingPage.jsp");
+		out.println(e);
+		out.println("<br>Account Could Not be Added");
 	}
 	
 	

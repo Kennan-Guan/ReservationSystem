@@ -72,7 +72,6 @@
 		
 	<% } catch(Exception e){
 		out.print(e);
-		response.sendRedirect("AdminLandingPage.jsp");
 	} %>
 		<form action = "AdminLandingPage.jsp" method = "POST">
 			<button type="submit">Return to Home Page</button>

@@ -69,7 +69,7 @@
 		</form><br>
 		<h2>Generate Reports</h2>
 		<!-- Go to SalesReportPage.jsp -->
-		<form action = "SalesReportPage.jsp" method = "POST">
+		<form action = "AdminSalesReportPage.jsp" method = "POST">
 			<label for="month">Choose Month</label>
 			<select name="month" size=1>
 				<option value="1">January</option>
@@ -95,7 +95,7 @@
 			<button type="submit">See Monthly Sales Report</button>
 		</form><br>
 		<!-- Go to RevenueGenerationReportSelection.jsp -->
-		<form action = "RevenueGenerationReportPage.jsp" method = "POST">
+		<form action = "AdminRevenueGenerationReportPage.jsp" method = "POST">
 			Generate report for a(n): 
 			<input type = "radio" id = "airline" name = "RevReportFor" value = "airline">
 			<label for = "airline">Airline </label>
@@ -109,7 +109,7 @@
 		</form><br>
 		<h2>See Reservations</h2>
 		<!-- Go to  GetResList.jsp-->
-		<form action = "GetReservationDetails.jsp" method = "POST">
+		<form action = "AdminGetReservationDetails.jsp" method = "POST">
 			<input type="radio" name= "checkFor" value="flight"> Flight Number <br>
 			<input type="radio" name= "checkFor" value="customer"> Customer <br>
 			Enter customer username or flight number('{airline code} - {number}')
@@ -118,16 +118,16 @@
 		</form><br>
 		<h2>Ticket Details</h2>
 		<!-- Go to SubmitTicketForDetails.jsp -->
-		<form action = "SubmitTicketForDetails.jsp" method = "POST">
+		<form action = "AdminSubmitTicketForDetails.jsp" method = "POST">
 			<button type="submit">View Ticket Details</button>
 		</form><br>
 		<h2>Activity Details</h2>
 		<!-- Go to TopCustomer.jsp -->
-		<form action = "TopCustomer.jsp" method = "POST">
+		<form action = "AdminTopCustomer.jsp" method = "POST">
 			<button type="submit">See Customer Generating the Most Revenue</button>
 		</form><br>
 		<!--  Go to MostActiveFlightsPage.jsp -->
-		<form action = "MostActiveFlightsPage.jsp" method = "POST">
+		<form action = "AdminMostActiveFlightsPage.jsp" method = "POST">
 			<button type="submit">See which Flight Sold the Most Tickets</button>
 		</form><br>
 		<!-- Log out -->

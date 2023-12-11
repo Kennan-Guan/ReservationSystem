@@ -22,18 +22,14 @@
 			stmt.executeUpdate("DELETE FROM customer WHERE username='" + username + "'");
 		} else if (account_type.equals("customer representative")) {
 			stmt.executeUpdate("DELETE FROM customerrep WHERE username='" + username + "'");
-		} else {
-			out.println("Make sure all fields are filled in. <a href='AdmingLandingPage.jsp'> Please try again </a>");
-		}
+		} 
 		
 		con.close();
 		out.print("Deletion Succeeded");
-		response.sendRedirect("AdminLandingPage.jsp");
 		
 	} catch(Exception e){
 		out.print(e);
-		out.print("Deletion Failed");
-		response.sendRedirect("AdminLandingPage.jsp");
+		out.print("<br>Deletion Failed");
 	}
 	
 	

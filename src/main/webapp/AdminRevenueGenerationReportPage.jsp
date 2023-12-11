@@ -27,11 +27,11 @@
 			String query;
 			
 			if (report_type.equals("airline")) {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM airline a JOIN tickets t ON a.airline_id = t.airline_id WHERE a.airline_id='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM airline a JOIN tickets_flights t ON a.airline_id = t.airline_id WHERE a.airline_id='" + identification + "'";
 			} else if (report_type.equals("flight")) {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM flight f JOIN tickets t ON (f.flight_num = t.flight_num AND f.airline_id = t.airline_id) WHERE f.flight_num='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM flight f JOIN ticket_flights t ON (f.flight_num = t.flight_num AND f.airline_id = t.airline_id) WHERE f.flight_num='" + identification + "'";
 			} else {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM customer c JOIN tickets t ON c.username = t.username WHERE c.username='" + identification + "'";
+				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM customer c JOIN tickets_flights t ON c.username = t.username WHERE c.username='" + identification + "'";
 			}
 			
 			

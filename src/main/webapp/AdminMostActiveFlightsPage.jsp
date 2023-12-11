@@ -25,7 +25,7 @@
 			//Make a SELECT query from the table specified by the 'activeFlights' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String query = "SELECT f.airline_id, f.flight_num, COUNT(*) AS tickets_sold " +
-							"FROM flight f JOIN tickets t ON (f.airline_id = t.airline_id AND f.flight_num = t.flight_num) " + 
+							"FROM flight f JOIN ticket_flights tf ON (f.airline_id = tf.airline_id AND f.flight_num = tf.flight_num) " + 
 							"GROUP BY f.airline_id, f.flight_num ORDER BY tickets_sold DESC LIMIT 1";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(query);

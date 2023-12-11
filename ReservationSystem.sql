@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS aircraft;
 CREATE TABLE aircraft (
     aircraft_id VARCHAR(5) PRIMARY KEY,
     seats INTEGER,
-    airline_id CHAR(5)
+    airline_id CHAR(5),
+    FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id)
 );
 
 DROP TABLE IF EXISTS airport;

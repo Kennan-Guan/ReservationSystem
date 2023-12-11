@@ -11,8 +11,8 @@ DROP TABLE IF EXISTS aircraft;
 CREATE TABLE aircraft (
     aircraft_id VARCHAR(5) PRIMARY KEY,
     seats INTEGER NOT NULL,
-    airline_id CHAR(2) NOT NULL,
-    FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id)
+    airline_id CHAR(2),
+    FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS airport;
@@ -63,10 +63,10 @@ CREATE TABLE flight (
     arrival_airport_id CHAR(3) NOT NULL,
     arrival_time DATETIME NOT NULL,
     econonmy_rate FLOAT NOT NULL,
-foreign Key (airline_id) References ReservationSystem.airline (airline_id),
+foreign Key (airline_id) References ReservationSystem.airline (airline_id) ON DELETE CASCADE,
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
-foreign key (departure_airport_id) References ReservationSystem.airport(airport_id),
-foreign key (arrival_airport_id) References ReservationSystem.airport(airport_id),
+foreign key (departure_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE,
+foreign key (arrival_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE,
 primary key (flight_num, airline_id)
 );
 
@@ -78,7 +78,7 @@ CREATE TABLE tickets (
     purchase_time TIME NOT NULL,
     total_fare FLOAT NOT NULL,
     FOREIGN KEY (username)
-        REFERENCES ReservationSystem.customer (username),
+        REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE,
     PRIMARY KEY (username, ticket_id)
 );
 
@@ -103,9 +103,9 @@ CREATE TABLE operates_in (
     airline_id CHAR(2),
     PRIMARY KEY (airport_id , airline_id),
     FOREIGN KEY (airport_id)
-        REFERENCES airport (airport_id),
+        REFERENCES airport (airport_id) ON DELETE CASCADE,
     FOREIGN KEY (airline_id)
-        REFERENCES airline (airline_id)
+        REFERENCES airline (airline_id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS waitinglist;
@@ -114,11 +114,11 @@ CREATE TABLE waitinglist (
     airline_id VARCHAR(2) NOT NULL,
     flight_num VARCHAR(5) NOT NULL,
     FOREIGN KEY (username)
-        REFERENCES ReservationSystem.customer (username),
+        REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE,
 	FOREIGN KEY (airline_id)
-        REFERENCES ReservationSystem.flight (airline_id),
+        REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE,
     FOREIGN KEY (flight_num)
-        REFERENCES ReservationSystem.flight (flight_num),
+        REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE,
     PRIMARY KEY (username , airline_id , aircraft_id , departure_date)
 );
 

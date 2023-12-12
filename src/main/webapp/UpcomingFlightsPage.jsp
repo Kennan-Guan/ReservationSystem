@@ -14,7 +14,7 @@
 		<!-- Need to add functionality to send user to next page based on button clicked-->
 		
 		<% try {
-			String username = (String) session.getAttribute("username");
+			String username = (String) session.getAttribute("user");
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
@@ -28,11 +28,15 @@
                     	 "FROM tickets t " +
                     	 "JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
                     	 "JOIN flight f ON tf.flight_num = f.flight_num " +
-                    	 "WHERE f.departure_time >= CURRENT_DATE AND t.username = '" + username + "'";
+                    	 "WHERE f.departure_time > DATE_ADD(CURDATE(),INTERVAL 1 DAY) AND t.username = '" + username + "'";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		
 		%>
+		
+		<form action = "TicketDetailsPage.jsp" method = "POST">
+			For more info on your flight, enter your ticket ID: <input type="text" name="ticketNum"/> <br/>
+       <input type="submit" value="Submit"/></form>
 		
 		
 		<table>
@@ -46,9 +50,9 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("t.ticket_id") %></td>
-					<td><%= result.getString("t.purchase_datetime") %></td>
-					<td><%= result.getString("t.total_fare") %></td>
+					<td><%= result.getInt("t.ticket_id") %></td>
+					<td><%= result.getTimestamp("t.purchase_datetime") %></td>
+					<td><%= result.getFloat("t.total_fare") %></td>
 									
 				</tr>
 				

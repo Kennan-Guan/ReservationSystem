@@ -26,11 +26,14 @@
                     	 "FROM tickets t " +
                     	 "JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
                     	 "JOIN flight f ON tf.flight_num = f.flight_num " +
-                    	 "WHERE t.username ='" + username + "'";
+                    	 "WHERE f.departure_time < DATE_ADD(CURDATE(),INTERVAL 1 DAY) AND t.username ='" + username + "'";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		%>
 		
+				<form action = "TicketDetailsPage.jsp" method = "POST">
+			For more info on your flight, enter your ticket ID: <input type="text" name="ticketNum"/> <br/>
+       <input type="submit" value="Submit"/></form>
 		
 		 
 		<table>
@@ -64,6 +67,7 @@
 	<br/>
 		<form action = "CustomerLandingPage.jsp" method = "POST">
 			<button type="submit">Return to Home Page</button>
+		
 		
 		</form><br>
 	

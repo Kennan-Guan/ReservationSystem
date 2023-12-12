@@ -35,7 +35,7 @@
     </form><br>
 
     <!-- View Ticket Details Button -->
-    <form action="TicketDetailsPage.jsp" method="get">
+    <form action="TicketDetails.jsp" method="get">
         <button type="submit">View Ticket Details</button>
     </form><br>
 

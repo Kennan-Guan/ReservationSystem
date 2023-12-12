@@ -10,10 +10,14 @@
 <body>
 <%@ page import ="java.sql.*" %>
 <%
- 
+
 	try {
 		String ticketId = request.getParameter("ticketId");
-		String username = (String) session.getAttribute("username");
+		String username = (String) session.getAttribute("user");
+		
+		if (ticketId.equals("")){
+			out.println("Please make sure to enter a valid Ticket ID! Go back and try again.");
+		}
 		
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
@@ -36,4 +40,4 @@
 %>	
 
 </body>
-</html>
+</html> 

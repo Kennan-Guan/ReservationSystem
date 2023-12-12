@@ -21,6 +21,10 @@
 			Statement stmt = con.createStatement();
 			//Get the selected filters
 			String ticketNum = request.getParameter("ticketNum");
+			
+			if(ticketNum.equals("")){
+				out.println("Please make sure to enter a valid Ticket ID! Go back and try again.");
+			}
 			//Make a SELECT query from the table specified by the 'ticketDetails' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT f.airline_id, f.flight_num, f.departure_airport_id, f.arrival_airport_id, f.departure_time, tf.seat_number, t.class " +
@@ -56,9 +60,9 @@
 					<td><%= result.getString("f.flight_num") %></td>
 					<td><%= result.getString("f.departure_airport_id") %></td>
 					<td><%= result.getString("f.arrival_airport_id") %></td>
-					<td><%= result.getString("f.departure_time") %></td>
-					<td><%= result.getString("f.seat_number") %></td>
-					<td><%= result.getString("f.seat_class") %></td>					
+					<td><%= result.getTimestamp("f.departure_time") %></td>
+					<td><%= result.getInt("tf.seat_number") %></td>
+					<td><%= result.getString("t.class") %></td>					
 				</tr>
 				
 

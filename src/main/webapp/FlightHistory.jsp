@@ -26,7 +26,7 @@
                     	 "FROM tickets t " +
                     	 "JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
                     	 "JOIN flight f ON tf.flight_num = f.flight_num " +
-                    	 "WHERE f.departure_time < CURRENT_DATE AND t.username ='" + username + "'";
+                    	 "WHERE f.departure_time < DATE_ADD(CURDATE(),INTERVAL 1 DAY) AND t.username ='" + username + "'";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		

@@ -11,21 +11,27 @@
 try {
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
+    String username = (String) session.getAttribute("user");
+    out.println(username);
 
     String customerName = request.getParameter("customerName");
     String replyText = request.getParameter("replyText");
 
     String insertReplyQuery = "INSERT INTO chat_message (sender_id, text, date_time_sent) VALUES (?, ?, NOW())";
     try (PreparedStatement pstmt = con.prepareStatement(insertReplyQuery)) {
-        pstmt.setString(1, "custrep");
-        pstmt.setString(2, replyText);
+/*         pstmt.setString(1, "custrep");
+ */        pstmt.setString(1, username);
+
+       pstmt.setString(2, replyText);
         pstmt.executeUpdate();
     }
 
     String insertAssociationQuery = "INSERT IGNORE INTO chat_association (customer_username, rep_username) VALUES (?, ?)";
     try (PreparedStatement pstmt = con.prepareStatement(insertAssociationQuery)) {
         pstmt.setString(1, customerName);
-        pstmt.setString(2, "custrep"); 
+/*         pstmt.setString(2, "custrep"); 
+ */           pstmt.setString(2, username);
+
         pstmt.executeUpdate();
     }
 

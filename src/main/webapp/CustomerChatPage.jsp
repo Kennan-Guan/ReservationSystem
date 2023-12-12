@@ -22,16 +22,20 @@ try {
      String username = (String) session.getAttribute("user");
  
     // Query to get messages for the customer
-    String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent " +
-            "FROM chat_message cm " +
-            "JOIN chat_association ca ON cm.sender_id = ca.rep_username " +
-            "WHERE ca.customer_username = ? " +
-            "ORDER BY cm.date_time_sent DESC";
+String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent " +
+        "FROM chat_message cm " +
+        "JOIN chat_association ca ON cm.sender_id = ca.rep_username " +
+        "WHERE ca.customer_username = ? " +
+        "ORDER BY cm.date_time_sent DESC";
 
-    try (PreparedStatement pstmt = con.prepareStatement(messagesQuery)) {
-        pstmt.setString(1, username);
-        ResultSet messagesResult = pstmt.executeQuery();
-%>
+try (PreparedStatement pstmt = con.prepareStatement(messagesQuery)) {
+    pstmt.setString(1, username);
+    ResultSet messagesResult = pstmt.executeQuery();
+
+
+    
+    
+    %>
 
 
 

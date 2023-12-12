@@ -13,7 +13,7 @@
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         Connection con = null;
         try {
-        	String customerUsername = (String) session.getAttribute("user");
+            String customerUsername = (String) session.getAttribute("user");
             String selectedRepUsername = request.getParameter("selectedRepUsername");
             String messageText = request.getParameter("message");
 
@@ -35,15 +35,39 @@
                     pstmt.setString(1, customerUsername);
                     pstmt.executeUpdate();
                 }
+                String selectRepQuery = "SELECT repusername FROM customerrep " +
+                        "WHERE repusername NOT IN (SELECT rep_username FROM chat_association WHERE customer_username = ?) " +
+                        "ORDER BY RAND() LIMIT 1";
 
-                String insertChatAssoc = "INSERT INTO chat_association (customer_username, rep_username) VALUES (?, ?)";
-                try (PreparedStatement pstmt = con.prepareStatement(insertChatAssoc)) {
-                    pstmt.setString(1, customerUsername);
-                    pstmt.setString(2, "custrep");
-                    pstmt.executeUpdate();
-                }
+try (PreparedStatement repStmt = con.prepareStatement(selectRepQuery)) {
+    repStmt.setString(1, customerUsername);
+    ResultSet repResult = repStmt.executeQuery();
 
-                out.println("Message submitted successfully!");
+    // Print debug information
+    out.println("Selected Customer: " + customerUsername);
+
+    // Check if there is a representative in the database
+    if (repResult.next()) {
+        String repUsername = repResult.getString("repusername");
+
+        // Print debug information
+        out.println("Selected Representative: " + repUsername);
+
+        // Your existing code for inserting into chat_association
+        String insertChatAssoc = "INSERT INTO chat_association (customer_username, rep_username) VALUES (?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(insertChatAssoc)) {
+            pstmt.setString(1, customerUsername);
+            pstmt.setString(2, repUsername);
+            pstmt.executeUpdate();
+        }
+
+        out.println("Message submitted successfully!");
+    } else {
+        out.println("No representative found!");
+    }
+}
+
+
             } else {
                 out.println("Please fill in your Message in the text box below!");
             }

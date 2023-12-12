@@ -141,6 +141,7 @@ CREATE TABLE chat_message (
 
 
 DROP TABLE IF EXISTS chat_customer;
+
 CREATE TABLE chat_customer (
     username VARCHAR(30) NOT NULL,
     PRIMARY KEY (username),

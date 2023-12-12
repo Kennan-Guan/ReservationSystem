@@ -20,8 +20,11 @@ try {
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
 
-    String repUsername = "custrep"; 
+    // Retrieve the username from session attribute
+    String username = (String) session.getAttribute("user");
 
+    // Print the current session user
+    out.println("Current Session User: " + username);
 
     String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent, cm.responded " +
             "FROM chat_message cm " +
@@ -30,8 +33,10 @@ try {
             "ORDER BY cm.date_time_sent DESC";
 
     try (PreparedStatement pstmt = con.prepareStatement(messagesQuery)) {
-        pstmt.setString(1, repUsername);
+        pstmt.setString(1, username);
         ResultSet messagesResult = pstmt.executeQuery();
+        
+        
         
   
 %>

@@ -14,8 +14,9 @@ try {
 
     String username = (String) session.getAttribute("user");
     String selectedCustomer = request.getParameter("Rep");
-    String repUsername = "custrep"; 
-
+    out.println(selectedCustomer);
+/*     String repUsername = "custrep"; 
+ */
     String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent " +
             "FROM chat_message cm " +
             "JOIN chat_association ca ON cm.sender_id = ca.customer_username " +
@@ -34,16 +35,10 @@ try {
 %>
     <div style="color: green;">Reply sent successfully!</div>
 
-    <%
-        String updateStatusQuery = "UPDATE chat_message SET responded = 'Y' WHERE sender_id IN " +
-                "(SELECT sender_id FROM (SELECT DISTINCT cm.sender_id FROM chat_message cm JOIN chat_association ca ON cm.sender_id = ca.customer_username WHERE ca.rep_username = ?) AS subquery)";
-        try (PreparedStatement updateStatusStmt = con.prepareStatement(updateStatusQuery)) {
-            updateStatusStmt.setString(1, repUsername);
-            updateStatusStmt.executeUpdate();
-        }
-    %>
+    
 
     <form action="CSRepChatPage.jsp" method="GET">
+  
         <input type="submit" name="Back" value="Back to Chat Page">
     </form>
 <%
@@ -63,8 +58,21 @@ try {
                 <td><%= messagesResult.getString("date_time_sent") %></td>
                 <td><%= messagesResult.getString("text") %></td>
             </tr>
+            
+              <%
+    
+    String updateStatusQuery = "UPDATE chat_message " +
+            "SET responded = 'Y' " +
+            "WHERE sender_id = ? AND responded = 'N'";
+    try (PreparedStatement updateStatusStmt = con.prepareStatement(updateStatusQuery)) {
+        updateStatusStmt.setString(1, selectedCustomer);
+        updateStatusStmt.executeUpdate();
+    }
+
+    %>
         <%
         }
+        
         //close the connection.
         db.closeConnection(con);
         %>
@@ -79,6 +87,7 @@ try {
     </form>
 
     <form action="CSRepChatPage.jsp" method="GET">
+    
         <input type="submit" name="Back" value="Back to Chat Page">
     </form>
 

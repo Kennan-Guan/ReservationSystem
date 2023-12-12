@@ -32,6 +32,8 @@
     } else {
     	stmt_customer.executeUpdate("INSERT INTO customer (username, password, firstname, lastname) VALUES('" + username + "', '" + password + "', '" + firstname + "', '" + lastname + "')");
         stmt_customer.executeUpdate("INSERT INTO chat_customer (username) VALUES ('" + username + "')");
+        stmt_customer.executeUpdate("INSERT INTO all_usernames (username) VALUES ('" + username + "')");
+
 
     	response.sendRedirect("Login.jsp");
     }

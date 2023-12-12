@@ -20,6 +20,7 @@
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();	
 		Statement stmt = con.createStatement();
+		
 	    
 		if (account_type == null || new_username.equals("") || new_password.equals("") || new_fname.equals("") || new_lname.equals("")) {
 			out.println("Empty Field Detected. Make sure all fields are filled in!");
@@ -31,7 +32,7 @@
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
 			out.println("Account Added!");
-			
+		
 			ps.executeUpdate();
 		} else {
 			PreparedStatement ps = con.prepareStatement("INSERT INTO customerrep(repusername, reppassword, firstname, lastname) VALUES (?, ?, ?, ?)");
@@ -40,13 +41,22 @@
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
-			out.println("Account Added!");
-			
-			ps.executeUpdate();
-		}
-
 		
+			ps.executeUpdate();
+
+		}	
+		
+		
+		PreparedStatement psChat = con.prepareStatement("INSERT IGNORE INTO chat_customer_rep(repusername) VALUES (?)");
+        psChat.setString(1, new_username);
+        psChat.executeUpdate();
+        
+        PreparedStatement psUsername = con.prepareStatement("INSERT INTO all_usernames(username) VALUES (?)");
+        psUsername.setString(1, new_username);
+        psUsername.executeUpdate();
+        
 		con.close();
+		out.println("Account Added!");
 		
 	} catch(Exception e){
 		out.println(e);

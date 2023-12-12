@@ -63,6 +63,7 @@ CREATE TABLE flight (
     arrival_airport_id CHAR(3) NOT NULL,
     arrival_time DATETIME NOT NULL,
     econonmy_rate FLOAT NOT NULL,
+    seats_remaining INT NOT NULL,
 foreign Key (airline_id) References ReservationSystem.airline (airline_id) ON DELETE CASCADE,
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
 foreign key (departure_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE,
@@ -72,21 +73,20 @@ primary key (flight_num, airline_id)
 
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
+	ticket_id INT AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
-    ticket_id VARCHAR(5) NOT NULL,
-    purchase_date DATE NOT NULL,
-    purchase_time TIME NOT NULL,
+    purchase_datetime DATETIME NOT NULL,
     total_fare FLOAT NOT NULL,
+    class VARCHAR(10) NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE,
-    PRIMARY KEY (username, ticket_id)
+    PRIMARY KEY (ticket_id)
 );
 
 CREATE TABLE ticket_flights(
-	ticket_id VARCHAR(5),
+	ticket_id INT,
     flight_num VARCHAR(5),
     airline_id CHAR(2),
-    seat_class VARCHAR(15) NOT NULL,
     seat_number INT NOT NULL,
     PRIMARY KEY (ticket_id, flight_num, airline_id),
     FOREIGN KEY(ticket_id) 
@@ -119,7 +119,7 @@ CREATE TABLE waitinglist (
         REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE,
     FOREIGN KEY (flight_num)
         REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE,
-    PRIMARY KEY (username , airline_id , aircraft_id , departure_date)
+    PRIMARY KEY (username , airline_id , flight_num)
 );
 
 DROP TABLE IF EXISTS all_usernames;
@@ -138,8 +138,8 @@ CREATE TABLE chat_message (
     sender_id VARCHAR(30) NOT NULL,
     text VARCHAR(255) NOT NULL,
     date_time_sent DATETIME NOT NULL,
-	responded CHAR(1) DEFAULT 'N',
-    FOREIGN KEY (sender_id) REFERENCES all_usernames (username) 
+        responded CHAR(1) DEFAULT 'N',
+    FOREIGN KEY (sender_id) REFERENCES all_usernames (username)
         ON DELETE CASCADE
 );
 
@@ -170,7 +170,6 @@ CREATE TABLE chat_association (
     FOREIGN KEY (customer_username) REFERENCES customer (username),
     FOREIGN KEY (rep_username) REFERENCES customerrep (repusername)
 );
-
 
 
 

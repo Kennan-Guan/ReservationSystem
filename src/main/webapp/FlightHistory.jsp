@@ -14,7 +14,7 @@
 		<!-- Need to add functionality to send user to either ladning page or TicketDetailsPage.jsp based on button clicked-->
 		
 		<% try {
-			String username = (String) session.getAttribute("username");
+			String username = (String) session.getAttribute("user");
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
@@ -26,10 +26,9 @@
                     	 "FROM tickets t " +
                     	 "JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
                     	 "JOIN flight f ON tf.flight_num = f.flight_num " +
-                    	 "WHERE f.departure_time < DATE_ADD(CURDATE(),INTERVAL 1 DAY) AND t.username ='" + username + "'";
+                    	 "WHERE t.username ='" + username + "'";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
-		
 		%>
 		
 		
@@ -45,9 +44,9 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("t.ticketID") %></td>
-					<td><%= result.getString("t.purchase_datetime") %></td>
-					<td><%= result.getString("t.total_fare") %></td>
+					<td><%= result.getInt("t.ticket_ID") %></td>
+					<td><%= result.getTimestamp("t.purchase_datetime") %></td>
+					<td><%= result.getFloat("t.total_fare") %></td>
 									
 				</tr>
 				
@@ -57,7 +56,6 @@
 			db.closeConnection(con);
 			%>
 		</table>
-		</form>
 	
 	<%} catch (Exception e) {
 			out.print(e);

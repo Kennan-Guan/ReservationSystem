@@ -10,7 +10,7 @@
 <body>
 <%@ page import ="java.sql.*" %>
 <%
-
+ 
 	try {
 		String ticketId = request.getParameter("ticketId");
 		String username = (String) session.getAttribute("username");

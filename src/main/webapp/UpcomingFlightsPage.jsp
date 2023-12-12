@@ -35,7 +35,6 @@
 		%>
 		
 		
-		
 		<table>
 			<tr>
 				<th> Ticket Number </th>

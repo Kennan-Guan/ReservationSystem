@@ -92,6 +92,9 @@
 	max takeoff time: <input type = "text" name = "maxTakeoff"/><br/>
 	min arrival time: <input type = "text" name = "minArrival"/><br/>
 	max arrival time: <input type = "text" name = "maxArrival"/><br/>
+	<form action="CustomerLandingPage.jsp" method="get">
+        <button type="submit">Return Home</button>
+    </form><br> 
 	<input type = "button" name = "Home" value = "Return Home"><br/>
 	<input type = "button" name = "Back" value = "Back"><br/>
 	<input type = "submit" value = "apply">

@@ -15,7 +15,7 @@
     </form><br>
 
     <!-- Reserve Flights Button -->
-    <form action="ReserveFlights.jsp" method="get">
+    <form action="FlightReservationPage.jsp" method="get">
         <button type="submit">Reserve Flights</button>
     </form><br>
 
@@ -30,7 +30,7 @@
     </form><br>
 
     <!-- View Upcoming Flights Button -->
-    <form action="UpcomingFlights.jsp" method="get">
+    <form action="UpcomingFlightsPage.jsp" method="get">
         <button type="submit">View Upcoming Flights</button>
     </form><br>
 

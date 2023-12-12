@@ -9,8 +9,10 @@
 	<body>
 		<h1>Flight Canceled!</h1>
 		<!-- Need to create JSP file to bring back to landing page -->
-		<form action = "GoHome.jsp" method = "POST">
-		<input type = "Submit" value = "Return Home">
-		</form>
+<br/>
+		<form action = "CustomerLandingPage.jsp" method = "POST">
+			<button type="submit">Return to Home Page</button>
+		
+		</form><br>
 	</body>
 </html>

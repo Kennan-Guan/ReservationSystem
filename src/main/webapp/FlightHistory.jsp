@@ -12,21 +12,21 @@
 	
 		<h1>Flight History</h1>
 		<!-- Need to add functionality to send user to either ladning page or TicketDetailsPage.jsp based on button clicked-->
-		<form action="FlightHistoryActionHandling.jsp" method="POST">
 		
 		<% try {
-	
+			String username = (String) session.getAttribute("username");
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
-
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("customerHistory");
 			//Make a SELECT query from the table specified by the 'customerHistory' parameter
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
+			String str = "SELECT t.ticket_id, t.purchase_datetime, t.total_fare " +
+                    	 "FROM tickets t " +
+                    	 "JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
+                    	 "JOIN flight f ON tf.flight_num = f.flight_num " +
+                    	 "WHERE f.departure_time < CURRENT_DATE AND t.username ='" + username + "'";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		
@@ -38,16 +38,16 @@
 			<tr>
 				<th> Ticket Number </th>
 				<th> Purchase Date </th>
-				<th> Purchase price </th>			
+				<th> Purchase Price </th>			
 				
 			</tr>
 			<%
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("Ticket Number") %></td>
-					<td><%= result.getString("Purchase Date") %></td>
-					<td><%= result.getString("Purchase Price") %></td>
+					<td><%= result.getString("t.ticketID") %></td>
+					<td><%= result.getString("t.purchase_datetime") %></td>
+					<td><%= result.getString("t.total_fare") %></td>
 									
 				</tr>
 				
@@ -62,10 +62,12 @@
 	<%} catch (Exception e) {
 			out.print(e);
 		}%>
-	<br/>
-	<input type = "button" name = "Home" value = "Return Home"><br/>
-	View Ticket Details: <input type = "text" name = "TicketDeets">
 	
+	<br/>
+		<form action = "CustomerLandingPage.jsp" method = "POST">
+			<button type="submit">Return to Home Page</button>
+		
+		</form><br>
 	
 	</body>
 </html>

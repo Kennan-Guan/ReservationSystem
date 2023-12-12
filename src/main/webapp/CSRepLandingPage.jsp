@@ -7,27 +7,54 @@
 	<title>CS Rep Homepage</title>
 	</head>
 	<body>
-		<h1>Select Action</h1>
+		<h2>Reservations</h2>
 		<!-- Need to create JSP file to lead CS Rep to next page based off of button clicked -->
 		<!-- Go to InputCustomerForResPage.jsp -->
-		<input type = "Button" name = "MakeReservation" value = "Make Flight Reservation"><br/>	
+		<form action = "CSRepMakeRes.jsp" method = "POST">
+       		Enter Customer's UserName: <input type="text" name="username"/> <br/>
+       		Airline IDs (please separate entries by a semicolon): <input type = "text" name = "airlineIDs" /><br/>
+			Flight Number (please separate entries by a semicolon): <input type = "text" name = "flightNums" /><br/>
+			Class (Note, there is a $100 premium for business class and a $200 premium for first class)<br/>
+			<select name="class" size=1>
+				<option value="economy">Economy Class</option>
+				<option value="business">Business Class</option>
+				<option value="first">First Class</option>
+			</select>&nbsp;<br>
+			<button type="submit">Make Flight Reservation</button>
+		</form><br>
 		<!--  Go to EditRes.jsp -->
-		<input type = "Button" name = "EditReservation" value = "Edit Flight Reservation"><br/>
+		<form action = "CSRepEditRes.jsp" method = "POST">
+			
+			<button type="submit">Edit Flight Reservation</button>
+		</form><br>
 		<!-- Go to CSRepChatPage.jsp -->
-    <form action="CSRepChatPage.jsp" method="POST"> <!-- Specify the action URL -->
-        <input type="submit" name="Chat" value="Customer Chats">
-    </form>
+		<h2>Chat</h2>
+	    <form action="CSRepChatPage.jsp" method="POST"> <!-- Specify the action URL -->
+	        <input type="submit" name="Chat" value="Customer Chats">
+	    </form>
+	    <h2>Manage</h2>
 		<!-- Go to ManageAircraftsPage.jsp -->
-		<input type = "Button" name = "ManageAircrafts" value = "Manage Aircrafts"><br/>
+		<form action = "CSRepManageAircrafts.jsp" method = "POST">
+			<button type="submit">Manage Aircrafts</button>
+		</form><br>
 		<!-- Go to ManageAirportsPage.jsp -->
-		<input type = "Button" name = "ManageAirports" value = "Manage Airports"><br/>
+		<form action = "CSRepManageAirports.jsp" method = "POST">
+			<button type="submit">Manage Airports</button>
+		</form><br>
 		<!-- Go to ManageFlights.jsp -->
-		<input type = "Button" name = "ManageFlights" value = "Manage Flights"><br/>
+		<form action = "CSRepManageFlights.jsp" method = "POST">
+			<button type="submit">Manage Flights</button>
+		</form><br>
 		<!-- Go To GetWaitList.jsp -->
-		<input type = "Button" name = "GetWaitingList" value = "Get Waiting List"><br/>
+		<h2>Information</h2>
+		<form action = "CSRepGetWaitList.jsp" method = "POST">
+			<button type="submit">Get Wait List</button>
+		</form><br>
 		<!-- Go to SubmitAirportForFlightsPage.jsp -->
-		<input type = "Button" name = "GetFlights" value = "Get Flights"><br/>
-<form action = "LogOut.jsp" method = "POST">
+		<form action = "CSRepGetFlights.jsp" method = "POST">
+			<button type="submit">Get Flights</button>
+		</form><br>
+		<form action = "LogOut.jsp" method = "POST">
 			<button type="submit">Logout</button>
 		</form><br>	
 	</body>

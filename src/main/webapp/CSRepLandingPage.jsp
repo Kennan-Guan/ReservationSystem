@@ -12,8 +12,8 @@
 		<!-- Go to InputCustomerForResPage.jsp -->
 		<form action = "CSRepMakeRes.jsp" method = "POST">
        		Enter Customer's UserName: <input type="text" name="username"/> <br/>
-       		Airline IDs (please separate entries by a semicolon): <input type = "text" name = "airlineIDs" /><br/>
-			Flight Number (please separate entries by a semicolon): <input type = "text" name = "flightNums" /><br/>
+       		Airline IDs: <input type = "text" name = "airlineIDs" /><br/>
+			Flight Number: <input type = "text" name = "flightNums" /><br/>
 			Class (Note: there is a $100 premium for business class and a $200 premium for first class):
 			<select name="class" size=1>
 				<option value="economy">Economy Class</option>
@@ -24,7 +24,14 @@
 		</form><br>
 		<!--  Go to EditRes.jsp -->
 		<form action = "CSRepEditRes.jsp" method = "POST">
-			
+			Enter Ticket Number: <input type = "text" name = "ticketNum" /><br/>
+			<label for="editType">What would you like to edit?</label>
+			<select name="editType" size=1>
+				<option value="airlineIDs">Airline</option>
+				<option value="flightNums">Flight</option>
+				<option value="flightClass">Seat Class</option>
+			</select>&nbsp;<br>
+			Input the New Information <input type = "text" name = "newInfo"><br/>
 			<button type="submit">Edit Flight Reservation</button>
 		</form><br>
 		<!-- Go to CSRepChatPage.jsp -->

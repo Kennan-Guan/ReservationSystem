@@ -15,6 +15,14 @@ CREATE TABLE aircraft (
     FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS aircraft_days;
+CREATE TABLE aircraft_days(
+	aircraft_id VARCHAR(5),
+    day_of_week VARCHAR(10),
+    FOREIGN KEY (aircraft_id) REFERENCES ReservationSystem.aircraft (aircraft_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (aircraft_id, day_of_week)
+);
+
 DROP TABLE IF EXISTS airport;
 CREATE TABLE airport (
     airport_id CHAR(3) PRIMARY KEY
@@ -78,11 +86,15 @@ CREATE TABLE tickets (
     purchase_datetime DATETIME NOT NULL,
     total_fare FLOAT NOT NULL,
     class VARCHAR(10) NOT NULL,
+    booking_fee FLOAT NOT NULL,
+    passenger_fname VARCHAR(30) NOT NULL,
+    passenger_lname VARCHAR(30) NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (ticket_id)
 );
 
+DROP TABLE IF EXISTS ticket_flights;
 CREATE TABLE ticket_flights(
 	ticket_id INT,
     flight_num VARCHAR(5),

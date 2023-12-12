@@ -62,7 +62,7 @@ CREATE TABLE flight (
     departure_time DATETIME NOT NULL,
     arrival_airport_id CHAR(3) NOT NULL,
     arrival_time DATETIME NOT NULL,
-    econonmy_rate FLOAT NOT NULL,
+    economy_rate FLOAT NOT NULL,
     seats_remaining INT NOT NULL,
 foreign Key (airline_id) References ReservationSystem.airline (airline_id) ON DELETE CASCADE,
 foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),

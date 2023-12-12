@@ -12,7 +12,7 @@ CREATE TABLE aircraft (
     aircraft_id VARCHAR(5) PRIMARY KEY,
     seats INTEGER NOT NULL,
     airline_id CHAR(2),
-    FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id) ON DELETE SET NULL
+    FOREIGN KEY (airline_id) REFERENCES ReservationSystem.airline (airline_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS airport;
@@ -64,10 +64,10 @@ CREATE TABLE flight (
     arrival_time DATETIME NOT NULL,
     economy_rate FLOAT NOT NULL,
     seats_remaining INT NOT NULL,
-foreign Key (airline_id) References ReservationSystem.airline (airline_id) ON DELETE CASCADE,
-foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id),
-foreign key (departure_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE,
-foreign key (arrival_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE,
+foreign Key (airline_id) References ReservationSystem.airline (airline_id) ON DELETE CASCADE ON UPDATE CASCADE,
+foreign Key (aircraft_id) References ReservationSystem.aircraft (aircraft_id) ON UPDATE CASCADE,
+foreign key (departure_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
+foreign key (arrival_airport_id) References ReservationSystem.airport(airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
 primary key (flight_num, airline_id)
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE tickets (
     total_fare FLOAT NOT NULL,
     class VARCHAR(10) NOT NULL,
     FOREIGN KEY (username)
-        REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE,
+        REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (ticket_id)
 );
 
@@ -90,11 +90,11 @@ CREATE TABLE ticket_flights(
     seat_number INT NOT NULL,
     PRIMARY KEY (ticket_id, flight_num, airline_id),
     FOREIGN KEY(ticket_id) 
-		REFERENCES ReservationSystem.tickets (ticket_id) ON DELETE CASCADE,
-    FOREIGN KEY (airline_id)
-        REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE,
-    FOREIGN KEY (flight_num)
-        REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE
+		REFERENCES ReservationSystem.tickets (ticket_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (airline_id) 
+        REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (flight_num) 
+        REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS operates_in;
@@ -103,9 +103,9 @@ CREATE TABLE operates_in (
     airline_id CHAR(2),
     PRIMARY KEY (airport_id , airline_id),
     FOREIGN KEY (airport_id)
-        REFERENCES airport (airport_id) ON DELETE CASCADE,
+        REFERENCES airport (airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (airline_id)
-        REFERENCES airline (airline_id) ON DELETE CASCADE
+        REFERENCES airline (airline_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS waitinglist;
@@ -114,11 +114,11 @@ CREATE TABLE waitinglist (
     airline_id VARCHAR(2) NOT NULL,
     flight_num VARCHAR(5) NOT NULL,
     FOREIGN KEY (username)
-        REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE,
+        REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (airline_id)
-        REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE,
+        REFERENCES ReservationSystem.flight (airline_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (flight_num)
-        REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE,
+        REFERENCES ReservationSystem.flight (flight_num) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (username , airline_id , flight_num)
 );
 
@@ -140,7 +140,7 @@ CREATE TABLE chat_message (
     date_time_sent DATETIME NOT NULL,
         responded CHAR(1) DEFAULT 'N',
     FOREIGN KEY (sender_id) REFERENCES all_usernames (username)
-        ON DELETE CASCADE
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -151,7 +151,7 @@ CREATE TABLE chat_customer (
     username VARCHAR(30) NOT NULL,
     PRIMARY KEY (username),
     FOREIGN KEY (username)
-        REFERENCES customer (username)
+        REFERENCES customer (username) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS chat_customer_rep;
@@ -159,7 +159,7 @@ CREATE TABLE chat_customer_rep (
     repusername VARCHAR(30) NOT NULL,
     PRIMARY KEY (repusername),
     FOREIGN KEY (repusername)
-        REFERENCES customerrep (repusername)
+        REFERENCES customerrep (repusername) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS chat_association;
@@ -167,8 +167,8 @@ CREATE TABLE chat_association (
     chat_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_username VARCHAR(30) NOT NULL,
     rep_username VARCHAR(30) NOT NULL,
-    FOREIGN KEY (customer_username) REFERENCES customer (username),
-    FOREIGN KEY (rep_username) REFERENCES customerrep (repusername)
+    FOREIGN KEY (customer_username) REFERENCES customer (username) ON UPDATE CASCADE,
+    FOREIGN KEY (rep_username) REFERENCES customerrep (repusername) ON UPDATE CASCADE
 );
 
 

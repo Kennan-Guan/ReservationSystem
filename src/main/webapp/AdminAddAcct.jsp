@@ -41,22 +41,23 @@
 			ps.setString(2, new_password);
 			ps.setString(3, new_fname);
 			ps.setString(4, new_lname);
-		
 			ps.executeUpdate();
+			
+			ps = con.prepareStatement("INSERT IGNORE INTO chat_customer_rep(repusername) VALUES (?)");
+	        ps.setString(1, new_username);
+	        ps.executeUpdate();
+	        
+	        ps = con.prepareStatement("INSERT INTO all_usernames(username) VALUES (?)");
+	        ps.setString(1, new_username);
+	        ps.executeUpdate(); 
+			
+			out.println("Account Added!");
 
 		}	
 		
-		
-		PreparedStatement psChat = con.prepareStatement("INSERT IGNORE INTO chat_customer_rep(repusername) VALUES (?)");
-        psChat.setString(1, new_username);
-        psChat.executeUpdate();
-        
-        PreparedStatement psUsername = con.prepareStatement("INSERT INTO all_usernames(username) VALUES (?)");
-        psUsername.setString(1, new_username);
-        psUsername.executeUpdate();
         
 		con.close();
-		out.println("Account Added!");
+		
 		
 	} catch(Exception e){
 		out.println(e);

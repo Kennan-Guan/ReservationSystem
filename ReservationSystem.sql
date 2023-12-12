@@ -86,7 +86,7 @@ CREATE TABLE tickets (
     purchase_datetime DATETIME NOT NULL,
     total_fare FLOAT NOT NULL,
     class VARCHAR(10) NOT NULL,
-    booking_fee FLOAT NOT NULL,
+    booking_fee FLOAT NOT NULL DEFAULT 10.00,
     passenger_fname VARCHAR(30) NOT NULL,
     passenger_lname VARCHAR(30) NOT NULL,
     FOREIGN KEY (username)

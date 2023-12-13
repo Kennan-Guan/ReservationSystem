@@ -29,7 +29,6 @@
 		ArrayList<String> updates2 = new ArrayList<String>();
 		
 		
-		int n = 3;
 		LocalDate date = LocalDate.parse(str_date);
 		LocalDate min_date;
 		LocalDate max_date;
@@ -132,7 +131,7 @@
 	                "_dept_airport = NULL, f" + Integer.toString(j) + "_dept_time = NULL, f" + Integer.toString(j) + 
 	                "_arr_airport = NULL, f"  +Integer.toString(j) + "_arr_time = NULL, f" + Integer.toString(j) + 
 	                "_seats_left = NULL, f" + Integer.toString(j) + "_econ_rate = 0," + " f" + Integer.toString(j) + 
-	                "_airline = NULL, ";
+	                "_airline = '', ";
 	                temp_string = temp_string + inner_temp_string;
 	            }
 	            temp_string = temp_string.substring(0, temp_string.length() - 2);
@@ -140,8 +139,13 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length\n" + //
-	                "FROM ( SELECT DISTINCT *, ";
+	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        for (int i = 1; i <= n + 1; i++){
+	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
+	        }
+	        final_query = final_query.substring(0, final_query.length() - 1);
+	        final_query = final_query + ") AS 'Airlines' ";
+	        final_query = final_query + "FROM ( SELECT DISTINCT *, ";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) +"_econ_rate +";
 	        }
@@ -246,7 +250,7 @@
 	                "_dept_airport = NULL, f" + Integer.toString(j) + "_dept_time = NULL, f" + Integer.toString(j) + 
 	                "_arr_airport = NULL, f"  +Integer.toString(j) + "_arr_time = NULL, f" + Integer.toString(j) + 
 	                "_seats_left = NULL, f" + Integer.toString(j) + "_econ_rate = 0," + " f" + Integer.toString(j) + 
-	                "_airline = NULL, ";
+	                "_airline = '', ";
 	                temp_string = temp_string + inner_temp_string;
 	            }
 	            temp_string = temp_string.substring(0, temp_string.length() - 2);
@@ -254,8 +258,13 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length\n" + //
-	                "FROM ( SELECT DISTINCT *, ";
+	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        for (int i = 1; i <= n + 1; i++){
+	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
+	        }
+	        final_query = final_query.substring(0, final_query.length() - 1);
+	        final_query = final_query + ") AS 'Airlines' ";
+	        final_query = final_query + "FROM ( SELECT DISTINCT *, ";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) +"_econ_rate +";
 	        }
@@ -366,7 +375,7 @@
 	                "_dept_airport = NULL, f" + Integer.toString(j) + "_dept_time = NULL, f" + Integer.toString(j) + 
 	                "_arr_airport = NULL, f"  +Integer.toString(j) + "_arr_time = NULL, f" + Integer.toString(j) + 
 	                "_seats_left = NULL, f" + Integer.toString(j) + "_econ_rate = 0," + " f" + Integer.toString(j) + 
-	                "_airline = NULL, ";
+	                "_airline = '', ";
 	                temp_string = temp_string + inner_temp_string;
 	            }
 	            temp_string = temp_string.substring(0, temp_string.length() - 2);
@@ -374,8 +383,13 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length\n" + //
-	                "FROM ( SELECT DISTINCT *, ";
+	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        for (int i = 1; i <= n + 1; i++){
+	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
+	        }
+	        final_query = final_query.substring(0, final_query.length() - 1);
+	        final_query = final_query + ") AS 'Airlines' ";
+	        final_query = final_query + "FROM ( SELECT DISTINCT *, ";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) +"_econ_rate +";
 	        }
@@ -482,7 +496,7 @@
 	                "_dept_airport = NULL, f" + Integer.toString(j) + "_dept_time = NULL, f" + Integer.toString(j) + 
 	                "_arr_airport = NULL, f"  +Integer.toString(j) + "_arr_time = NULL, f" + Integer.toString(j) + 
 	                "_seats_left = NULL, f" + Integer.toString(j) + "_econ_rate = 0," + " f" + Integer.toString(j) + 
-	                "_airline = NULL, ";
+	                "_airline = '', ";
 	                temp_string = temp_string + inner_temp_string;
 	            }
 	            temp_string = temp_string.substring(0, temp_string.length() - 2);
@@ -490,8 +504,13 @@
 	            updates2.add(temp_string);
 	        }
 	        
-	        String final_query2 = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length" + 
-	                " FROM ( SELECT DISTINCT *, ";
+	        String final_query2 = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        for (int i = 1; i <= n + 1; i++){
+	            final_query2 = final_query2 + "f" + Integer.toString(i) + "_airline, ' ',";
+	        }
+	        final_query2 = final_query2.substring(0, final_query2.length() - 1);
+	        final_query2 = final_query2 + ") AS 'Airlines' ";
+	        final_query2 = final_query2 + "FROM ( SELECT DISTINCT *, ";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query2 = final_query2 + "f" + Integer.toString(i) +"_econ_rate +";
 	        }
@@ -602,7 +621,7 @@
 	                "_dept_airport = NULL, f" + Integer.toString(j) + "_dept_time = NULL, f" + Integer.toString(j) + 
 	                "_arr_airport = NULL, f"  +Integer.toString(j) + "_arr_time = NULL, f" + Integer.toString(j) + 
 	                "_seats_left = NULL, f" + Integer.toString(j) + "_econ_rate = 0," + " f" + Integer.toString(j) + 
-	                "_airline = NULL, ";
+	                "_airline = '', ";
 	                temp_string = temp_string + inner_temp_string;
 	            }
 	            temp_string = temp_string.substring(0, temp_string.length() - 2);
@@ -610,8 +629,13 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length\n" + //
-	                "FROM ( SELECT DISTINCT *, ";
+	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        for (int i = 1; i <= n + 1; i++){
+	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
+	        }
+	        final_query = final_query.substring(0, final_query.length() - 1);
+	        final_query = final_query + ") AS 'Airlines' ";
+	        final_query = final_query + "FROM ( SELECT DISTINCT *, ";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) +"_econ_rate +";
 	        }
@@ -718,7 +742,7 @@
 	                "_dept_airport = NULL, f" + Integer.toString(j) + "_dept_time = NULL, f" + Integer.toString(j) + 
 	                "_arr_airport = NULL, f"  +Integer.toString(j) + "_arr_time = NULL, f" + Integer.toString(j) + 
 	                "_seats_left = NULL, f" + Integer.toString(j) + "_econ_rate = 0," + " f" + Integer.toString(j) + 
-	                "_airline = NULL, ";
+	                "_airline = '', ";
 	                temp_string = temp_string + inner_temp_string;
 	            }
 	            temp_string = temp_string.substring(0, temp_string.length() - 2);
@@ -726,8 +750,13 @@
 	            updates2.add(temp_string);
 	        }
 	        
-	        String final_query2 = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length" + 
-	                " FROM ( SELECT DISTINCT *, ";
+	        String final_query2 = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        for (int i = 1; i <= n + 1; i++){
+	            final_query2 = final_query2 + "f" + Integer.toString(i) + "_airline, ' ',";
+	        }
+	        final_query2 = final_query2.substring(0, final_query2.length() - 1);
+	        final_query2 = final_query2 + ") AS 'Airlines' ";
+	        final_query2 = final_query2 + "FROM ( SELECT DISTINCT *, ";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query2 = final_query2 + "f" + Integer.toString(i) +"_econ_rate +";
 	        }
@@ -769,8 +798,6 @@
 		result = stmt.executeQuery(str);
 		
 		
-		
-		// NEED TO ADD TABLE, AND IF STATEMENT FOR SECOND TABLE IF TWO WAY SELECTED
 		
 		ResultSetMetaData metaData = result.getMetaData();
 		int columnCount = metaData.getColumnCount();

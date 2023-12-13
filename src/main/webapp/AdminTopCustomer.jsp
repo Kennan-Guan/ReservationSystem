@@ -40,8 +40,8 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("First Name") %></td>
-					<td><%= result.getString("Last Name") %></td>
+					<td><%= result.getString("c.firstname") %></td>
+					<td><%= result.getString("c.lastname") %></td>
 					<td><%= result.getFloat("total_revenue")%></td>
 									
 				</tr>

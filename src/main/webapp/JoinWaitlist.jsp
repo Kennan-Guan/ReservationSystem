@@ -31,9 +31,9 @@
 		int success = stmt.executeUpdate();
 	
 			if (success > 0) {
-%>
-        <p>You have been added to the waitlist for the flight (Airline ID: <%= airlineId %>, Flight Number: <%= flightNum %>). You will be notified if a seat becomes available.</p>
-<%	
+
+        out.println("You have been added to the waitlist for the flight (Airline ID:" + airlineId + ", Flight Number: " + flightNum + ". You will be notified if a seat becomes available.");
+	
 			}
 		} db.closeConnection(con);
     } catch (Exception e) {

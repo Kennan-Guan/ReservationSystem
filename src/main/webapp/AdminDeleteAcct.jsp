@@ -24,6 +24,7 @@
 			stmt.executeUpdate("DELETE FROM customer WHERE username='" + username + "'");
 			out.print("Deletion Succeeded");
 		} else if (account_type.equals("customer representative")) {
+	        stmt.executeUpdate("DELETE FROM chat_association WHERE rep_username='" + username + "'");
 			stmt.executeUpdate("DELETE FROM customerrep WHERE repusername='" + username + "'");
 			stmt.executeUpdate("DELETE FROM chat_customer_rep WHERE repusername='" + username + "'");
 			stmt.executeUpdate("DELETE FROM all_usernames WHERE username='" + username + "'");

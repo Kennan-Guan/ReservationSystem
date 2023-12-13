@@ -14,12 +14,12 @@
 <%
     try {
     
-    String airlineIds = request.getParameter(airlineIDs);
+    String airlineIds = request.getParameter(airlineIds);
     String flightNums = request.getParameter(flightNums);
     String flightClass = request.getParameter(flightClass);
   
     //Get the database connection
-	ApplicationDB db = new ApplicationDB();	
+	ApplicationDB db = new ApplicationDB();
 	Connection con = db.getConnection();		
     
     if(airlineIds.isEmpty() || flightNums.isEmpty() || flightClass.isEmpty()){
@@ -36,52 +36,90 @@
         	<%
         } else {
         	 String str = "INSERT INTO tickets (airline_id, flight_num, flightClass) VALUES (?, ?, ?)";
-             try (PreparedStatement stmt = con.prepareStatement(str)) {
+        	 String str2=  "UPDATE flight SET seats_remaining = seats_remaining - 1 WHERE airline_id = ? AND flight_num = ? and seats_remaining > 0";
+             try (PreparedStatement stmt = con.prepareStatement(str);
+            	  PreparedStatement stmt2 = con.prepareStatement(str2)) {
+         
                  for (int i = 0; i < airlineIdsArray.length; i++) {
-                     stmt.setString(1, airlineIdsArray[i].trim());
-                     stmt.setString(2, flightNumsArray[i].trim());
-                     stmt.setString(3, flightClass);
-
-                     stmt.addBatch();
-                 }
-
-                 int[] addRows = stmt.executeBatch();
-
-                 // Check if all rows were inserted successfully
-                 boolean allInserted = true;
-                 for (int row : addRows) {
-                     if (row <= 0) {
-                         allInserted = false;
-                         break;
+                     String airlineId = airlineIdsArray[i].trim();
+                     String flightNum = flightNumsArray[i].trim();
+					 
+                     // Check if there are seats available
+                     String checkSeats = "SELECT seats_remaining FROM flight WHERE airline_id = ? AND flight_num = ?";
+                     try (PreparedStatement checkSeatsStmt = con.prepareStatement(checkSeats)){
+                    	 checkSeatsStmt.setString(1, airlineId);
+                    	 checkSeatsStmt.setString(2, flightNum);
+                    	 ResultSet result = checkSeatsStmt.executeQuery();
+                    	 
+                    	 // If seats available, make reservation and update seats_remaining
+                    	 if(result.next() && result.getInt("seats_remaining") > 0){
+                    		 stmt.setString(1, airlineId);
+                    		 stmt.setString(2, flightNum);
+                    		 stmt.setString(3, flightClass);
+                    		 stmt.addBatch();
+                    		 
+                    		 stmt2.setString(1, airlineId);
+                    		 stmt2.setString(2, flightNum);
+                    		 stmt2.addBatch();
+                    	 } else {
+                    		 // Seats not available, send to JoinWaitlist.jsp          		 
+%>
+                             <p>The flight you requested (Airline ID: <%= airlineId %>, Flight Number: <%= flightNum %>) is currently full.</p>
+                             <form action="JoinWaitlist.jsp" method="POST">
+                                 <input type="hidden" name="airlineId" value="<%= airlineId %>">
+                                 <input type="hidden" name="flightNum" value="<%= flightNum %>">
+                                 <input type="submit" value="Join Waitlist">
+                             </form>
+                             
+                             <form action = "CustomerLandingPage.jsp" method = "POST">
+							<button type="submit">Return to Home Page</button>
+							</form>
+<%
+                    	 }
                      }
                  }
 
-                 if (allInserted) {
+                 int[] addRows = stmt.executeBatch();
+                 int[] updateRows = stmt2.executeBatch();
+
+                 // Check if all rows were inserted successfully
+                 boolean inserted = true;
+                 boolean updated = true;
+                 for (int row : addRows) {
+                     if (row <= 0) {
+                         inserted = false;
+                         break;
+                     }
+                 }
+                 for (int row : updateRows){
+                	 if (row <= 0){
+                		 updated = false;
+                		 break;
+                	 }
+                 }
+
+                 if (inserted && updated) {
 %>
                      <p>Tickets reserved successfully!</p>
 <%
                  } else {
 %>
                      <p>Failed to reserve one or more tickets. Please check your input and try again.</p>
-<%
-                 }
-             } db.closeConnection(con);
+
+                 <%}
+             }
         } 
-        
+    } db.closeConnection(con)
+    } catch (Exception e) {
+		out.print(e); %>
+	
+       
 		<br/>
 		<form action = "CustomerLandingPage.jsp" method = "POST">
 			<button type="submit">Return to Home Page</button>
 		
 		
 		</form><br>
-		</form>
-        	
-        } 
-    } catch (Exception e){
-		out.print(e);
-	}
-
-%>	
 
 </body>
 </html> 

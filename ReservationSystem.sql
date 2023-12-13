@@ -125,6 +125,7 @@ CREATE TABLE waitinglist (
     username VARCHAR(30) NOT NULL,
     airline_id VARCHAR(2) NOT NULL,
     flight_num VARCHAR(5) NOT NULL,
+    waitlistAlert BOOLEAN(0) NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (airline_id)

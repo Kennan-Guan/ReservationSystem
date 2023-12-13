@@ -826,7 +826,7 @@
    <% } %>
 </tbody>
 </table>
-
+<form action="FlightResults.jsp" method="POST">
 Sort By: <input type = "radio" id = "price" name = "sort1" value = "Price">
 	<label for="price">Price</label> 
 	<input type = "radio" id = "takeoff" name = "sort1" value = "Take off time">
@@ -891,8 +891,15 @@ Sort By: <input type = "radio" id = "price" name = "sort1" value = "Price">
 	max takeoff time: <input type = "text" name = "maxTakeoff2"/><br/>
 	min arrival time: <input type = "text" name = "minArrival2"/><br/>
 	max arrival time: <input type = "text" name = "maxArrival2"/><br/>
+	
+    <input type="hidden" name="str" value="<%= str %>">
+    <input type="hidden" name="str2" value="<%= str2 %>">
+    <input type="hidden" name="twoWay" value="<%= twoWay %>">
+    <input type="submit" value="Filter">
+    </form>
     <%
-        } 
+        }     
+	
 %>
 
 <%

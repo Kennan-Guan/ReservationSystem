@@ -15,6 +15,9 @@
 		, go back to BrowseFlights.jsp, or go to CustomerLandingPage.jsp --> 
 		
 		<% try {
+			String str = request.getParameter("str");
+			String str2 = request.getParameter("str2");
+			String twoWay = request.getParameter("twoWay");
 			//Set up variables to store userinputs for first sort, departure sort
 			String sort1 = request.getParameter("sort1");
 			String minPrice1 = request.getParameter("minprice1");

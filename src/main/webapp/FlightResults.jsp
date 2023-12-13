@@ -12,22 +12,114 @@
 	
 		<h1>Flights</h1>
 		<!-- Need to add functionality to filter results (which would return to this page but with a different set of query results displayed)
-		, go back to BrowseFlights.jsp, or go to CustomerLandingPage.jsp -->
-		<form action="FlightResActionHandling.jsp" method="POST"> 
+		, go back to BrowseFlights.jsp, or go to CustomerLandingPage.jsp --> 
 		
 		<% try {
-	
+			//Set up variables to store userinputs for first sort, departure sort
+			String sort1 = request.getParameter("sort1");
+			String minPrice1 = request.getParameter("minprice1");
+			String maxPrice1 = request.getParameter("maxprice1");
+			String maxStops1 = request.getParameter("maxstops1");
+			String airline1 = request.getParameter("airline1");
+			String minTakeoff1 = request.getParameter("minTakeoff1");
+			String maxTakeoff1 = request.getParameter("maxTakeoff1");
+			String minArrival1 = request.getParameter("minArrival1");
+			String maxArrival1 = request.getParameter("maxArrival1");
+			
+			//Set up variables to store userinputs for second sort, arrival sort
+			String sort2 = request.getParameter("sort2");
+			String minPrice2 = request.getParameter("minprice2");
+			String maxPrice2 = request.getParameter("maxprice2");
+			String maxStops2 = request.getParameter("maxstops2");
+			String airline2 = request.getParameter("airline2");
+			String minTakeoff2 = request.getParameter("minTakeoff2");
+			String maxTakeoff2 = request.getParameter("maxTakeoff2");
+			String minArrival2 = request.getParameter("minArrival2");
+			String maxArrival2 = request.getParameter("maxArrival2");
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Get the selected filters
-			String entity = request.getParameter("flightCrit");
-			//Make a SELECT query from the table specified by the 'flightCrit' parameter
-			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
-			String str = "SELECT  FROM " + entity;
+			//Need to add functionality to store and accept query results as parameter
+			String entity = request.getParameter("resultsQuery");
+			String query = "SELECT * FROM resultsQuery WHERE 1=1";
+			
+			// IF statements to process the first filters
+			if (minPrice1 != null && !minPrice1.isEmpty()){
+				query += " AND resultsQuery.economy_rate >= '" + minPrice1 + "'"; // Table name and attributes are PLACEHOLDERS
+			}
+			
+			if (maxPrice1 != null && !maxPrice1.isEmpty()){
+				query += " AND resultsQuery.economy_rate <= '" + maxPrice1 + "'";
+			}
+			
+			if (maxStops1 != null && !maxStops1.isEmpty()){
+				query += " AND resultsQuery.maxStops <= '" + maxStops1 + "'";
+			}
+			
+			if (airline1 != null && !airline1.isEmpty()){
+				query += " AND resultsQuery.airline == '" + airline1 + "'";
+			}
+			
+			if (minTakeoff1 != null && !minTakeoff1.isEmpty()){
+				query += " AND resultsQuery.departure_time >= '" + minTakeoff1 + "'";
+			}
+			
+			if (maxTakeoff1 != null && !maxTakeoff1.isEmpty()){
+				query += " AND resultsQuery.departure_time <= '" + maxTakeoff1 + "'";
+			}
+			
+			if (minArrival1 != null && !minArrival1.isEmpty()){
+				query += " AND resultsQuery.arrival_time >= '" + minArrival1 + "'";
+			}
+			
+			if (maxArrival1 != null && !maxArrival1.isEmpty()){
+				query += " AND resultsQuery.arrival_time <= '" + maxArrival1 + "'";
+			}
+			
+			if (sort1 != null && !sort1.isEmpty()){
+				query += " ORDER BY '" + sort1 + "' ASC";
+			}
+			
+			// IF statements to process the second filters
+			if (minPrice2 != null && !minPrice2.isEmpty()){
+				query += " AND resultsQuery.economy_rate >= '" + minPrice2 + "'"; // Table name and attributes are PLACEHOLDERS
+			}
+			
+			if (maxPrice2 != null && !maxPrice2.isEmpty()){
+				query += " AND resultsQuery.economy_rate <= '" + maxPrice2 + "'";
+			}
+			
+			if (maxStops2 != null && !maxStops2.isEmpty()){
+				query += " AND resultsQuery.maxStops <= '" + maxStops2 + "'";
+			}
+			
+			if (airline2 != null && !airline2.isEmpty()){
+				query += " AND resultsQuery.airline == '" + airline2 + "'";
+			}
+			
+			if (minTakeoff2 != null && !minTakeoff2.isEmpty()){
+				query += " AND resultsQuery.departure_time >= '" + minTakeoff2 + "'";
+			}
+			
+			if (maxTakeoff2 != null && !maxTakeoff2.isEmpty()){
+				query += " AND resultsQuery.departure_time <= '" + maxTakeoff2 + "'";
+			}
+			
+			if (minArrival2 != null && !minArrival2.isEmpty()){
+				query += " AND resultsQuery.arrival_time >= '" + minArrival2 + "'";
+			}
+			
+			if (maxArrival2 != null && !maxArrival2.isEmpty()){
+				query += " AND resultsQuery.arrival_time <= '" + maxArrival2 + "'";
+			}
+			
+			if (sort2 != null && !sort2.isEmpty()){
+				query += " ORDER BY '" + sort2 + "' ASC";
+			}
+			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		

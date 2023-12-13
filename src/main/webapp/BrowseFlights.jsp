@@ -21,7 +21,8 @@
 		<label for="2wfd">2 Way Flex Date</label><br/>
 		Departing Airport Code: <input type="text" name="DepartingCode"/> <br/>
 		Arriving Airport Code: <input type="text" name="ArrivingCode"/> <br/>
-		Date (mm/dd/yyyy format): <input type = "text" name = "FlightDate"/><br/>		
+		Date (mm/dd/yyyy format): <input type = "text" name = "FlightDate"/><br/>
+		(If 2 way flight) Second Date (mm/dd/yyyy format): <input type = "text" name = "FlightDate2"/><br/>			
 		<input type = "Submit" value = "See Flights"><br/>
 		<input type = "Button" name = "GoBack" value = "Go Back">
 		</form>

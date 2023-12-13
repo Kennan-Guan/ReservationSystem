@@ -54,7 +54,9 @@
 		</form><br>
 		<!-- Go To GetWaitList.jsp -->
 		<h2>Information</h2>
-		<form action = "CSRepGetWaitList.jsp" method = "POST">
+		<form action = "CSRepGetWaitList.jsp" method = "POST">		
+		    Enter Airline ID: <input type="text" name="airlineID"/> <br/>
+		    Enter Flight Number: <input type="text" name="flightNum"/> <br/>
 			<button type="submit">Get Wait List</button>
 		</form><br>
 		<!-- Go to SubmitAirportForFlightsPage.jsp -->

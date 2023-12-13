@@ -764,6 +764,7 @@
 		
 		
 		ResultSet result = stmt.executeQuery(str);
+		
 		ResultSet result2;
 		
 		if (twoWay){
@@ -778,8 +779,33 @@
 		
 		// NEED TO ADD TABLE, AND IF STATEMENT FOR SECOND TABLE IF TWO WAY SELECTED
 		
-		
-		
+		ResultSetMetaData metaData = result.getMetaData();
+		int columnCount = metaData.getColumnCount();
+
+%>
+
+
+<table>
+<thead>
+   <tr>
+      <% for (int i = 1; i <= columnCount; i++) { %>
+         <th><%= metaData.getColumnName(i) %></th>
+      <% } %>
+   </tr>
+</thead>
+<tbody>
+   <% while (result.next()) { %>
+      <tr>
+         <% for (int i = 1; i <= columnCount; i++) { %>
+            <td><%= result.getString(i) %></td>
+         <% } %>
+      </tr>
+   <% } %>
+</tbody>
+</table>
+
+
+<%
 		
 		
 		con.close();

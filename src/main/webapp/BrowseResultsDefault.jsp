@@ -45,6 +45,8 @@
 		Statement inter_stmt = con.createStatement();
 		Statement stmt = con.createStatement();
 		Statement stmt2 = con.createStatement();
+		ResultSet result;
+		ResultSet result2;
 		
 	    
 		// check for empty inputs
@@ -763,19 +765,9 @@
 		}
 		
 		
-		ResultSet result = stmt.executeQuery(str);
+		result = stmt.executeQuery(str);
 		
-		ResultSet result2;
 		
-		if (twoWay){
-			inter_stmt.executeQuery("DROP TABLE IF EXISTS flight_options2;");
-			inter_stmt.executeQuery(create_table_string2);
-			inter_stmt.executeQuery(alter_String2);
-			for (String update : updates2){
-				inter_stmt.executeQuery(update);
-			}
-			result2 = stmt2.executeQuery(str2);
-		}
 		
 		// NEED TO ADD TABLE, AND IF STATEMENT FOR SECOND TABLE IF TWO WAY SELECTED
 		
@@ -804,6 +796,40 @@
 </tbody>
 </table>
 
+
+<%
+        if (twoWay) {
+        	inter_stmt.executeQuery("DROP TABLE IF EXISTS flight_options2;");
+			inter_stmt.executeQuery(create_table_string2);
+			inter_stmt.executeQuery(alter_String2);
+			for (String update : updates2){
+				inter_stmt.executeQuery(update);
+			}
+			result2 = stmt2.executeQuery(str2);
+        	ResultSetMetaData metaData2 = result2.getMetaData();
+    		int columnCount2 = metaData2.getColumnCount();
+    %>
+        <table>
+			<thead>
+			   <tr>
+			      <% for (int i = 1; i <= columnCount2; i++) { %>
+			         <th><%= metaData2.getColumnName(i) %></th>
+			      <% } %>
+			   </tr>
+			</thead>
+			<tbody>
+			   <% while (result2.next()) { %>
+			      <tr>
+			         <% for (int i = 1; i <= columnCount2; i++) { %>
+			            <td><%= result2.getString(i) %></td>
+			         <% } %>
+			      </tr>
+			   <% } %>
+			</tbody>
+			</table>
+    <%
+        } 
+%>
 
 <%
 		

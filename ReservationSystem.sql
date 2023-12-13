@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS ReservationSystem;
 USE ReservationSystem;
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 DROP TABLE IF EXISTS airline;
 CREATE TABLE airline (
     airline_id CHAR(2) NOT NULL,
@@ -125,7 +127,7 @@ CREATE TABLE waitinglist (
     username VARCHAR(30) NOT NULL,
     airline_id VARCHAR(2) NOT NULL,
     flight_num VARCHAR(5) NOT NULL,
-    waitlistAlert BOOLEAN(0) NOT NULL,
+    waitlistAlert BOOLEAN NOT NULL,
     FOREIGN KEY (username)
         REFERENCES ReservationSystem.customer (username) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (airline_id)

@@ -26,27 +26,36 @@
 			ResultSet rs1 = stmt.executeQuery("SELECT seats_remaining FROM flight WHERE flight_num='" + flight_num + "' AND airline_id='" + airline_id + "'");
 			rs1.next();
 			int seats_remaining = rs1.getInt("seats_remaining");
+			
 			if (seats_remaining > 0) { 
-				ResultSet rs2 = stmt.executeQuery("SELECT economy_rate, seats_remaining FROM flight WHERE flight_num='" + flight_num + "' AND airline_id='" + airline_id + "'"); //need attribute name for seats available
+				ResultSet rs2 = stmt.executeQuery("SELECT firstname, lastname FROM customer WHERE username='" + username +"'");
 				rs2.next();
-				PreparedStatement ps = con.prepareStatement("INSERT INTO tickets(username, purchase_datetime, total_fare, class) VALUES (?, ?, ?, ?)");
+				String firstname = rs2.getString("firstname");
+				String lastname = rs2.getString("lastname");
+				ResultSet rs3 = stmt.executeQuery("SELECT economy_rate, seats_remaining FROM flight WHERE flight_num='" + flight_num + "' AND airline_id='" + airline_id + "'"); //need attribute name for seats available
+				rs3.next();
+				float total_rate = rs3.getFloat("economy_rate");
 						
+				PreparedStatement ps = con.prepareStatement("INSERT INTO tickets(username, purchase_datetime, total_fare, class, passenger_fname, passenger_lname) " + 
+															"VALUES (?, ?, ?, ?, ?, ?)");		
 				ps.setString(1, username);
 				ps.setTimestamp(2, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
-				float total_rate = rs2.getFloat("economy_rate");
-				if (seat_class.equals("business")){ 
+				if (seat_class.equals("Business")){ 
 					total_rate += 100;
-				} else if (seat_class.equals("first")){ 
+				} else if (seat_class.equals("First")){ 
 					total_rate += 200;
 				}
 				ps.setFloat(3, total_rate);
 				ps.setString(4, seat_class);
+				ps.setString(5, firstname);
+				ps.setString(6, lastname);
 				ps.executeUpdate();
 			
 			
-				ResultSet rs3 = stmt.executeQuery("SELECT ticket_id FROM tickets WHERE username='" + username + "' ORDER BY ticket_id DESC");
-				rs3.next();
-				int ticket_id = rs3.getInt("ticket_id");
+				ResultSet rs4 = stmt.executeQuery("SELECT ticket_id FROM tickets WHERE username='" + username + "' ORDER BY ticket_id DESC");
+				rs4.next();
+				int ticket_id = rs4.getInt("ticket_id");
+				
 				ps = con.prepareStatement("INSERT INTO ticket_flights(ticket_id, flight_num, airline_id, seat_number) VALUES (?, ?, ?, ?)");
 				ps.setInt(1, ticket_id);
 				ps.setString(2, flight_num);

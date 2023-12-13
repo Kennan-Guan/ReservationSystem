@@ -32,7 +32,7 @@
 		LocalDate date = LocalDate.parse(str_date);
 		LocalDate min_date;
 		LocalDate max_date;
-		LocalDate date2 = LocalDate.parse(str_date2);
+		LocalDate date2;
 		LocalDate min_date2;
 		LocalDate max_date2;
 		Boolean flexible = true;
@@ -294,9 +294,11 @@
 			str = final_query;
 		
 		} else if (flightType.equals("Two Way Set Date")) {
+			
 			if (str_date.equals("")){
 				out.print("Empty Field Detected. Make sure the date of the second flight is given!");
 			}else{
+			date2 = LocalDate.parse(str_date2);
 			flexible = false;
 			min_date = date;
             max_date = date.plusDays(1);
@@ -545,6 +547,7 @@
 			if (str_date.equals("")){
 				out.print("Empty Field Detected. Make sure the date of the second flight is given!");
 			}else{
+			date2 = LocalDate.parse(str_date2);
 			min_date = date.minusDays(3);
             max_date = date.plusDays(4);
             min_date2 = date2.minusDays(3);

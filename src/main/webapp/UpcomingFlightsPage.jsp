@@ -27,7 +27,7 @@
 			String str = "SELECT t.ticket_id, t.purchase_datetime, t.total_fare " +
                     	 "FROM tickets t " +
                     	 "JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
-                    	 "JOIN flight f ON tf.flight_num = f.flight_num " +
+                    	 "JOIN flight f ON (tf.flight_num = f.flight_num AND tf.airline_id = f.airline_id) " +
                     	 "WHERE f.departure_time > DATE_ADD(CURDATE(),INTERVAL 1 DAY) AND t.username = '" + username + "'";
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);

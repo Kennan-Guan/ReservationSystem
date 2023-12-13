@@ -29,7 +29,7 @@
 			//NOTE: NEED TO ENTER TEXT OF QUERY BASED ON SQL SCHEMA
 			String str = "SELECT f.airline_id, f.flight_num, f.departure_airport_id, f.arrival_airport_id, f.departure_time, tf.seat_number, t.class " +
                     	 "FROM flight f " +
-                    	 "JOIN ticket_flights tf ON f.flight_num = tf.flight_num " +
+                    	 "JOIN ticket_flights tf ON (f.flight_num = tf.flight_num AND f.airline_id = tf.airline_id)" +
                     	 "JOIN tickets t ON tf.ticket_id = t.ticket_id " +
                     	 "WHERE tf.ticket_id = '" + ticketNum + "'";
 			//Run the query against the database.

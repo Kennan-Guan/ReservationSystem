@@ -20,6 +20,7 @@
 		String str_date2 = request.getParameter("FlightDate2");
 		String dept_airport2 = request.getParameter("ArrivingCode");
 		String arr_airport2 = request.getParameter("DepartingCode"); 
+		int n = Integer.parseInt(request.getParameter("maxStops"));
 		String create_table_string ="";
 		String alter_String ="";
 		ArrayList<String> updates = new ArrayList<String>();

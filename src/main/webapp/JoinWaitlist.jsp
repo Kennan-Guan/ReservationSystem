@@ -23,7 +23,7 @@
 	Connection con = db.getConnection();		
 	//Create a SQL statement
 	String str = "INSERT INTO waitinglist (username, airline_id, flight_num) VALUES (?, ?, ?)";
-		try (PreparedStatement stmt = con.prepareStatement(str)){
+		PreparedStatement stmt = con.prepareStatement(str);
 		stmt.setString(1, username);
 		stmt.setString(2, airlineId);
 		stmt.setString(3, flightNum);
@@ -31,11 +31,9 @@
 		int success = stmt.executeUpdate();
 	
 			if (success > 0) {
-%>
-        <p>You have been added to the waitlist for the flight (Airline ID: <%= airlineId %>, Flight Number: <%= flightNum %>). You will be notified if a seat becomes available.</p>
-<%	
+        	out.print("You have been added to the waitlist for the flight (Airline ID: " + airlineId + ", Flight Number:  " + flightNum + "). You will be notified if a seat becomes available.");
 			}
-		} db.closeConnection(con);
+		 db.closeConnection(con);
     } catch (Exception e) {
 			out.print(e);
 		}%>

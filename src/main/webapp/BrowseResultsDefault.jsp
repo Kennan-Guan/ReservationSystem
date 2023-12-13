@@ -824,6 +824,23 @@
 </tbody>
 </table>
 
+Sort By: <input type = "radio" id = "price" name = "sort1" value = "Price">
+	<label for="price">Price</label> 
+	<input type = "radio" id = "takeoff" name = "sort1" value = "Take off time">
+	<label for="takeoff">Take off time</label> 
+	<input type = "radio" id = "landing" name = "sort1" value = "Landing">
+	<label for="landing">Landing Time</label> 
+	<input type = "radio" id = "duration" name = "sort1" value = "Duration">
+	<label for="duration">Duration</label> <br/>
+	Filter By: <br/>
+	min price: <input type = "text" placeholder = 0 name = "minprice1"/><br/>
+	max price: <input type = "text" placeholder = 999999 name = "maxprice1"/><br/>
+	airline: <input type = "text" name = "airline1"/><br/>
+	min takeoff time: <input type = "text" name = "minTakeoff1"/><br/>
+	max takeoff time: <input type = "text" name = "maxTakeoff1"/><br/>
+	min arrival time: <input type = "text" name = "minArrival1"/><br/>
+	max arrival time: <input type = "text" name = "maxArrival1"/><br/>
+
 
 <%
         if (twoWay) {
@@ -855,6 +872,22 @@
 			   <% } %>
 			</tbody>
 			</table>
+	Sort second By: <input type = "radio" id = "price" name = "sort2" value = "Price">
+	<label for="price">Price</label> 
+	<input type = "radio" id = "takeoff" name = "sort2" value = "Take off time">
+	<label for="takeoff">Take off time</label> 
+	<input type = "radio" id = "landing" name = "sort2" value = "Landing">
+	<label for="landing">Landing Time</label> 
+	<input type = "radio" id = "duration" name = "sort2" value = "Duration">
+	<label for="duration">Duration</label> <br/>
+	Filter By: <br/>
+	min price: <input type = "text" placeholder = 0 name = "minprice2"/><br/>
+	max price: <input type = "text" placeholder = 999999 name = "maxprice2"/><br/>
+	airline: <input type = "text" name = "airline2"/><br/>
+	min takeoff time: <input type = "text" name = "minTakeoff2"/><br/>
+	max takeoff time: <input type = "text" name = "maxTakeoff2"/><br/>
+	min arrival time: <input type = "text" name = "minArrival2"/><br/>
+	max arrival time: <input type = "text" name = "maxArrival2"/><br/>
     <%
         } 
 %>

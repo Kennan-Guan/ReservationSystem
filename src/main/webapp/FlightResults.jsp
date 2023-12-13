@@ -19,7 +19,6 @@
 			String sort1 = request.getParameter("sort1");
 			String minPrice1 = request.getParameter("minprice1");
 			String maxPrice1 = request.getParameter("maxprice1");
-			String maxStops1 = request.getParameter("maxstops1");
 			String airline1 = request.getParameter("airline1");
 			String minTakeoff1 = request.getParameter("minTakeoff1");
 			String maxTakeoff1 = request.getParameter("maxTakeoff1");
@@ -167,23 +166,7 @@
 			out.print(e);
 		}%>
 	<br/>
-	Sort By: <input type = "radio" id = "price" name = "sort" value = "Price">
-	<label for="price">Price</label> 
-	<input type = "radio" id = "takeoff" name = "sort" value = "Take off time">
-	<label for="takeoff">Take off time</label> 
-	<input type = "radio" id = "landing" name = "sort" value = "Landing">
-	<label for="landing">Landing Time</label> 
-	<input type = "radio" id = "duration" name = "sort" value = "Duration">
-	<label for="duration">Duration</label> <br/>
-	Filter By: <br/>
-	min price: <input type = "text" placeholder = 0 name = "minprice"/><br/>
-	max price: <input type = "text" placeholder = 999999 name = "maxprice"/><br/>
-	max num stops: <input type = "text" name = "maxstops"/><br/>
-	airline: <input type = "text" name = "airline"/><br/>
-	min takeoff time: <input type = "text" name = "minTakeoff"/><br/>
-	max takeoff time: <input type = "text" name = "maxTakeoff"/><br/>
-	min arrival time: <input type = "text" name = "minArrival"/><br/>
-	max arrival time: <input type = "text" name = "maxArrival"/><br/>
+	
 	<form action="CustomerLandingPage.jsp" method="get">
         <button type="submit">Return Home</button>
     </form><br> 

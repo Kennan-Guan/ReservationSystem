@@ -16,22 +16,21 @@
 			Flight Number: <input type = "text" name = "flightNums" /><br/>
 			Class (Note: there is a $100 premium for business class and a $200 premium for first class):
 			<select name="class" size=1>
-				<option value="economy">Economy Class</option>
-				<option value="business">Business Class</option>
-				<option value="first">First Class</option>
+				<option value="Economy">Economy Class</option>
+				<option value="Business">Business Class</option>
+				<option value="First">First Class</option>
 			</select>&nbsp;<br>
 			<button type="submit">Make Flight Reservation</button>
 		</form><br>
 		<!--  Go to EditRes.jsp -->
 		<form action = "CSRepEditRes.jsp" method = "POST">
-			Enter Ticket Number: <input type = "text" name = "ticketNum" /><br/>
+			Enter Ticket ID Number: <input type = "text" name = "ticketID" /><br/>
 			<label for="editType">What would you like to edit?</label>
 			<select name="editType" size=1>
-				<option value="airlineIDs">Airline</option>
-				<option value="flightNums">Flight</option>
-				<option value="flightClass">Seat Class</option>
+				<option value="transfer">Ticket Holder</option>
+				<option value="upgrade">Seat Class Upgrade</option>
 			</select>&nbsp;<br>
-			Input the New Information <input type = "text" name = "newInfo"><br/>
+			Input the New Ticket Holder Username or the Desired Upgrade (Business or First) <input type = "text" name = "newInfo"><br/>
 			<button type="submit">Edit Flight Reservation</button>
 		</form><br>
 		<!-- Go to CSRepChatPage.jsp -->

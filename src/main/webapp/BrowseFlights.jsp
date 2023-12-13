@@ -10,7 +10,7 @@
 		<h1>Browse Flights</h1>
 		<!-- Need to add functionality to send user to FlightResults.jsp and show matching flights -->
 		<!-- Note: when creating the conditions for the mysql query, please store them as a string in a request object called "flightCrit" -->
-		<form action="BrowseFlights.jsp" method="POST"> 
+		<form action="BrowseResultsDefault.jsp" method="POST"> 
 		<input type="radio" id = "1wsd" name="tickerType" value="One Way Set Date"> 
 		<label for="1wsd">1 Way Set Date</label> 
 		<input type="radio" id = "1wfd" name="tickerType" value="One Way Flex Date">

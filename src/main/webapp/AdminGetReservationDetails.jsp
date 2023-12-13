@@ -23,14 +23,18 @@
 			String query;
 			
 			if (type.equals("flight")) {
-				query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time, t.seat_class, t.seat_number, t.total_fare " +
-						"FROM tickets t JOIN flight f ON t.airline_id = f.airline_id " +
-						"JOIN customer c ON t.username = c.username " + 
-						"WHERE f.flight_num='" + identification + "'";
+				String[] flight_codes = identification.split("-");
+				query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time, t.class, tf.seat_number, t.total_fare " +
+						"FROM tickets t JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
+						"JOIN flight f ON (tf.flight_num = f.flight_num AND tf.airline_id = f.airline_id) " + 
+						"JOIN customer c ON t.username = c.username " +
+						"WHERE f.airline_id='" + flight_codes[0] + "' " + 
+						"AND f.flight_num='" + flight_codes[1] + "'";
 			} else  {
-				query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time, t.seat_class, t.seat_number, t.total_fare " +
-						"FROM tickets t JOIN flight f ON t.airline_id = f.airline_id " +
-						"JOIN customer c ON t.username = c.username " + 
+				query = "SELECT c.firstname, c.lastname, f.departure_airport_id, f.departure_time, f.arrival_airport_id, f.arrival_time, t.class, tf.seat_number, t.total_fare " +
+						"FROM tickets t JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
+						"JOIN flight f ON (tf.flight_num = f.flight_num AND tf.airline_id = f.airline_id) " + 
+						"JOIN customer c ON t.username = c.username " +
 						"WHERE c.username='" + identification + "'";
 			}
 			
@@ -59,13 +63,14 @@
 					<td><%= result.getString("f.departure_time") %></td>
 					<td><%= result.getString("f.arrival_airport_id") %></td>
 					<td><%= result.getString("f.arrival_time") %></td>
-					<td><%= result.getString("t.seat_class") %></td>
-					<td><%= result.getString("t.seat_number") %></td>
+					<td><%= result.getString("t.class") %></td>
+					<td><%= result.getString("tf.seat_number") %></td>
 					<td><%= result.getString("t.total_fare") %></td>				
 				</tr>
-				
-			</table>
 			<% }
+			%>
+			</table>
+			<%
 			//close the connection.
 			db.closeConnection(con);
 			}

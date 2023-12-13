@@ -26,42 +26,57 @@
 			//Make a SELECT query from the table specified by the 'revGeneratorReport' parameter
 			String query;
 			
-			if (report_type.equals("airline")) {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM airline a JOIN tickets_flights t ON a.airline_id = t.airline_id WHERE a.airline_id='" + identification + "'";
-			} else if (report_type.equals("flight")) {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM flight f JOIN ticket_flights t ON (f.flight_num = t.flight_num AND f.airline_id = t.airline_id) WHERE f.flight_num='" + identification + "'";
+			if (report_type == null || identification.equals("")) {
+				out.print("Empty fields detected. Make sure all fields are filled out!");
 			} else {
-				query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales FROM customer c JOIN tickets_flights t ON c.username = t.username WHERE c.username='" + identification + "'";
-			}
 			
+				if (report_type.equals("Airline")) {
+					query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales " +
+							"FROM airline a JOIN ticket_flights tf ON a.airline_id = tf.airline_id " +
+							"JOIN tickets t ON tf.ticket_id = t.ticket_id " +
+							"WHERE a.airline_id='" + identification + "'";
+				} else if (report_type.equals("Flight")) {
+					String[] flight_codes = identification.split("-");
+					query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales " +
+							"FROM flight f JOIN ticket_flights tf ON (f.airline_id = tf.airline_id AND f.flight_num = tf.flight_num) " +
+							"JOIN tickets t ON tf.ticket_id = t.ticket_id " +
+							"WHERE f.airline_id='" + flight_codes[0] + "'" + 
+							"AND f.flight_num='" + flight_codes[1] + "'";
+				} else {
+					query = "SELECT SUM(total_fare) AS Revenue, COUNT(*) AS Number_of_Sales " +
+							"FROM customer c JOIN tickets t ON c.username = t.username " + 
+							"WHERE c.username='" + identification + "'";
+				}
+				
+				
+				//Run the query against the database.
+				ResultSet result = stmt.executeQuery(query);
 			
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(query);
-		
-		%>
-		
-		
-		<table>
-			<tr>
-				<th> Revenue </th>
-				<th> Number of Sales </th>	
-				
-			</tr>
-			<%
-			//parse out the results	
-			while (result.next()) { %>
-				<tr>    
-					<td><%= result.getFloat("Revenue") %></td>
-					<td><%= result.getInt("Number_of_Sales") %></td>
-									
-				</tr>
-				
-
-			<% }
-			//close the connection.
-			db.closeConnection(con);
 			%>
-		</table>
+			
+			<h3>Revenue Generation Report for <%=report_type + ": " + identification  %></h3>
+			<table>
+				<tr>
+					<th> Revenue </th>
+					<th> Number of Sales </th>	
+					
+				</tr>
+				<%
+				//parse out the results	
+				while (result.next()) { %>
+					<tr>    
+						<td><%= result.getFloat("Revenue") %></td>
+						<td><%= result.getInt("Number_of_Sales") %></td>
+										
+					</tr>
+					
+	
+				<% }
+				//close the connection.
+				db.closeConnection(con);
+				} %>
+			</table>
+			
 	
 	<%} catch (Exception e) {
 			out.print(e);

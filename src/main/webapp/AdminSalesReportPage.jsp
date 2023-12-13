@@ -29,13 +29,14 @@
 			String year = request.getParameter("year");
 			
 			//Run the query against the database.
-			ResultSet total_sales = stmt_total_sales.executeQuery("SELECT SUM(total_fare) AS total_sales FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
-			ResultSet num_sales = stmt_num_sales.executeQuery("SELECT COUNT(*) AS number_of_sales FROM tickets WHERE MONTH(purchase_date)='" + month + "' AND YEAR(purchase_date)='" + year + "'");
-			ResultSet largest_sale = stmt_largest_sale.executeQuery("SELECT MAX(total_fare) AS largest_sale FROM tickets WHERE MONTH(purchase_date)='" + month + 
-																		"' AND YEAR(purchase_date)='" + year +"'");
+			ResultSet total_sales = stmt_total_sales.executeQuery("SELECT SUM(total_fare) AS total_sales FROM tickets WHERE MONTH(purchase_datetime)='" + month + "' AND YEAR(purchase_datetime)='" + year + "'");
+			ResultSet num_sales = stmt_num_sales.executeQuery("SELECT COUNT(*) AS number_of_sales FROM tickets WHERE MONTH(purchase_datetime)='" + month + "' AND YEAR(purchase_datetime)='" + year + "'");
+			ResultSet largest_sale = stmt_largest_sale.executeQuery("SELECT MAX(total_fare) AS largest_sale FROM tickets WHERE MONTH(purchase_datetime)='" + month + 
+																		"' AND YEAR(purchase_datetime)='" + year +"'");
 		
 		%>
 		
+		<h3>Sales Report For <%= month + "/" + year %></h3>
 		<table>
 			<tr>
 				<th> Total Sales </th>

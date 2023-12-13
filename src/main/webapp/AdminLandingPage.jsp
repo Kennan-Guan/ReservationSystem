@@ -97,13 +97,13 @@
 		<!-- Go to RevenueGenerationReportSelection.jsp -->
 		<form action = "AdminRevenueGenerationReportPage.jsp" method = "POST">
 			Generate report for a(n): 
-			<input type = "radio" id = "airline" name = "RevReportFor" value = "airline">
+			<input type = "radio" id = "airline" name = "RevReportFor" value = "Airline">
 			<label for = "airline">Airline </label>
-			<input type = "radio" id = "flight" name = "RevReportFor" value = "flight">
+			<input type = "radio" id = "flight" name = "RevReportFor" value = "Flight">
 			<label for = "flight">Flight </label>
-			<input type = "radio" id = "customer" name = "RevReportFor" value = "customer">
+			<input type = "radio" id = "customer" name = "RevReportFor" value = "Customer">
 			<label for = "customer">Customer </label><br>
-			Enter airline code/ flight number/ customer name (note: when entering a flight number, enter it as '{airline code} - {number}'):
+			Enter airline code/flight number/username (note: when entering a flight number, enter it as '{airline code}-{number}'):
 			<input type = "text" name = "revenueGeneratorId"><br>
 			<button type="submit">See Revenue Generation Report</button>
 		</form><br>
@@ -112,7 +112,7 @@
 		<form action = "AdminGetReservationDetails.jsp" method = "POST">
 			<input type="radio" name= "checkFor" value="flight"> Flight Number <br>
 			<input type="radio" name= "checkFor" value="customer"> Customer <br>
-			Enter customer username or flight number('{airline code} - {number}')
+			Enter customer username or flight number('{airline code}-{flight number}')
 			<input type="text" name="identification"><br>
 			<button type="submit">Check Reservations</button>
 		</form><br>

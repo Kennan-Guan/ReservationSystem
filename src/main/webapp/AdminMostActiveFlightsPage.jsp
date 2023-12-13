@@ -44,9 +44,9 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("Airline") %></td>
-					<td><%= result.getString("Flight Number") %></td>
-					<td><%= result.getInt("Tickets Sold") %></td>
+					<td><%= result.getString("f.airline_id") %></td>
+					<td><%= result.getString("f.flight_num") %></td>
+					<td><%= result.getInt("tickets_sold") %></td>
 					
 				</tr>
 				

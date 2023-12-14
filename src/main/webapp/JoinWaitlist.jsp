@@ -15,8 +15,8 @@
     try {
     // Grab parameters and username
     String username = (String) session.getAttribute("user");
-    String airlineId = request.getParameter("airlineId");
-    String flightNum = request.getParameter("flightNum");
+    String airlineId = (String) session.getAttribute("airlineId");
+    String flightNum = (String) session.getAttribute("flightNum");
     
     //Get the database connection
 	ApplicationDB db = new ApplicationDB();	

@@ -194,6 +194,7 @@ INSERT INTO ticket_flights (ticket_id, flight_num, airline_id, seat_number) VALU
 (1, 'FL001', 'AA', 150),
 (2, 'FL002', 'WN', 150),
 (3, 'FL002', 'NK', 1),
+(3, 'FL004', 'UA', 150),
 (4, 'FL002', 'NK', 2);
 
 -- Values for operates_in table

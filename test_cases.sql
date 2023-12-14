@@ -184,9 +184,9 @@ VALUES ('FL001', 'AA', true, 'A320', 'JFK', '2023-12-13 10:00:00', 'LAX', '2023-
 -- Values for tickets table
 -- (Assuming you have a customer with the username 'john_doe')
 INSERT INTO tickets (username, purchase_datetime, total_fare, class, booking_fee, passenger_fname, passenger_lname) VALUES
-('john_doe', '2023-12-11 15:30:00', 150.00, 'Economy', 10.00, 'John', 'Doe'),
-('john_doe', '2023-12-11 16:00:00', 180.00, 'Business', 10.00, 'John', 'Doe'),
-('john_doe', '2023-12-11 16:00:00', 100.00, 'First', 10.00, 'John', 'Doe'),
+('john_doe', '2023-12-11 15:30:00', 150.00, 'economy', 10.00, 'John', 'Doe'),
+('john_doe', '2023-12-11 16:00:00', 180.00, 'business', 10.00, 'John', 'Doe'),
+('john_doe', '2023-12-11 16:00:00', 100.00, 'first', 10.00, 'John', 'Doe'),
 ('jr', '2023-12-13 16:02:00', 100.00, 'First', 10.00, 'Joseph', 'Ryland');
 
 -- Values for ticket_flights table

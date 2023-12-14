@@ -74,7 +74,10 @@
 				<th> Flight Number </th>				
 				
 			</tr>
-    	
+    	<tr>    
+			<td><%= result.getString("airline_id") %></td>
+			<td><%= result.getString("flight_num") %></td>
+		</tr>
     	<%while (result.next()) { %>
 		<tr>    
 			<td><%= result.getString("airline_id") %></td>

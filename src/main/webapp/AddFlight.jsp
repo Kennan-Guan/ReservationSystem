@@ -64,7 +64,6 @@ if (request.getMethod().equals("POST")) {
                             pstmt.setString(8, arrivalTime);
                             pstmt.setFloat(9, 100);
                             pstmt.setInt(10, 200);
-                            out.println("<p>Executing SQL query: " + pstmt.toString() + "</p>");
 
 
                             int rowsAffected = pstmt.executeUpdate();

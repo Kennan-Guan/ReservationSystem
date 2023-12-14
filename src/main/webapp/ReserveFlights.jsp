@@ -57,14 +57,12 @@
         			float total_rate = rs3.getFloat("economy_rate");
 					 
                    // Check if there are seats available
-                   	String checkSeats = "SELECT seats_remaining FROM flight WHERE airline_id = ? AND flight_num = ?";
-                   	PreparedStatement checkSeatsStmt = con.prepareStatement(checkSeats);
-                  	checkSeatsStmt.setString(1, airlineId);
-                	checkSeatsStmt.setString(2, flightNum);
-                	ResultSet result = checkSeatsStmt.executeQuery();
+                   	ResultSet rs1 = stmt.executeQuery("SELECT seats_remaining FROM flight WHERE flight_num='" + flightNum + "' AND airline_id='" + airlineId + "'");
+					rs1.next();
+					int seats_remaining = rs1.getInt("seats_remaining");
                   	 
                   	// If seats available, make reservation and update seats_remaining
-                  	if(result.next() && result.getInt("seats_remaining") > 0){
+                  	if(seats_remaining > 0){
                   		pStmt.setString(1, username);
         				pStmt.setTimestamp(2, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
         				if (flightClass.equals("Business")){ 
@@ -86,7 +84,7 @@
         				pStmt3.setInt(1, ticket_id);
         				pStmt3.setString(2, flightNum);
         				pStmt3.setString(3, airlineId);
-        				pStmt3.setInt(4, result.getInt("seats_remaining"));
+        				pStmt3.setInt(4, seats_remaining);
         				pStmt3.executeUpdate();
                   		 
                   		pStmt2.setString(1, airlineId);

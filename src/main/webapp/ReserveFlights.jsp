@@ -13,7 +13,7 @@
 <%
     try {
     
-    String airlineIds = request.getParameter("airlineIds");
+    String airlineIds = request.getParameter("airlineIDs");
     String flightNums = request.getParameter("flightNums");
     String flightClass = request.getParameter("flightClass");
   

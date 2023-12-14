@@ -16,9 +16,7 @@
 		
 		<% try {
 			String str = request.getParameter("str");
-			String str2 = request.getParameter("str2");
-			String twoWay = request.getParameter("twoWay");
-			//Set up variables to store userinputs for first sort, departure sort
+			Boolean twoWay = Boolean.parseBoolean(request.getParameter("twoWay"));
 			String sort1 = request.getParameter("sort1");
 			String minPrice1 = request.getParameter("minprice1");
 			String maxPrice1 = request.getParameter("maxprice1");
@@ -27,142 +25,206 @@
 			String maxTakeoff1 = request.getParameter("maxTakeoff1");
 			String minArrival1 = request.getParameter("minArrival1");
 			String maxArrival1 = request.getParameter("maxArrival1");
+			String sort_order = request.getParameter("order1");
+			
+			
+			String str2 = "";
+			
+			
+			
+			//Set up variables to store userinputs for first sort, departure sort
+			
 			
 			//Set up variables to store userinputs for second sort, arrival sort
-			String sort2 = request.getParameter("sort2");
-			String minPrice2 = request.getParameter("minprice2");
-			String maxPrice2 = request.getParameter("maxprice2");
-			String maxStops2 = request.getParameter("maxstops2");
-			String airline2 = request.getParameter("airline2");
-			String minTakeoff2 = request.getParameter("minTakeoff2");
-			String maxTakeoff2 = request.getParameter("maxTakeoff2");
-			String minArrival2 = request.getParameter("minArrival2");
-			String maxArrival2 = request.getParameter("maxArrival2");
+			
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Need to add functionality to store and accept query results as parameter
-			String entity = request.getParameter("resultsQuery");
-			String query = "SELECT * FROM resultsQuery WHERE 1=1";
+			Statement stmt2 = con.createStatement();
+			ResultSet result;
+			ResultSet result2;
+			
+			str = str.substring(0, str.length() - 1);
+			str = "SELECT * FROM (" + str + ") ff";
+			
+			if ((minPrice1 != null && !minPrice1.isEmpty()) || (maxPrice1 != null && !maxPrice1.isEmpty()) || 
+					(airline1 != null && !airline1.isEmpty())|| (minTakeoff1 != null && !minTakeoff1.isEmpty()) || 
+					(maxTakeoff1 != null && !maxTakeoff1.isEmpty()) || (minArrival1 != null && !minArrival1.isEmpty()) ||
+					(maxArrival1 != null && !maxArrival1.isEmpty())){
+				str = str + " WHERE";
+			}
 			
 			// IF statements to process the first filters
 			if (minPrice1 != null && !minPrice1.isEmpty()){
-				query += " AND resultsQuery.economy_rate >= '" + minPrice1 + "'"; // Table name and attributes are PLACEHOLDERS
+				str = str + " total_fare >= " + minPrice1 + " AND"; 
 			}
 			
 			if (maxPrice1 != null && !maxPrice1.isEmpty()){
-				query += " AND resultsQuery.economy_rate <= '" + maxPrice1 + "'";
-			}
-			
-			if (maxStops1 != null && !maxStops1.isEmpty()){
-				query += " AND resultsQuery.maxStops <= '" + maxStops1 + "'";
+				str = str + " total_fare <= " + maxPrice1 + " AND";
 			}
 			
 			if (airline1 != null && !airline1.isEmpty()){
-				query += " AND resultsQuery.airline == '" + airline1 + "'";
+				str = str + " REPLACE(REPLACE(Airlines, ' ', ''), '" + airline1 + "', '') = '' AND";
 			}
 			
 			if (minTakeoff1 != null && !minTakeoff1.isEmpty()){
-				query += " AND resultsQuery.departure_time >= '" + minTakeoff1 + "'";
+				str = str + " TIME(f1_dept_time) >= '" + minTakeoff1 + "' AND";
 			}
 			
 			if (maxTakeoff1 != null && !maxTakeoff1.isEmpty()){
-				query += " AND resultsQuery.departure_time <= '" + maxTakeoff1 + "'";
+				str = str + " TIME(f1_dept_time) <= '" + maxTakeoff1 + "' AND";
 			}
 			
 			if (minArrival1 != null && !minArrival1.isEmpty()){
-				query += " AND resultsQuery.arrival_time >= '" + minArrival1 + "'";
+				str = str + " TIME(Arrival_Time) >= '" + minArrival1 + "' AND";
 			}
 			
 			if (maxArrival1 != null && !maxArrival1.isEmpty()){
-				query += " AND resultsQuery.arrival_time <= '" + maxArrival1 + "'";
+				str = str + " TIME(Arrival_Time) <= '" + maxArrival1 + "' AND";
 			}
 			
+			if (str.substring(str.length() - 4).equals(" AND")){
+				str = str.substring(0, str.length() - 4);
+			}
+
 			if (sort1 != null && !sort1.isEmpty()){
-				query += " ORDER BY '" + sort1 + "' ASC";
+				str = str + " ORDER BY " + sort1 + " " + sort_order;
 			}
 			
-			// IF statements to process the second filters
-			if (minPrice2 != null && !minPrice2.isEmpty()){
-				query += " AND resultsQuery.economy_rate >= '" + minPrice2 + "'"; // Table name and attributes are PLACEHOLDERS
+			str = str + ";";
+			
+			if (twoWay == true){
+				str2 = request.getParameter("str2");
+				str2 = str2.substring(0, str2.length() - 1);
+				str2 = "SELECT * FROM (" + str2 + ") ff";
+				String sort2 = request.getParameter("sort2");
+				String minPrice2 = request.getParameter("minprice2");
+				String maxPrice2 = request.getParameter("maxprice2");
+				String maxStops2 = request.getParameter("maxstops2");
+				String airline2 = request.getParameter("airline2");
+				String minTakeoff2 = request.getParameter("minTakeoff2");
+				String maxTakeoff2 = request.getParameter("maxTakeoff2");
+				String minArrival2 = request.getParameter("minArrival2");
+				String maxArrival2 = request.getParameter("maxArrival2");
+				String sort_order2 = request.getParameter("order2");
+				
+				if ((minPrice2 != null && !minPrice2.isEmpty()) || (maxPrice2 != null && !maxPrice2.isEmpty()) || 
+						(airline2 != null && !airline2.isEmpty())|| (minTakeoff2 != null && !minTakeoff2.isEmpty()) || 
+						(maxTakeoff2 != null && !maxTakeoff2.isEmpty()) || (minArrival2 != null && !minArrival2.isEmpty()) ||
+						(maxArrival2 != null && !maxArrival2.isEmpty())){
+					str2 = str2 + " WHERE";
+				}
+				
+				if (minPrice2 != null && !minPrice2.isEmpty()){
+					str2 = str2 + " total_fare >= " + minPrice2 + " AND"; 
+				}
+				
+				if (maxPrice2 != null && !maxPrice2.isEmpty()){
+					str2 = str2 + " total_fare <= " + maxPrice2 + " AND";
+				}
+				
+				if (airline2 != null && !airline2.isEmpty()){
+					str2 = str2 + " REPLACE(REPLACE(Airlines, ' ', ''), '" + airline2 + "', '') = '' AND";
+				}
+				
+				if (minTakeoff2 != null && !minTakeoff2.isEmpty()){
+					str2 = str2 + " TIME(f1_dept_time) >= '" + minTakeoff2 + "' AND";
+				}
+				
+				if (maxTakeoff2 != null && !maxTakeoff2.isEmpty()){
+					str2 = str2 + " TIME(f1_dept_time) <= '" + maxTakeoff2 + "' AND";
+				}
+				
+				if (minArrival2 != null && !minArrival2.isEmpty()){
+					str2 = str2 + " TIME(Arrival_Time) >= '" + minArrival2 + "' AND";
+				}
+				
+				if (maxArrival2 != null && !maxArrival2.isEmpty()){
+					str2 = str2 + " TIME(Arrival_Time) <= '" + maxArrival2 + "' AND";
+				}
+				
+				if (str2.substring(str2.length() - 4).equals(" AND")){
+					str2 = str2.substring(0, str2.length() - 4);
+				}
+				
+				if (sort2 != null && !sort2.isEmpty()){
+					str2 = str2 + " ORDER BY " + sort2 + " " + sort_order2;
+				}
+				
+				str2 = str2 + ";";
+				
 			}
 			
-			if (maxPrice2 != null && !maxPrice2.isEmpty()){
-				query += " AND resultsQuery.economy_rate <= '" + maxPrice2 + "'";
-			}
 			
-			if (maxStops2 != null && !maxStops2.isEmpty()){
-				query += " AND resultsQuery.maxStops <= '" + maxStops2 + "'";
-			}
-			
-			if (airline2 != null && !airline2.isEmpty()){
-				query += " AND resultsQuery.airline == '" + airline2 + "'";
-			}
-			
-			if (minTakeoff2 != null && !minTakeoff2.isEmpty()){
-				query += " AND resultsQuery.departure_time >= '" + minTakeoff2 + "'";
-			}
-			
-			if (maxTakeoff2 != null && !maxTakeoff2.isEmpty()){
-				query += " AND resultsQuery.departure_time <= '" + maxTakeoff2 + "'";
-			}
-			
-			if (minArrival2 != null && !minArrival2.isEmpty()){
-				query += " AND resultsQuery.arrival_time >= '" + minArrival2 + "'";
-			}
-			
-			if (maxArrival2 != null && !maxArrival2.isEmpty()){
-				query += " AND resultsQuery.arrival_time <= '" + maxArrival2 + "'";
-			}
-			
-			if (sort2 != null && !sort2.isEmpty()){
-				query += " ORDER BY '" + sort2 + "' ASC";
-			}
 			
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+			result = stmt.executeQuery(str);
+			
+			ResultSetMetaData metaData = result.getMetaData();
+			int columnCount = metaData.getColumnCount();
 		
 		%>
+
+<table>
+<thead>
+   <tr>
+      <% for (int i = 1; i <= columnCount; i++) { %>
+         <th><%= metaData.getColumnName(i) %></th>
+      <% } %>
+   </tr>
+</thead>
+<tbody>
+   <% while (result.next()) { %>
+      <tr>
+         <% for (int i = 1; i <= columnCount; i++) { %>
+            <td><%= result.getString(i) %></td>
+         <% } %>
+      </tr>
+   <% } %>
+</tbody>
+</table>
+
+<%
+	int columnCount2; 
+	ResultSetMetaData metaData2;
+	if (twoWay == true) {
+			result2 = stmt2.executeQuery(str2);
+        	metaData2 = result2.getMetaData();
+    		columnCount2 = metaData2.getColumnCount();
+	
+        
+    %>
+        <table>
+			<thead>
+			   <tr>
+			      <% for (int i = 1; i <= columnCount2; i++) { %>
+			         <th><%= metaData2.getColumnName(i) %></th>
+			      <% } %>
+			   </tr>
+			</thead>
+			<tbody>
+			   <% while (result2.next()) { %>
+			      <tr>
+			         <% for (int i = 1; i <= columnCount2; i++) { %>
+			            <td><%= result2.getString(i) %></td>
+			         <% } %>
+			      </tr>
+			   <% } %>
+	<% } %>
+			</tbody>
+			</table>
 		
 		
-		
-		<table>
-			<tr>
-				<th> Airline </th>
-				<th> Flight Number </th>
-				<th> Departure Time </th>
-				<th> Arrival Time </th>
-				<th> Departure Date </th>
-				<th> Seats Remaining </th>
-				<th> Price </th>
-				<th> Flight Duration </th>
-				<th> Number of Stops </th>
-			</tr>
-			<%
-			//parse out the results
-			while (result.next()) { %>
-				<tr>    
-					<td><%= result.getString("Airline") %></td>
-					<td><%= result.getString("Flight Number") %></td>
-					<td><%= result.getString("Departure Time") %></td>
-					<td><%= result.getString("Arrival Time") %></td>
-					<td><%= result.getString("Departure Date") %></td>
-					<td><%= result.getString("Seats Remaining") %></td>
-					<td><%= result.getString("Price") %></td>
-					<td><%= result.getString("Flight Duration") %></td>
-					<td><%= result.getString("Number of Stops") %></td>
-					
-				</tr>
 				
 
-			<% }
+			<% 
 			//close the connection.
 			db.closeConnection(con);
 			%>
-		</table>
+		
 		</form>
 	
 	<%} catch (Exception e) {
@@ -175,7 +237,6 @@
     </form><br> 
 	<input type = "button" name = "Home" value = "Return Home"><br/>
 	<input type = "button" name = "Back" value = "Back"><br/>
-	<input type = "submit" value = "apply">
 	
 	</body>
 </html> 

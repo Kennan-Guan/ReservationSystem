@@ -27,6 +27,8 @@
 		String create_table_string2 = "";
 		String alter_String2 = "";
 		ArrayList<String> updates2 = new ArrayList<String>();
+		int columnCount2; 
+		ResultSetMetaData metaData2;
 		
 		
 		LocalDate date = LocalDate.parse(str_date);
@@ -37,7 +39,7 @@
 		LocalDate max_date2;
 		Boolean flexible = true;
 		String str = ("");
-		String str2 = ("");
+		String str2 = ("SELECT * FROM airline WHERE 1 = 2;");
 		Boolean twoWay = false;
 		// set up connection to database
 		ApplicationDB db = new ApplicationDB();	
@@ -59,7 +61,7 @@
             max_date = date.plusDays(1);
 			//Jon query
 			
-			create_table_string = "CREATE TEMPORARY TABLE flight_options AS SELECT * FROM ";
+			create_table_string = "CREATE TABLE flight_options AS SELECT * FROM ";
 			for (int i = 1; i <= n+1; i++){
 	            String temp_string = "(SELECT f" + Integer.toString(i) + ".flight_num AS 'flight_num" + Integer.toString(i) + 
 	            "', f" + Integer.toString(i) +".departure_airport_id AS 'f" + Integer.toString(i) + "_dept_airport', f" +
@@ -139,7 +141,7 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        String final_query = "SELECT DISTINCT *, TIMESTAMPDIFF(MINUTE, f1_dept_time, Arrival_Time) AS travel_minutes, CONCAT(";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
 	        }
@@ -178,7 +180,7 @@
 			min_date = date.minusDays(3);
             max_date = date.plusDays(4);
 			// Jon query
-            create_table_string = "CREATE TEMPORARY TABLE flight_options AS SELECT * FROM ";
+            create_table_string = "CREATE TABLE flight_options AS SELECT * FROM ";
 			for (int i = 1; i <= n+1; i++){
 	            String temp_string = "(SELECT f" + Integer.toString(i) + ".flight_num AS 'flight_num" + Integer.toString(i) + 
 	            "', f" + Integer.toString(i) +".departure_airport_id AS 'f" + Integer.toString(i) + "_dept_airport', f" +
@@ -258,7 +260,7 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        String final_query = "SELECT DISTINCT *, TIMESTAMPDIFF(MINUTE, f1_dept_time, Arrival_Time) AS travel_minutes, CONCAT(";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
 	        }
@@ -298,6 +300,7 @@
 			if (str_date.equals("")){
 				out.print("Empty Field Detected. Make sure the date of the second flight is given!");
 			}else{
+			twoWay = true;
 			date2 = LocalDate.parse(str_date2);
 			flexible = false;
 			min_date = date;
@@ -305,7 +308,7 @@
             min_date2 = date2;
             max_date2 = date2.plusDays(1);
 			//writing 2 queries that you can replace with Jon's algo, one to produce table for way there and one for way back
-            create_table_string = "CREATE TEMPORARY TABLE flight_options AS SELECT * FROM ";
+            create_table_string = "CREATE TABLE flight_options AS SELECT * FROM ";
 			for (int i = 1; i <= n+1; i++){
 	            String temp_string = "(SELECT f" + Integer.toString(i) + ".flight_num AS 'flight_num" + Integer.toString(i) + 
 	            "', f" + Integer.toString(i) +".departure_airport_id AS 'f" + Integer.toString(i) + "_dept_airport', f" +
@@ -385,7 +388,7 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        String final_query = "SELECT DISTINCT *, TIMESTAMPDIFF(MINUTE, f1_dept_time, Arrival_Time) AS travel_minutes, CONCAT(";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
 	        }
@@ -426,7 +429,7 @@
 			
 			
 			
-			create_table_string2 = "CREATE TEMPORARY TABLE flight_options2 AS SELECT * FROM ";
+			create_table_string2 = "CREATE TABLE flight_options2 AS SELECT * FROM ";
 			for (int i = 1; i <= n+1; i++){
 	            String temp_string = "(SELECT f" + Integer.toString(i) + ".flight_num AS 'flight_num" + Integer.toString(i) + 
 	            "', f" + Integer.toString(i) +".departure_airport_id AS 'f" + Integer.toString(i) + "_dept_airport', f" +
@@ -506,7 +509,7 @@
 	            updates2.add(temp_string);
 	        }
 	        
-	        String final_query2 = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        String final_query2 = "SELECT DISTINCT *, TIMESTAMPDIFF(MINUTE, f1_dept_time, Arrival_Time) AS travel_minutes, CONCAT(";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query2 = final_query2 + "f" + Integer.toString(i) + "_airline, ' ',";
 	        }
@@ -547,12 +550,13 @@
 			if (str_date.equals("")){
 				out.print("Empty Field Detected. Make sure the date of the second flight is given!");
 			}else{
+			twoWay = true;
 			date2 = LocalDate.parse(str_date2);
 			min_date = date.minusDays(3);
             max_date = date.plusDays(4);
             min_date2 = date2.minusDays(3);
             max_date2 = date2.plusDays(4);
-            create_table_string = "CREATE TEMPORARY TABLE flight_options AS SELECT * FROM ";
+            create_table_string = "CREATE TABLE flight_options AS SELECT * FROM ";
 			for (int i = 1; i <= n+1; i++){
 	            String temp_string = "(SELECT f" + Integer.toString(i) + ".flight_num AS 'flight_num" + Integer.toString(i) + 
 	            "', f" + Integer.toString(i) +".departure_airport_id AS 'f" + Integer.toString(i) + "_dept_airport', f" +
@@ -632,7 +636,7 @@
 	            updates.add(temp_string);
 	        }
 	        
-	        String final_query = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        String final_query = "SELECT DISTINCT *, TIMESTAMPDIFF(MINUTE, f1_dept_time, Arrival_Time) AS travel_minutes, CONCAT(";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query = final_query + "f" + Integer.toString(i) + "_airline, ' ',";
 	        }
@@ -673,7 +677,7 @@
 			
 			
 			
-			create_table_string2 = "CREATE TEMPORARY TABLE flight_options2 AS SELECT * FROM ";
+			create_table_string2 = "CREATE TABLE flight_options2 AS SELECT * FROM ";
 			for (int i = 1; i <= n+1; i++){
 	            String temp_string = "(SELECT f" + Integer.toString(i) + ".flight_num AS 'flight_num" + Integer.toString(i) + 
 	            "', f" + Integer.toString(i) +".departure_airport_id AS 'f" + Integer.toString(i) + "_dept_airport', f" +
@@ -753,7 +757,7 @@
 	            updates2.add(temp_string);
 	        }
 	        
-	        String final_query2 = "SELECT DISTINCT *, TIMEDIFF(Arrival_Time, f1_dept_time) AS flight_length, CONCAT(";
+	        String final_query2 = "SELECT DISTINCT *, TIMESTAMPDIFF(MINUTE, f1_dept_time, Arrival_Time) AS travel_minutes, CONCAT(";
 	        for (int i = 1; i <= n + 1; i++){
 	            final_query2 = final_query2 + "f" + Integer.toString(i) + "_airline, ' ',";
 	        }
@@ -790,11 +794,11 @@
 		}
 		}
 		
-		inter_stmt.executeQuery("DROP TABLE IF EXISTS flight_options;");
-		inter_stmt.executeQuery(create_table_string);
-		inter_stmt.executeQuery(alter_String);
+		inter_stmt.executeUpdate("DROP TABLE IF EXISTS flight_options;");
+		inter_stmt.executeUpdate(create_table_string);
+		inter_stmt.executeUpdate(alter_String);
 		for (String update : updates){
-			inter_stmt.executeQuery(update);
+			inter_stmt.executeUpdate(update);
 		}
 		
 		
@@ -827,35 +831,42 @@
 </tbody>
 </table>
 <form action="FlightResults.jsp" method="POST">
-Sort By: <input type = "radio" id = "price" name = "sort1" value = "Price">
+Sort By: <input type = "radio" id = "price" name = "sort1" value = "total_fare">
 	<label for="price">Price</label> 
-	<input type = "radio" id = "takeoff" name = "sort1" value = "Take off time">
+	<input type = "radio" id = "takeoff" name = "sort1" value = "f1_dept_time">
 	<label for="takeoff">Take off time</label> 
-	<input type = "radio" id = "landing" name = "sort1" value = "Landing">
+	<input type = "radio" id = "landing" name = "sort1" value = "Arrival_Time">
 	<label for="landing">Landing Time</label> 
-	<input type = "radio" id = "duration" name = "sort1" value = "Duration">
+	<input type = "radio" id = "duration" name = "sort1" value = "travel_minutes">
 	<label for="duration">Duration</label> <br/>
+Ascending or Descending <input type = "radio" id = "ASC" name = "order1" value = "ASC">
+	<label for = "ASC">ASC</label>
+	<input type = "radio" id = "DESC" name = "order1" value = "DESC">
+	<label for = "DESC">DESC</label> <br/>
 	Filter By: <br/>
 	min price: <input type = "text" placeholder = 0 name = "minprice1"/><br/>
 	max price: <input type = "text" placeholder = 999999 name = "maxprice1"/><br/>
-	airline: <input type = "text" name = "airline1"/><br/>
-	min takeoff time: <input type = "text" name = "minTakeoff1"/><br/>
-	max takeoff time: <input type = "text" name = "maxTakeoff1"/><br/>
-	min arrival time: <input type = "text" name = "minArrival1"/><br/>
-	max arrival time: <input type = "text" name = "maxArrival1"/><br/>
-
+	airline (type just the code, no spaced): <input type = "text" name = "airline1"/><br/>
+	min takeoff time (format HH:MM:SS): <input type = "text" name = "minTakeoff1"/><br/>
+	max takeoff time (format HH:MM:SS): <input type = "text" name = "maxTakeoff1"/><br/>
+	min arrival time (format HH:MM:SS): <input type = "text" name = "minArrival1"/><br/>
+	max arrival time (format HH:MM:SS): <input type = "text" name = "maxArrival1"/><br/>
+	
+	
 
 <%
-        if (twoWay) {
-        	inter_stmt.executeQuery("DROP TABLE IF EXISTS flight_options2;");
-			inter_stmt.executeQuery(create_table_string2);
-			inter_stmt.executeQuery(alter_String2);
+	
+	if (twoWay) {
+        	inter_stmt.executeUpdate("DROP TABLE IF EXISTS flight_options2;");
+			inter_stmt.executeUpdate(create_table_string2);
+			inter_stmt.executeUpdate(alter_String2);
 			for (String update : updates2){
-				inter_stmt.executeQuery(update);
+				inter_stmt.executeUpdate(update);
 			}
 			result2 = stmt2.executeQuery(str2);
-        	ResultSetMetaData metaData2 = result2.getMetaData();
-    		int columnCount2 = metaData2.getColumnCount();
+        	metaData2 = result2.getMetaData();
+    		columnCount2 = metaData2.getColumnCount();
+        
     %>
         <table>
 			<thead>
@@ -875,22 +886,29 @@ Sort By: <input type = "radio" id = "price" name = "sort1" value = "Price">
 			   <% } %>
 			</tbody>
 			</table>
-	Sort second By: <input type = "radio" id = "price" name = "sort2" value = "Price">
+	Sort second By: <input type = "radio" id = "price" name = "sort2" value = "total_fare">
 	<label for="price">Price</label> 
-	<input type = "radio" id = "takeoff" name = "sort2" value = "Take off time">
+	<input type = "radio" id = "takeoff" name = "sort2" value = "f1_dept_time">
 	<label for="takeoff">Take off time</label> 
-	<input type = "radio" id = "landing" name = "sort2" value = "Landing">
+	<input type = "radio" id = "landing" name = "sort2" value = "Arrival_Time">
 	<label for="landing">Landing Time</label> 
-	<input type = "radio" id = "duration" name = "sort2" value = "Duration">
+	<input type = "radio" id = "duration" name = "sort2" value = "travel_minutes">
 	<label for="duration">Duration</label> <br/>
-	Filter By: <br/>
+	Ascending or Descending <input type = "radio" id = "ASC" name = "order12" value = "ASC">
+	<label for = "ASC">ASC</label>
+	<input type = "radio" id = "DESC" name = "order2" value = "DESC">
+	<label for = "DESC">DESC</label> <br/>
+	Filter Second By: <br/>
 	min price: <input type = "text" placeholder = 0 name = "minprice2"/><br/>
 	max price: <input type = "text" placeholder = 999999 name = "maxprice2"/><br/>
-	airline: <input type = "text" name = "airline2"/><br/>
-	min takeoff time: <input type = "text" name = "minTakeoff2"/><br/>
-	max takeoff time: <input type = "text" name = "maxTakeoff2"/><br/>
-	min arrival time: <input type = "text" name = "minArrival2"/><br/>
-	max arrival time: <input type = "text" name = "maxArrival2"/><br/>
+	airline (type just the code, no spaced): <input type = "text" name = "airline2"/><br/>
+	min takeoff time (format HH:MM:SS): <input type = "text" name = "minTakeoff2"/><br/>
+	max takeoff time (format HH:MM:SS): <input type = "text" name = "maxTakeoff2"/><br/>
+	min arrival time (format HH:MM:SS): <input type = "text" name = "minArrival2"/><br/>
+	max arrival time (format HH:MM:SS): <input type = "text" name = "maxArrival2"/><br/>
+<% } %>
+
+
 	
     <input type="hidden" name="str" value="<%= str %>">
     <input type="hidden" name="str2" value="<%= str2 %>">
@@ -898,7 +916,7 @@ Sort By: <input type = "radio" id = "price" name = "sort1" value = "Price">
     <input type="submit" value="Filter">
     </form>
     <%
-        }     
+             
 	
 %>
 

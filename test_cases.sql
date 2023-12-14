@@ -170,10 +170,14 @@ VALUES ('FL001', 'AA', true, 'A320', 'JFK', '2023-12-13 10:00:00', 'LAX', '2023-
        ('FL002', 'WN', false, 'B737', 'LAX', '2023-12-12 12:00:00', 'JFK', '2023-12-12 17:49:00', 180.00, 119),
        ('FL001', 'UA', TRUE, 'A320', 'EWR', '2023-12-22 23:00:00', 'CLT', '2023-12-23 02:00:00', 200.00, 150),
 	   ('FL002', 'UA', TRUE, 'A320', 'CLT', '2023-12-23 04:00:00', 'ORD', '2023-12-23 08:00:00', 200.00, 150),
+       ('FL001', 'WN', TRUE, 'B737', 'CLT', '2023-12-23 01:00:00', 'ORD', '2023-12-23 05:00:00', 200.00, 150),
 	   ('FL003', 'UA', TRUE, 'A320', 'ORD', '2023-12-23 10:00:00', 'LGA', '2023-12-23 14:00:00', 200.00, 150),
 	   ('FL004', 'UA', FALSE, 'A320', 'LGA', '2023-12-23 15:20:00', 'BGI', '2023-12-23 22:00:00', 200.00, 150),
 	   ('FL001', 'NK', FALSE, 'F337', 'EWR', '2023-12-22 11:00:00', 'BGI','2023-12-22 18:05:00', 500.00, 200),
-	   ('FL002', 'NK', TRUE, 'F111', 'EWR', '2023-12-20 12:01:55', 'LGA', '2023-12-20 12:00:00', 100.00, 0);
+	   ('FL002', 'NK', TRUE, 'F111', 'EWR', '2023-12-20 12:01:55', 'LGA', '2023-12-20 12:00:00', 100.00, 0),
+       ('FL001', 'DL', FALSE, 'MD01', 'BGI', '2023-12-28 11:00:00', 'LGA', '2023-12-28 16:30:06', 500.00, 5),
+       ('FL005', 'NK', FALSE, 'F111', 'LGA', '2023-12-28 17:00:00', 'EWR', '2023-12-28 18:30:06', 500.00, 5),
+       ('FL002', 'DL', FALSE, 'MD01', 'BGI', '2023-12-30 11:00:00', 'EWR', '2023-12-30 16:30:06', 500.00, 5);
 
 -- Values for tickets table
 -- (Assuming you have a customer with the username 'john_doe')
@@ -262,8 +266,8 @@ INSERT INTO operates_in (airport_id, airline_id) VALUES
 
 -- Values for waitinglist table
 -- (Assuming you have a customer with the username 'jane_smith' and airlines AA, WN)
-INSERT INTO waitinglist (username, airline_id, flight_num) VALUES
-('jane_smith', 'NK', 'FL002');
+INSERT INTO waitinglist (username, airline_id, flight_num, waitlistAlert) VALUES
+('jane_smith', 'NK', 'FL002', FALSE);
 
 -- Values for all_usernames table
 -- (Assuming you have existing usernames from the customer and customerrep tables)

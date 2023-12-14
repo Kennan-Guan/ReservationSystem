@@ -1,7 +1,6 @@
 CREATE DATABASE IF NOT EXISTS ReservationSystem;
 USE ReservationSystem;
 
-SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS airline;
 CREATE TABLE airline (

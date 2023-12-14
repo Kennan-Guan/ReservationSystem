@@ -68,6 +68,10 @@
 				out.print("Reservation Confirmed!");
 			} else {
 				out.print("No more seats available!");
+				session.setAttribute("waitlistUser", username);
+          		session.setAttribute("airlineId", airline_id);          		
+          		session.setAttribute("flightNum", flight_num);
+                response.sendRedirect("CSRepJoinWaitlist.jsp");
 			}
 		
 			

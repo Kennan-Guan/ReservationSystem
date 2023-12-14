@@ -12,7 +12,7 @@
 <%
     try {
     // Grab parameters and username
-    String username = (String) session.getAttribute("user");
+    String username = (String) session.getAttribute("waitlistUser");
     String airlineId = (String) session.getAttribute("airlineId");
     String flightNum = (String) session.getAttribute("flightNum");
     

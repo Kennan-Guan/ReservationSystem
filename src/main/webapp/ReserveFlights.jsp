@@ -112,7 +112,8 @@
                     	}
                			out.print("Tickets reserved successfully!");
                   	} else {
-                  		session.setAttribute("airlineID", airlineId);
+                  		session.setAttribute("waitlistUser", username);
+                  		session.setAttribute("airlineId", airlineId);
                   		session.setAttribute("flightNum", flightNum);
                         response.sendRedirect("JoinWaitlist.jsp");
                   	}

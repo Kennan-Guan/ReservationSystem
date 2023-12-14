@@ -24,13 +24,13 @@
 			Statement stmtDelete = con.createStatement();
 			Statement stmtAlert = con.createStatement();
 			// Check to see if ticketId matches the owner and if ticket is business/first
-			ResultSet getTicket = stmt.executeQuery("SELECT t.username, t.seat_class, tf.flight_num, tf.airline_id " +
+			ResultSet getTicket = stmt.executeQuery("SELECT t.username, t.class, tf.flight_num, tf.airline_id " +
 	                								"FROM tickets t " +
 	                								"INNER JOIN ticket_flights tf ON t.ticket_id = tf.ticket_id " +
 	               									"WHERE t.ticket_id = '" + ticketId + "'");
 			if (getTicket.next()) {
 				 String username = getTicket.getString("username");
-	             String seatClass = getTicket.getString("seat_class");
+	             String seatClass = getTicket.getString("class");
 	             String flightNum = getTicket.getString("flight_num");
 	             String airlineId = getTicket.getString("airline_id");
 	             // Check to see if user matches username on ticket, and if ticket is business/first class

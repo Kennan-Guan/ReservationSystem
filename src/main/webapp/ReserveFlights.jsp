@@ -107,7 +107,7 @@
                   	} else {
                   		session.setAttribute("airlineID", airlineId);
                   		session.setAttribute("flightNum", flightNum);
-                        response.sendRedirect("ReserveFlightsRedirect.jsp");
+                        response.sendRedirect("JoinWaitlist.jsp");
                   	}
                  }
         }

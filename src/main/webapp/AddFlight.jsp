@@ -27,7 +27,7 @@ if (request.getMethod().equals("POST")) {
    
 
          float economyRate = Float.parseFloat(request.getParameter("economyRate"));
-         int seatsRemaining = Integer.parseInt(request.getParameter("seatsRemaining"));
+         int seatsRemaining = Integer.parseInt(request.getParameter("seatsToAdd"));
          
       
 
@@ -35,17 +35,6 @@ if (request.getMethod().equals("POST")) {
         ApplicationDB db = new ApplicationDB();
         Connection con = db.getConnection();
         
-        out.println("<p>flightNum: " + flightNum + "</p>");
-        out.println("<p>airlineId: " + airlineId + "</p>");
-        out.println("<p>isDomestic: " + isDomestic + "</p>");
-        out.println("<p>aircraftId: " + aircraftId + "</p>");
-        out.println("<p>departureAirportId: " + departureAirportId + "</p>");
-        out.println("<p>departureTime: " + departureTime + "</p>");
-        out.println("<p>arrivalAirportId: " + arrivalAirportId + "</p>");
-        out.println("<p>arrivalTime: " + arrivalTime + "</p>");
-        out.println("<p>economyRate: " + economyRate + "</p>");
-        out.println("<p>seatsRemaining: " + seatsRemaining + "</p>");
-
         String checkAirlineQuery = "SELECT * FROM airline WHERE airline_id = ?";
         try (PreparedStatement checkAirlineStmt = con.prepareStatement(checkAirlineQuery)) {
             checkAirlineStmt.setString(1, airlineId);
@@ -70,9 +59,9 @@ if (request.getMethod().equals("POST")) {
                             pstmt.setBoolean(3, isDomestic);
                             pstmt.setString(4, aircraftId);
                             pstmt.setString(5, departureAirportId);
-                            pstmt.setString(6, "2023-12-13 10:00:00");
+                            pstmt.setString(6, departureTime);
                             pstmt.setString(7, arrivalAirportId);
-                            pstmt.setString(8, "2023-12-14 10:00:00");
+                            pstmt.setString(8, arrivalTime);
                             pstmt.setFloat(9, 100);
                             pstmt.setInt(10, 200);
                             out.println("<p>Executing SQL query: " + pstmt.toString() + "</p>");
@@ -117,13 +106,13 @@ if (request.getMethod().equals("POST")) {
     <input type="text" name="departureAirportId" required><br>
 
     <label for="departureTime">Departure Time:</label>
-    <input type="text" name="departureTime" required><br>
+    <input type="datetime-local" name="departureTime" required><br>
 
     <label for="arrivalAirportId">Arrival Airport ID:</label>
     <input type="text" name="arrivalAirportId" required><br>
 
     <label for="arrivalTime">Arrival Time:</label>
-    <input type="text" name="arrivalTime" required><br>
+    <input type="datetime-local" name="arrivalTime" required><br>
 
     <label for="economyRate">Economy Rate:</label>
     <input type="number" name="economyRate" step="0.01" required><br>

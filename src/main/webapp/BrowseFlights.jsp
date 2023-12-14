@@ -25,7 +25,6 @@
 		(If 2 way flight) Second Date (yyyy-MM-DD format): <input type = "text" name = "FlightDate2"/><br/>			
 		Max Number of Stops: <input type = "text" value=3 name="maxStops"/> <br/>
 		<input type = "Submit" value = "See Flights"><br/>
-		<input type = "Button" name = "GoBack" value = "Go Back">
 		</form>
 	</body>
 </html> 

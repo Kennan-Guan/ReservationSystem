@@ -235,8 +235,6 @@
 	<form action="CustomerLandingPage.jsp" method="get">
         <button type="submit">Return Home</button>
     </form><br> 
-	<input type = "button" name = "Home" value = "Return Home"><br/>
-	<input type = "button" name = "Back" value = "Back"><br/>
 	
 	</body>
 </html> 

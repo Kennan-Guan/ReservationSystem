@@ -80,6 +80,7 @@
 			<td><%= result.getString("airline_id") %></td>
 			<td><%= result.getString("flight_num") %></td>
 		</tr>
+		</table>
 		<% 
     } 
     }

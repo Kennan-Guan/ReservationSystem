@@ -13,13 +13,15 @@
 <%
     try {
     
+    String username = (String) session.getAttribute("user");
     String airlineIds = request.getParameter("airlineIDs");
     String flightNums = request.getParameter("flightNums");
     String flightClass = request.getParameter("flightClass");
   
     //Get the database connection
 	ApplicationDB db = new ApplicationDB();
-	Connection con = db.getConnection();		
+	Connection con = db.getConnection();
+	Statement stmt = con.createStatement();
     
     if(airlineIds.isEmpty() || flightNums.isEmpty() || flightClass.isEmpty()){
     
@@ -34,10 +36,18 @@
        		out.print("Invalid input. Number of airline IDs and flight numbers must match");
         	
         } else {
-        	String str = "INSERT INTO tickets (airline_id, flight_num, flightClass) VALUES (?, ?, ?)";
-        	String str2=  "UPDATE flight SET seats_remaining = seats_remaining - 1 WHERE airline_id = ? AND flight_num = ? and seats_remaining > 0";
-            PreparedStatement stmt = con.prepareStatement(str);
-            PreparedStatement stmt2 = con.prepareStatement(str2);
+        	ResultSet rs2 = stmt.executeQuery("SELECT firstname, lastname FROM customer WHERE username='" + username +"'");
+			rs2.next();
+			String firstname = rs2.getString("firstname");
+			String lastname = rs2.getString("lastname");
+			ResultSet rs3 = stmt.executeQuery("SELECT economy_rate, seats_remaining FROM flight WHERE flight_num='" + flight_num + "' AND airline_id='" + airline_id + "'"); //need attribute name for seats available
+			rs3.next();
+			float total_rate = rs3.getFloat("economy_rate");
+					
+        	String str = "INSERT INTO tickets (username, purchase_datetime, total_fare, class, passenger_fname, passenger_lname) VALUES (?, ?, ?, ?, ?, ?)";
+        	String str2=  "UPDATE flight SET seats_remaining = seats_remaining - 1 WHERE airline_id = ? AND flight_num = ? and seats_remaining > 0"; 
+            PreparedStatement pStmt = con.prepareStatement(str);
+            PreparedStatement pStmt2 = con.prepareStatement(str2);
          
                  for (int i = 0; i < airlineIdsArray.length; i++) {
                     String airlineId = airlineIdsArray[i].trim();
@@ -52,43 +62,42 @@
                   	 
                   	// If seats available, make reservation and update seats_remaining
                   	if(result.next() && result.getInt("seats_remaining") > 0){
-                  		stmt.setString(1, airlineId);
-                  		stmt.setString(2, flightNum);
-                  		stmt.setString(3, flightClass);
-                  		stmt.addBatch();
+                  		pStmt.setString(1, username);
+        				pStmt.setTimestamp(2, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+        				if (flightClass.equals("Business")){ 
+        					total_rate += 100;
+        				} else if (flightClass.equals("First")){ 
+        					total_rate += 200;
+        				}
+        				pStmt.setFloat(3, total_rate);
+        				pStmt.setString(4, flightClass);
+        				pStmt.setString(5, firstname);
+        				pStmt.setString(6, lastname);
+        				pStmt.executeUpdate();
+        				
+        				ResultSet rs4 = stmt.executeQuery("SELECT ticket_id FROM tickets WHERE username='" + username + "' ORDER BY ticket_id DESC");
+        				rs4.next();
+        				int ticket_id = rs4.getInt("ticket_id");
+        				
+        				pStmt = con.prepareStatement("INSERT INTO ticket_flights(ticket_id, flight_num, airline_id, seat_number) VALUES (?, ?, ?, ?)");
+        				pStmt.setInt(1, ticket_id);
+        				pStmt.setString(2, flightNum);
+        				pStmt.setString(3, airlineId);
+        				pStmt.setInt(4, result.getInt("seats_remaining"));
+        				pStmt.executeUpdate();
                   		 
-                  		stmt2.setString(1, airlineId);
-                  		stmt2.setString(2, flightNum);
-                  		stmt2.addBatch();
-                  		
-                  		int[] addRows = stmt.executeBatch();
-                        int[] updateRows = stmt2.executeBatch();
-
-                        // Check if all rows were inserted successfully
-                        boolean inserted = true;
-                        boolean updated = true;
-                        for (int row : addRows) {
-                            if (row <= 0) {
-                                inserted = false;
-                                break;
-                            }
-                        }
-                        for (int row : updateRows){
-	                       	 if (row <= 0){
-	                       		 updated = false;
-	                       		 break;
-	                       	 }
-                        }
-
-                        if (inserted && updated) {
-	                       	 String checkWaitlist = "SELECT username FROM waitinglist WHERE airline_id = ? AND flight_num = ?";
-	                       	 PreparedStatement checkWaitlistStmt = con.prepareStatement(checkWaitlist);
+                  		pStmt2.setString(1, airlineId);
+                  		pStmt2.setString(2, flightNum);
+                  		pStmt2.executeUpdate();
+                  	
+	                    String checkWaitlist = "SELECT username FROM waitinglist WHERE airline_id = ? AND flight_num = ?";
+	                    PreparedStatement checkWaitlistStmt = con.prepareStatement(checkWaitlist);
 	
-              	            checkWaitlistStmt.setString(1, airlineId);
-              	            checkWaitlistStmt.setString(2, flightNum);
-              	            ResultSet waitlistResult = checkWaitlistStmt.executeQuery();
+              	        checkWaitlistStmt.setString(1, airlineId);
+              	        checkWaitlistStmt.setString(2, flightNum);
+              	        ResultSet waitlistResult = checkWaitlistStmt.executeQuery();
 
-              	            while (waitlistResult.next()) {
+              	          	while (waitlistResult.next()) {
               	                String waitlistUsername = waitlistResult.getString("username");
 
               	                // Remove the user from the waitlist for the specific flight
@@ -99,11 +108,8 @@
               	                removeFromWaitlistStatement.setString(3, flightNum);
 
               	                removeFromWaitlistStatement.executeUpdate();
-                    	     }
                    				out.print("Tickets reserved successfully!");
-                    	} else {
-                           out.print("Failed to reserve one or more tickets. Please check your input and try again.");
-                        	} 
+                    	}
                   	} else {
                   		session.setAttribute("airlineID", airlineId);
                   		session.setAttribute("flightNum", flightNum);

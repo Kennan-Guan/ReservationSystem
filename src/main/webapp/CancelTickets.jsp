@@ -36,7 +36,7 @@
 	             // Check to see if user matches username on ticket, and if ticket is business/first class
 	             if (username.equals(session.getAttribute("user")) && ("first".equals(seatClass) || "business".equals(seatClass))) {
 	            	 // Update seats_remaining on flight
-	           		stmtUpdate.executeUpdate("UPDATE flights SET seats_remaining = seats_remaining + 1 WHERE airline_id = '" + airlineId + "' AND flight_num = '" + flightNum + "'");
+	           		stmtUpdate.executeUpdate("UPDATE flight SET seats_remaining = seats_remaining + 1 WHERE airline_id = '" + airlineId + "' AND flight_num = '" + flightNum + "'");
 	            	 // Delete ticket from tickets table
 	           		stmtDelete.executeUpdate("DELETE FROM tickets WHERE ticket_id = '" + ticketId + "'");
 	            	 // Check if waitinglist exists

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.cs336.pkg.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -48,8 +50,39 @@
     <form action="LogOut.jsp" method="get">
         <button type="submit">Logout</button>
     </form><br>
+<% 	
+	ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();		
 
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	
+	ResultSet result = stmt.executeQuery("SELECT airline_id, flight_num FROM waitinglist WHERE waitlistAlert = TRUE AND username = " + session.getAttribute("user")
+			+ ";");
+			%>
+			
+			
     <!-- Need to add functionality to send an alert when a flight a customer is on the waitlist for has a seat open up (must discuss) -->
     Wait list alerts: 
+    <% if (!result.next()){
+    	
+    } else{
+    	%>
+    	<table>
+			<tr>
+				<th> Airline ID </th>
+				<th> Flight Number </th>				
+				
+			</tr>
+    	
+    	<%while (result.next()) { %>
+		<tr>    
+			<td><%= result.getString("airline_id") %></td>
+			<td><%= result.getString("flight_num") %></td>
+		</tr>
+		<% 
+    } 
+    }
+    %>
 </body>
 </html>

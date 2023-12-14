@@ -111,8 +111,8 @@
               	                removeFromWaitlistStatement.setString(3, flightNum);
 
               	                removeFromWaitlistStatement.executeUpdate();
-                   				out.print("Tickets reserved successfully!");
                     	}
+               			out.print("Tickets reserved successfully!");
                   	} else {
                   		session.setAttribute("airlineID", airlineId);
                   		session.setAttribute("flightNum", flightNum);

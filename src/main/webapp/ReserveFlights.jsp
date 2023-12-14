@@ -99,6 +99,28 @@
                  }
 
                  if (inserted && updated) {
+                	 
+                	 String checkWaitlist = "SELECT username FROM waitinglist WHERE airline_id = ? AND flight_num = ?";
+                	 PreparedStatement checkWaitlistStmt = connection.prepareStatement(checkWaitlist);
+                	        for (int i = 0; i < airlineIdArray.length; i++) {
+                	            String airlineId = airlineIdArray[i].trim();
+                	            String flightNum = flightNumArray[i].trim();
+
+                	            checkWaitlistStmt.setString(1, airlineId);
+                	            checkWaitlistStmt.setString(2, flightNum);
+                	            ResultSet waitlistResult = checkWaitlistStmt.executeQuery();
+
+                	            while (waitlistResult.next()) {
+                	                String waitlistUsername = waitlistResult.getString("username");
+
+                	                // Remove the user from the waitlist for the specific flight
+                	                String removeFromWaitlistQuery = "DELETE FROM waitinglist WHERE username = ? AND airline_id = ? AND flight_num = ?";
+                	                PreparedStatement removeFromWaitlistStatement = connection.prepareStatement(removeFromWaitlistQuery);
+                	                removeFromWaitlistStatement.setString(1, waitlistUsername);
+                	                removeFromWaitlistStatement.setString(2, airlineId);
+                	                removeFromWaitlistStatement.setString(3, flightNum);
+
+                	                removeFromWaitlistStatement.executeUpdate();
 %>
                      <p>Tickets reserved successfully!</p>
 <%
@@ -109,7 +131,7 @@
                  <%}
              }
         } 
-    } db.closeConnection(con)
+    } db.closeConnection(con);
     } catch (Exception e) {
 		out.print(e); %>
 	

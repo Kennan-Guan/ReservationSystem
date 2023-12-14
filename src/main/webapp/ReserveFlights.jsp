@@ -36,22 +36,25 @@
        		out.print("Invalid input. Number of airline IDs and flight numbers must match");
         	
         } else {
-        	ResultSet rs2 = stmt.executeQuery("SELECT firstname, lastname FROM customer WHERE username='" + username +"'");
-			rs2.next();
-			String firstname = rs2.getString("firstname");
-			String lastname = rs2.getString("lastname");
-			ResultSet rs3 = stmt.executeQuery("SELECT economy_rate, seats_remaining FROM flight WHERE flight_num='" + flight_num + "' AND airline_id='" + airline_id + "'"); //need attribute name for seats available
-			rs3.next();
-			float total_rate = rs3.getFloat("economy_rate");
+        	
 					
         	String str = "INSERT INTO tickets (username, purchase_datetime, total_fare, class, passenger_fname, passenger_lname) VALUES (?, ?, ?, ?, ?, ?)";
         	String str2=  "UPDATE flight SET seats_remaining = seats_remaining - 1 WHERE airline_id = ? AND flight_num = ? and seats_remaining > 0"; 
             PreparedStatement pStmt = con.prepareStatement(str);
             PreparedStatement pStmt2 = con.prepareStatement(str2);
+            PreparedStatement pStmt3 = con.prepareStatement("INSERT INTO ticket_flights(ticket_id, flight_num, airline_id, seat_number) VALUES (?, ?, ?, ?)");
          
                  for (int i = 0; i < airlineIdsArray.length; i++) {
                     String airlineId = airlineIdsArray[i].trim();
                     String flightNum = flightNumsArray[i].trim();
+                    
+                    ResultSet rs2 = stmt.executeQuery("SELECT firstname, lastname FROM customer WHERE username='" + username +"'");
+        			rs2.next();
+        			String firstname = rs2.getString("firstname");
+        			String lastname = rs2.getString("lastname");
+        			ResultSet rs3 = stmt.executeQuery("SELECT economy_rate, seats_remaining FROM flight WHERE flight_num='" + flightNum + "' AND airline_id='" + airlineId + "'"); //need attribute name for seats available
+        			rs3.next();
+        			float total_rate = rs3.getFloat("economy_rate");
 					 
                    // Check if there are seats available
                    	String checkSeats = "SELECT seats_remaining FROM flight WHERE airline_id = ? AND flight_num = ?";
@@ -79,12 +82,12 @@
         				rs4.next();
         				int ticket_id = rs4.getInt("ticket_id");
         				
-        				pStmt = con.prepareStatement("INSERT INTO ticket_flights(ticket_id, flight_num, airline_id, seat_number) VALUES (?, ?, ?, ?)");
-        				pStmt.setInt(1, ticket_id);
-        				pStmt.setString(2, flightNum);
-        				pStmt.setString(3, airlineId);
-        				pStmt.setInt(4, result.getInt("seats_remaining"));
-        				pStmt.executeUpdate();
+        			
+        				pStmt3.setInt(1, ticket_id);
+        				pStmt3.setString(2, flightNum);
+        				pStmt3.setString(3, airlineId);
+        				pStmt3.setInt(4, result.getInt("seats_remaining"));
+        				pStmt3.executeUpdate();
                   		 
                   		pStmt2.setString(1, airlineId);
                   		pStmt2.setString(2, flightNum);

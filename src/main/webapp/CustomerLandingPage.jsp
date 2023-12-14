@@ -60,7 +60,7 @@
 	ResultSet result = stmt.executeQuery("SELECT airline_id, flight_num FROM waitinglist WHERE waitlistAlert = TRUE AND username = '" + 
 	session.getAttribute("user") + "';");
 			%>
-			
+			 
 			
     <!-- Need to add functionality to send an alert when a flight a customer is on the waitlist for has a seat open up (must discuss) -->
     Wait list alerts: 

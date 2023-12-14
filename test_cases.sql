@@ -193,8 +193,8 @@ INSERT INTO tickets (username, purchase_datetime, total_fare, class, booking_fee
 INSERT INTO ticket_flights (ticket_id, flight_num, airline_id, seat_number) VALUES
 (1, 'FL001', 'AA', 150),
 (2, 'FL002', 'WN', 150),
-(3, 'FL002', 'NK', 2),
-(4, 'FL002', 'NK', 1);
+(3, 'FL002', 'NK', 1),
+(4, 'FL002', 'NK', 2);
 
 -- Values for operates_in table
 -- (Assuming you have airlines AA, WN and airports JFK, LAX)

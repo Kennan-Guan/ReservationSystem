@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS ReservationSystem;
 USE ReservationSystem;
 
+SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS airline;
 CREATE TABLE airline (
@@ -165,7 +166,7 @@ CREATE TABLE chat_customer (
     username VARCHAR(30) NOT NULL,
     PRIMARY KEY (username),
     FOREIGN KEY (username)
-        REFERENCES customer (username) ON UPDATE CASCADE
+        REFERENCES customer (username) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS chat_customer_rep;
@@ -173,7 +174,7 @@ CREATE TABLE chat_customer_rep (
     repusername VARCHAR(30) NOT NULL,
     PRIMARY KEY (repusername),
     FOREIGN KEY (repusername)
-        REFERENCES customerrep (repusername) ON UPDATE CASCADE
+        REFERENCES customerrep (repusername) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS chat_association;

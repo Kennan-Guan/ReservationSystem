@@ -57,8 +57,8 @@
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	
-	ResultSet result = stmt.executeQuery("SELECT airline_id, flight_num FROM waitinglist WHERE waitlistAlert = TRUE AND username = " + session.getAttribute("user")
-			+ ";");
+	ResultSet result = stmt.executeQuery("SELECT airline_id, flight_num FROM waitinglist WHERE waitlistAlert = TRUE AND username = '" + 
+	session.getAttribute("user") + "';");
 			%>
 			
 			

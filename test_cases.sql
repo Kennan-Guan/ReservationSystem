@@ -161,7 +161,8 @@ INSERT INTO admin (adminusername, adminpassword, firstname, lastname) VALUES
 INSERT INTO customer (username, password, firstname, lastname) VALUES
 ('john_doe', 'userpass123', 'John', 'Doe'),
 ('jane_smith', 'pass456', 'Jane', 'Smith'),
-('chris_johnson', 'secure789', 'Chris', 'Johnson');
+('chris_johnson', 'secure789', 'Chris', 'Johnson'),
+('jr', 'pass', 'Joseph', 'Ryland');
 
 -- Values for flight table
 -- (Assuming you have airlines AA, WN, and airports JFK, LAX)
@@ -186,7 +187,7 @@ INSERT INTO tickets (username, purchase_datetime, total_fare, class, booking_fee
 ('john_doe', '2023-12-11 15:30:00', 150.00, 'Economy', 10.00, 'John', 'Doe'),
 ('john_doe', '2023-12-11 16:00:00', 180.00, 'Business', 10.00, 'John', 'Doe'),
 ('john_doe', '2023-12-11 16:00:00', 100.00, 'Economy', 10.00, 'John', 'Doe'),
-('chris_johnson', '2023-12-13 16:02:00', 100.00, 'First', 10.00, 'Chris', 'Johnson');
+('jr', '2023-12-13 16:02:00', 100.00, 'First', 10.00, 'Joseph', 'Ryland');
 
 -- Values for ticket_flights table
 INSERT INTO ticket_flights (ticket_id, flight_num, airline_id, seat_number) VALUES
@@ -268,7 +269,7 @@ INSERT INTO operates_in (airport_id, airline_id) VALUES
 -- Values for waitinglist table
 -- (Assuming you have a customer with the username 'jane_smith' and airlines AA, WN)
 INSERT INTO waitinglist (username, airline_id, flight_num, waitlistAlert) VALUES
-('jane_smith', 'NK', 'FL002', FALSE);
+('chris_johnson', 'NK', 'FL002', FALSE);
 
 -- Values for all_usernames table
 -- (Assuming you have existing usernames from the customer and customerrep tables)

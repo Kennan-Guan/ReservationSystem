@@ -15,24 +15,36 @@ try {
     // Retrieve the username from session attribute
     String username = (String) session.getAttribute("user");
 
-    // Query to get customer's questions
-    String questionsQuery = "SELECT cm.text, cm.date_time_sent " +
+    String searchQuery = request.getParameter("searchQuery");
+
+    String questionsQuery = "SELECT DISTINCT cm.text, cm.date_time_sent " +
                            "FROM chat_message cm " +
                            "JOIN chat_association ca ON cm.sender_id = ca.customer_username " +
                            "WHERE ca.customer_username = ? " +
+                           (searchQuery != null ? "AND cm.text LIKE ? " : "") + 
                            "ORDER BY cm.date_time_sent DESC";
 
     try (PreparedStatement pstmt = con.prepareStatement(questionsQuery)) {
         pstmt.setString(1, username);
+        if (searchQuery != null) {
+            pstmt.setString(2, "%" + searchQuery + "%");  
+        }
+
+
         ResultSet questionsResult = pstmt.executeQuery();
 %>
 
 <h1>Customer Chat Page</h1>
 
+<form action="" method="get">
+    <label for="searchQuery">Search:</label>
+    <input type="text" name="searchQuery" value="<%= (searchQuery != null) ? searchQuery : "" %>">
+    <input type="submit" value="Search">
+</form>
+
 <h2>Your Questions:</h2>
 
 <%
-        // Parse out the results
         while (questionsResult.next()) {
             String questionText = questionsResult.getString("text");
             String dateTimeSent = questionsResult.getString("date_time_sent");
@@ -47,19 +59,16 @@ try {
 <%
         }
 
-        // Query to get messages for the customer
-        String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent " +
-                               "FROM chat_message cm " +
-                               "JOIN chat_association ca ON cm.sender_id = ca.rep_username " +
-                               "WHERE (ca.customer_username = ? AND cm.sender_id = ?) OR (cm.sender_id = ? AND ca.customer_username = ?) " +
-                               "ORDER BY cm.date_time_sent DESC";
+String messagesQuery = "SELECT DISTINCT cm.message_id, cm.sender_id, cm.text, cm.date_time_sent " +
+        "FROM chat_message cm " +
+        "JOIN chat_association ca ON cm.sender_id = ca.rep_username " +
+        "WHERE ca.customer_username = ? " +
+        "ORDER BY cm.date_time_sent DESC";
 
-        try (PreparedStatement pstmtMessages = con.prepareStatement(messagesQuery)) {
-            pstmtMessages.setString(1, username);
-            pstmtMessages.setString(2, username);
-            pstmtMessages.setString(3, username);
-            pstmtMessages.setString(4, username);
-            ResultSet messagesResult = pstmtMessages.executeQuery();
+try (PreparedStatement pstmtMessages = con.prepareStatement(messagesQuery)) {
+pstmtMessages.setString(1, username);
+
+ResultSet messagesResult = pstmtMessages.executeQuery();
     %>
 
     <h2>Replies from the Customer Service Representative:</h2>
@@ -71,7 +80,6 @@ try {
             <th>Message Text</th>
         </tr>
         <%
-            // Parse out the results for replies
             while (messagesResult.next()) {
         %>
                 <tr>
